@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Fact Board">
+<title>Fact Board — Multiplication &amp; Division</title>
+<style>
+  :root{
+    --ice:#EFF4F9;
+    --panel:#FFFFFF;
+    --ink:#17263F;
+    --ink-soft:#5A6B84;
+    --line:#D9E3ED;
+    --navy:#1B2B47;
+    --navy-deep:#142238;
+    --gold:#F0A81C;
+    --green:#2E9E5B;
+    --green-soft:#DDF2E5;
+    --yellow:#F0C243;
+    --yellow-soft:#FBF0CE;
+    --pending:#E2E9F1;
+    --radius:18px;
+    --display:ui-rounded,-apple-system,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    margin:0;background:var(--ice);color:var(--ink);
+    font-family:var(--body);
+    -webkit-user-select:none;user-select:none;
+    overscroll-behavior:none;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  button{font-family:inherit;color:inherit;border:none;background:none;cursor:pointer;}
+  .hidden{display:none !important;}
+  .screen{max-width:1200px;margin:0 auto;padding:16px 20px;height:100%;}
+
+  /* ---------- shared bits ---------- */
+  .brand{font-family:var(--display);font-weight:800;letter-spacing:-0.02em;}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--panel);border:1.5px solid var(--line);border-radius:999px;
+    padding:6px 14px;font-weight:600;font-size:15px;color:var(--ink-soft);
+  }
+  .btn{
+    font-family:var(--display);font-weight:700;font-size:17px;
+    border-radius:14px;padding:12px 20px;border:1.5px solid var(--line);
+    background:var(--panel);color:var(--ink);
+    transition:transform .06s ease;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .btn-gold{background:var(--gold);border-color:var(--gold);color:var(--navy-deep);}
+  .btn-quiet{color:var(--ink-soft);}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+  .dot.green{background:var(--green);}
+  .dot.yellow{background:var(--yellow);}
+  .dot.pending{background:var(--pending);}
+
+  /* ---------- home ---------- */
+  #home{display:flex;flex-direction:column;gap:22px;justify-content:center;min-height:100%;}
+  .home-card{background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;width:100%;margin:0 auto;}
+  .section-label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;}
+  .learner-row{display:flex;gap:12px;}
+  .learner-btn{
+    flex:1;font-family:var(--display);font-size:24px;font-weight:800;
+    padding:22px 10px;border-radius:14px;border:2px solid var(--line);background:#fff;
+  }
+  .learner-btn.selected{border-color:var(--navy);background:var(--navy);color:#fff;}
+  .toggle-row{display:flex;gap:10px;margin-bottom:14px;}
+  .toggle-row:last-child{margin-bottom:0;}
+  .toggle-btn{
+    flex:1;font-family:var(--display);font-weight:700;font-size:18px;
+    padding:14px 8px;border-radius:12px;border:2px solid var(--line);background:#fff;color:var(--ink-soft);
+  }
+  .toggle-btn.selected{border-color:var(--gold);background:var(--gold);color:var(--navy-deep);}
+  .toggle-note{font-size:13px;color:var(--ink-soft);margin-top:10px;line-height:1.4;}
+  .home-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .home-actions .btn{font-size:19px;padding:16px 30px;}
+  #resumeBtn{border-style:dashed;}
+
+  /* ---------- session ---------- */
+  #session{display:flex;flex-direction:column;gap:14px;min-height:100%;}
+  .topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .topbar .spacer{flex:1;}
+  .topbar .brand{font-size:20px;}
+  .main{flex:1;display:flex;gap:18px;align-items:stretch;min-height:0;}
+
+  .board{
+    background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:16px;display:flex;flex-direction:column;gap:12px;flex:0 0 auto;
+  }
+  .grid{display:grid;gap:4px;}
+  .cell,.hdr{
+    width:24px;height:24px;border-radius:7px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hdr{font-size:11px;font-weight:700;color:var(--ink-soft);font-family:var(--display);}
+  .cell{background:var(--pending);}
+  .cell.green{background:var(--green);}
+  .cell.yellow{background:var(--yellow);}
+  .cell.current{box-shadow:0 0 0 2.5px var(--navy);}
+  .legend{display:flex;gap:16px;font-size:13px;color:var(--ink-soft);align-items:center;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .board-count{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-soft);}
+
+  .play{flex:1;display:flex;flex-direction:column;gap:14px;min-width:0;}
+
+  /* the jumbotron card — signature element */
+  .card{
+    background:linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%);
+    border-radius:22px;color:#fff;
+    padding:26px 28px 22px;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.08), 0 10px 30px rgba(20,34,56,.18);
+    position:relative;
+  }
+  .card .prompt{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(56px,9vw,88px);letter-spacing:.01em;
+    font-variant-numeric:tabular-nums;line-height:1;
+  }
+  .answer-slot{
+    min-width:170px;text-align:center;
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(44px,7vw,64px);line-height:1.15;
+    color:var(--gold);font-variant-numeric:tabular-nums;
+    border-bottom:5px solid var(--gold);
+    min-height:1.2em;
+  }
+  .card .status{
+    height:24px;font-size:17px;font-weight:700;letter-spacing:.02em;
+    color:rgba(255,255,255,.85);font-family:var(--display);
+  }
+  .card.correct .answer-slot{color:#5FD68F;border-color:#5FD68F;}
+  .card.shake{animation:shake .4s;}
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    20%{transform:translateX(-9px);}40%{transform:translateX(9px);}
+    60%{transform:translateX(-6px);}80%{transform:translateX(6px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .card.shake{animation:none;}
+    .btn:active,.key:active{transform:none;}
+  }
+
+  .keypad{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    max-width:460px;width:100%;margin:0 auto;
+  }
+  .key{
+    font-family:var(--display);font-weight:800;font-size:32px;
+    padding:16px 0;border-radius:16px;
+    background:var(--panel);border:1.5px solid var(--line);color:var(--ink);
+    transition:transform .05s ease;
+  }
+  .key:active{transform:scale(.95);background:#F3F7FB;}
+  .key.enter{background:var(--gold);border-color:var(--gold);color:var(--navy-deep);}
+  .key.back{color:var(--ink-soft);font-size:26px;}
+
+  /* ---------- done ---------- */
+  #done{display:flex;flex-direction:column;gap:20px;justify-content:center;align-items:center;min-height:100%;text-align:center;}
+  #done h1{font-family:var(--display);font-size:42px;margin:0;}
+  .stat-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+  .stat{
+    background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:18px 26px;min-width:130px;
+  }
+  .stat .num{font-family:var(--display);font-weight:800;font-size:36px;font-variant-numeric:tabular-nums;}
+  .stat .lbl{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px;}
+  .stat.green .num{color:var(--green);}
+  .stat.yellow .num{color:#C79A17;}
+
+  /* ---------- reports ---------- */
+  #reports{display:flex;flex-direction:column;gap:16px;min-height:100%;padding-bottom:32px;}
+  #reports .topbar h1{font-family:var(--display);font-size:26px;margin:0;}
+  .tab-row{display:flex;gap:10px;}
+  .tab{
+    font-family:var(--display);font-weight:700;font-size:17px;
+    padding:10px 22px;border-radius:999px;border:2px solid var(--line);background:#fff;color:var(--ink-soft);
+  }
+  .tab.selected{border-color:var(--navy);background:var(--navy);color:#fff;}
+  .session-list{display:flex;flex-direction:column;gap:10px;}
+  .session-row{
+    background:var(--panel);border:1.5px solid var(--line);border-radius:14px;
+    padding:14px 16px;
+  }
+  .session-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;width:100%;text-align:left;}
+  .s-op{
+    font-family:var(--display);font-weight:800;font-size:20px;width:38px;height:38px;
+    border-radius:10px;background:var(--ice);display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  }
+  .s-main{flex:1;min-width:150px;}
+  .s-title{font-weight:700;font-size:16px;}
+  .s-date{font-size:13px;color:var(--ink-soft);margin-top:2px;}
+  .s-stats{display:flex;gap:14px;align-items:center;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .s-stats span{display:inline-flex;align-items:center;gap:5px;}
+  .badge{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.03em;}
+  .badge.done{background:var(--green-soft);color:var(--green);}
+  .badge.partial{background:var(--yellow-soft);color:#A57F0E;}
+  .missed-list{margin-top:12px;padding-top:12px;border-top:1.5px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;}
+  .missed-chip{
+    font-family:var(--display);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;
+    background:var(--yellow-soft);color:#7d600b;border-radius:9px;padding:6px 10px;
+  }
+  .missed-label{width:100%;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);}
+  .empty-note{color:var(--ink-soft);text-align:center;padding:40px 0;font-size:16px;}
+  .danger-zone{margin-top:auto;text-align:center;}
+  .danger-zone button{font-size:13px;color:var(--ink-soft);text-decoration:underline;padding:10px;}
+
+  /* portrait fallback: stack board under the card */
+  @media (orientation:portrait){
+    .main{flex-direction:column;}
+    .board{align-items:center;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HOME ============ -->
+<div id="home" class="screen">
+  <div class="home-grid">
+    <div class="home-card">
+      <div class="section-label">Who's playing?</div>
+      <div class="learner-row">
+        <button class="learner-btn" data-learner="George">George</button>
+        <button class="learner-btn" data-learner="Charlie">Charlie</button>
+      </div>
+    </div>
+
+    <div class="home-card">
+      <div class="section-label">Session setup</div>
+      <div class="toggle-row" id="opRow">
+        <button class="toggle-btn selected" data-op="mult">&times; Multiply</button>
+        <button class="toggle-btn" data-op="div">&divide; Divide</button>
+      </div>
+      <div class="toggle-row" id="levelRow">
+        <button class="toggle-btn selected" data-level="beginner">Beginner</button>
+        <button class="toggle-btn" data-level="advanced">Advanced</button>
+      </div>
+      <div class="toggle-note" id="levelNote"></div>
+    </div>
+  </div>
+
+  <div class="home-actions">
+    <span id="homeWarn" class="chip hidden" style="color:#B4540A;border-color:#F0C8A8;align-self:center;"></span>
+    <button class="btn btn-quiet" id="reportsBtn">Reports</button>
+    <button class="btn hidden" id="resumeBtn"></button>
+    <button class="btn btn-primary" id="startBtn">Start session</button>
+  </div>
+</div>
+
+<!-- ============ SESSION ============ -->
+<div id="session" class="screen hidden">
+  <div class="topbar">
+    <span class="brand" id="sLearner"></span>
+    <span class="chip" id="sMode"></span>
+    <span class="spacer"></span>
+    <span class="chip" id="sProgress"></span>
+    <span class="chip" id="sTimer">0:00</span>
+    <button class="btn btn-quiet" id="endBtn">End session</button>
+  </div>
+
+  <div class="main">
+    <div class="board">
+      <div class="grid" id="grid"></div>
+      <div class="legend">
+        <span><span class="dot green"></span> First try</span>
+        <span><span class="dot yellow"></span> Needed retry</span>
+        <span><span class="dot pending"></span> To do</span>
+      </div>
+      <div class="board-count" id="boardCount"></div>
+    </div>
+
+    <div class="play">
+      <div class="card" id="card">
+        <div class="prompt" id="prompt"></div>
+        <div class="answer-slot" id="answerSlot">&nbsp;</div>
+        <div class="status" id="cardStatus"></div>
+      </div>
+      <div class="keypad">
+        <button class="key" data-k="1">1</button>
+        <button class="key" data-k="2">2</button>
+        <button class="key" data-k="3">3</button>
+        <button class="key" data-k="4">4</button>
+        <button class="key" data-k="5">5</button>
+        <button class="key" data-k="6">6</button>
+        <button class="key" data-k="7">7</button>
+        <button class="key" data-k="8">8</button>
+        <button class="key" data-k="9">9</button>
+        <button class="key back" data-k="back">&#9003;</button>
+        <button class="key" data-k="0">0</button>
+        <button class="key enter" data-k="enter">Go</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DONE ============ -->
+<div id="done" class="screen hidden">
+  <h1 id="doneTitle">Board complete!</h1>
+  <div class="stat-row">
+    <div class="stat green"><div class="num" id="doneGreen">0</div><div class="lbl">First try</div></div>
+    <div class="stat yellow"><div class="num" id="doneYellow">0</div><div class="lbl">Needed retry</div></div>
+    <div class="stat"><div class="num" id="doneTime">0:00</div><div class="lbl">Time</div></div>
+  </div>
+  <div class="home-actions">
+    <button class="btn" id="doneReportsBtn">See reports</button>
+    <button class="btn btn-primary" id="doneHomeBtn">Back to start</button>
+  </div>
+</div>
+
+<!-- ============ REPORTS ============ -->
+<div id="reports" class="screen hidden">
+  <div class="topbar">
+    <h1>Reports</h1>
+    <span class="spacer"></span>
+    <button class="btn btn-quiet" id="reportsHomeBtn">Back</button>
+  </div>
+  <div class="tab-row">
+    <button class="tab selected" data-tab="George">George</button>
+    <button class="tab" data-tab="Charlie">Charlie</button>
+  </div>
+  <div class="session-list" id="sessionList"></div>
+  <div class="danger-zone">
+    <button id="resetBtn">Erase all data on this iPad</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* =================== storage =================== */
+const STORE_KEY = "factBoardV1";
+const IDLE_CAP_MS = 30000; /* pauses longer than 30s don't count toward session time */
+
+function loadStore(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return { lastLearner:null, active:{}, sessions:[] };
+}
+function saveStore(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(store)); }catch(e){}
+}
+let store = loadStore();
+
+/* =================== fact model =================== */
+/* mult: rows = first factor, cols = second factor (0-12)
+   div : rows = divisor (1-12), cols = quotient (0-12); prompt is (d*q) ÷ d */
+function factList(op, level){
+  const facts = [];
+  if(op === "mult"){
+    const rows = level === "beginner" ? range(0,5) : range(0,12);
+    for(const a of rows) for(const b of range(0,12))
+      facts.push({ key:`m:${a}:${b}`, row:a, col:b, prompt:`${a} × ${b}`, answer:a*b });
+  }else{
+    const rows = level === "beginner" ? range(1,5) : range(1,12);
+    for(const d of rows) for(const q of range(0,12))
+      facts.push({ key:`d:${d}:${q}`, row:d, col:q, prompt:`${d*q} ÷ ${d}`, answer:q });
+  }
+  return facts;
+}
+function range(a,b){ const r=[]; for(let i=a;i<=b;i++) r.push(i); return r; }
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
+
+/* =================== session engine =================== */
+let session = null;      /* live session object */
+let factIndex = {};      /* key -> fact for current session */
+let entry = "";          /* current typed answer */
+let attempt = 1;         /* 1 or 2 for current presentation */
+let locked = false;      /* input locked during feedback */
+let timerId = null;
+
+function newSession(learner, op, level){
+  const facts = factList(op, level);
+  return {
+    id: Date.now() + "-" + Math.random().toString(36).slice(2,7),
+    learner, op, level,
+    startedAt: Date.now(),
+    lastActivity: Date.now(),
+    elapsedMs: 0,
+    queue: shuffle(facts.map(f=>f.key)),
+    status: {},            /* key -> "green" | "yellow" */
+    requeued: {},          /* key -> true if it has been requeued at least once */
+    totalFacts: facts.length,
+    completed: false
+  };
+}
+
+function beginSession(sess){
+  session = sess;
+  factIndex = {};
+  for(const f of factList(sess.op, sess.level)) factIndex[f.key] = f;
+  store.active[sess.learner] = sess;
+  store.lastLearner = sess.learner;
+  saveStore();
+  buildGrid();
+  showScreen("session");
+  document.getElementById("sLearner").textContent = sess.learner;
+  document.getElementById("sMode").textContent =
+    (sess.op==="mult" ? "× Multiplication" : "÷ Division") + " · " +
+    (sess.level==="beginner" ? "Beginner" : "Advanced");
+  session.lastActivity = Date.now();
+  startTimer();
+  nextCard();
+}
+
+function tickTime(){
+  const now = Date.now();
+  session.elapsedMs += Math.min(now - session.lastActivity, IDLE_CAP_MS);
+  session.lastActivity = now;
+}
+
+function currentKey(){ return session.queue[0]; }
+
+function nextCard(){
+  updateHud();
+  if(session.queue.length === 0){ finalize(true); return; }
+  const f = factIndex[currentKey()];
+  entry = ""; attempt = 1; locked = false;
+  document.getElementById("prompt").textContent = f.prompt + " =";
+  renderEntry();
+  setStatusMsg("");
+  const card = document.getElementById("card");
+  card.classList.remove("correct","shake");
+  highlightCurrent(f.key);
+}
+
+function renderEntry(){
+  document.getElementById("answerSlot").innerHTML = entry === "" ? "&nbsp;" : entry;
+}
+function setStatusMsg(t){ document.getElementById("cardStatus").textContent = t; }
+
+function press(k){
+  if(locked || !session) return;
+  if(k === "back"){ entry = entry.slice(0,-1); renderEntry(); return; }
+  if(k === "enter"){ submit(); return; }
+  if(entry.length < 3){ entry += k; renderEntry(); }
+}
+
+function submit(){
+  if(entry === "" || locked) return;
+  const f = factIndex[currentKey()];
+  const correct = parseInt(entry,10) === f.answer;
+  tickTime();
+  locked = true;
+  const card = document.getElementById("card");
+
+  if(correct){
+    /* green only if first attempt AND never requeued */
+    if(attempt === 1 && !session.requeued[f.key] && !session.status[f.key]){
+      session.status[f.key] = "green";
+    }else{
+      session.status[f.key] = "yellow";
+    }
+    session.queue.shift();
+    saveStore();
+    paintCell(f.key);
+    card.classList.add("correct");
+    setStatusMsg("Nice!");
+    setTimeout(nextCard, 550);
+  }else if(attempt === 1){
+    attempt = 2;
+    session.status[f.key] = "yellow";
+    saveStore();
+    paintCell(f.key);
+    card.classList.add("shake");
+    setStatusMsg("Try again");
+    setTimeout(()=>{
+      card.classList.remove("shake");
+      entry = ""; renderEntry(); locked = false;
+    }, 420);
+  }else{
+    /* second miss: reveal, requeue further back */
+    session.status[f.key] = "yellow";
+    session.requeued[f.key] = true;
+    session.queue.shift();
+    const pos = Math.min(4 + Math.floor(Math.random()*3), session.queue.length);
+    session.queue.splice(pos, 0, f.key);
+    saveStore();
+    paintCell(f.key);
+    card.classList.add("shake");
+    setStatusMsg(f.prompt + " = " + f.answer + " — it'll come back");
+    setTimeout(()=>{ card.classList.remove("shake"); nextCard(); }, 1600);
+  }
+}
+
+function finalize(completed){
+  stopTimer();
+  tickTime();
+  session.completed = completed;
+  const facts = Object.keys(factIndex);
+  const greens = facts.filter(k=>session.status[k]==="green");
+  const yellows = facts.filter(k=>session.status[k]==="yellow");
+  const rec = {
+    id: session.id,
+    learner: session.learner,
+    op: session.op,
+    level: session.level,
+    startedAt: session.startedAt,
+    endedAt: Date.now(),
+    durationSec: Math.round(session.elapsedMs/1000),
+    completed,
+    totalFacts: session.totalFacts,
+    greenCount: greens.length,
+    yellowCount: yellows.length,
+    unansweredCount: session.totalFacts - greens.length - yellows.length,
+    missed: yellows.map(k=>factIndex[k].prompt).sort()
+  };
+  store.sessions.unshift(rec);
+  delete store.active[session.learner];
+  saveStore();
+  const s = session;
+  session = null;
+  document.getElementById("doneTitle").textContent = completed
+    ? s.learner + " cleared the board!"
+    : "Session saved — " + rec.unansweredCount + " to go";
+  document.getElementById("doneGreen").textContent = rec.greenCount;
+  document.getElementById("doneYellow").textContent = rec.yellowCount;
+  document.getElementById("doneTime").textContent = fmtTime(rec.durationSec);
+  showScreen("done");
+}
+
+/* archive an unfinished session that was abandoned (e.g. new one started over it) */
+function archiveAbandoned(learner){
+  const s = store.active[learner];
+  if(!s) return;
+  const facts = factList(s.op, s.level);
+  const idx = {}; for(const f of facts) idx[f.key]=f;
+  const keys = Object.keys(idx);
+  const greens = keys.filter(k=>s.status[k]==="green");
+  const yellows = keys.filter(k=>s.status[k]==="yellow");
+  store.sessions.unshift({
+    id: s.id, learner: s.learner, op: s.op, level: s.level,
+    startedAt: s.startedAt, endedAt: Date.now(),
+    durationSec: Math.round(s.elapsedMs/1000),
+    completed: false, totalFacts: s.totalFacts,
+    greenCount: greens.length, yellowCount: yellows.length,
+    unansweredCount: s.totalFacts - greens.length - yellows.length,
+    missed: yellows.map(k=>idx[k].prompt).sort()
+  });
+  delete store.active[learner];
+  saveStore();
+}
+
+/* =================== timer =================== */
+function startTimer(){
+  stopTimer();
+  timerId = setInterval(()=>{
+    if(!session) return;
+    const live = session.elapsedMs + Math.min(Date.now()-session.lastActivity, IDLE_CAP_MS);
+    document.getElementById("sTimer").textContent = fmtTime(Math.round(live/1000));
+  }, 1000);
+}
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId = null; } }
+function fmtTime(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return m + ":" + String(s).padStart(2,"0");
+}
+
+/* =================== board grid =================== */
+function buildGrid(){
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  const isMult = session.op === "mult";
+  const rows = isMult
+    ? (session.level==="beginner" ? range(0,5) : range(0,12))
+    : (session.level==="beginner" ? range(1,5) : range(1,12));
+  const cols = range(0,12);
+  grid.style.gridTemplateColumns = `repeat(${cols.length+1}, 24px)`;
+
+  const corner = document.createElement("div");
+  corner.className = "hdr";
+  corner.textContent = isMult ? "×" : "÷";
+  grid.appendChild(corner);
+  for(const c of cols){
+    const h = document.createElement("div");
+    h.className = "hdr"; h.textContent = c;
+    grid.appendChild(h);
+  }
+  for(const r of rows){
+    const h = document.createElement("div");
+    h.className = "hdr"; h.textContent = r;
+    grid.appendChild(h);
+    for(const c of cols){
+      const key = (isMult?`m:${r}:${c}`:`d:${r}:${c}`);
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.id = "cell-" + key.replace(/:/g,"_");
+      if(session.status[key]) cell.classList.add(session.status[key]);
+      grid.appendChild(cell);
+    }
+  }
+}
+function paintCell(key){
+  const el = document.getElementById("cell-" + key.replace(/:/g,"_"));
+  if(el){ el.classList.remove("green","yellow"); el.classList.add(session.status[key]); }
+  updateHud();
+}
+function highlightCurrent(key){
+  document.querySelectorAll(".cell.current").forEach(c=>c.classList.remove("current"));
+  const el = document.getElementById("cell-" + key.replace(/:/g,"_"));
+  if(el) el.classList.add("current");
+}
+function updateHud(){
+  if(!session) return;
+  const done = Object.keys(session.status).filter(k=>{
+    /* a fact is "done" once it's off the queue */
+    return session.queue.indexOf(k) === -1;
+  }).length;
+  document.getElementById("sProgress").textContent = done + " / " + session.totalFacts;
+  const g = Object.values(session.status).filter(v=>v==="green").length;
+  const doneKeys = Object.keys(session.status).filter(k=>session.queue.indexOf(k)===-1);
+  const y = doneKeys.filter(k=>session.status[k]==="yellow").length;
+  document.getElementById("boardCount").textContent = g + " green · " + y + " yellow";
+}
+
+/* =================== home =================== */
+let selLearner = store.lastLearner || null;
+let selOp = "mult";
+let selLevel = "beginner";
+
+function renderHome(){
+  document.querySelectorAll(".learner-btn").forEach(b=>{
+    b.classList.toggle("selected", b.dataset.learner === selLearner);
+  });
+  document.querySelectorAll("#opRow .toggle-btn").forEach(b=>{
+    b.classList.toggle("selected", b.dataset.op === selOp);
+  });
+  document.querySelectorAll("#levelRow .toggle-btn").forEach(b=>{
+    b.classList.toggle("selected", b.dataset.level === selLevel);
+  });
+  const note = document.getElementById("levelNote");
+  if(selOp === "mult"){
+    note.textContent = selLevel==="beginner"
+      ? "Beginner: 0s through 5s times tables (78 facts)."
+      : "Advanced: the full board, 0s through 12s (169 facts).";
+  }else{
+    note.textContent = selLevel==="beginner"
+      ? "Beginner: dividing by 1 through 5 (65 facts)."
+      : "Advanced: dividing by 1 through 12 (156 facts).";
+  }
+  const resume = document.getElementById("resumeBtn");
+  const act = selLearner ? store.active[selLearner] : null;
+  if(act){
+    const done = act.totalFacts - act.queue.length;
+    resume.textContent = "Resume " + selLearner + " (" + done + " / " + act.totalFacts + ")";
+    resume.classList.remove("hidden");
+  }else{
+    resume.classList.add("hidden");
+  }
+}
+
+document.querySelectorAll(".learner-btn").forEach(b=>{
+  b.addEventListener("click", ()=>{ selLearner = b.dataset.learner; store.lastLearner = selLearner; saveStore(); renderHome(); });
+});
+document.querySelectorAll("#opRow .toggle-btn").forEach(b=>{
+  b.addEventListener("click", ()=>{ selOp = b.dataset.op; renderHome(); });
+});
+document.querySelectorAll("#levelRow .toggle-btn").forEach(b=>{
+  b.addEventListener("click", ()=>{ selLevel = b.dataset.level; renderHome(); });
+});
+
+document.getElementById("startBtn").addEventListener("click", ()=>{
+  if(!selLearner){
+    const warn = document.getElementById("homeWarn");
+    warn.textContent = "Pick a learner first";
+    warn.classList.remove("hidden");
+    setTimeout(()=>warn.classList.add("hidden"), 2000);
+    return;
+  }
+  /* any unfinished session for this learner is saved to reports as partial */
+  if(store.active[selLearner]) archiveAbandoned(selLearner);
+  beginSession(newSession(selLearner, selOp, selLevel));
+});
+
+document.getElementById("resumeBtn").addEventListener("click", ()=>{
+  const s = store.active[selLearner];
+  if(!s) return;
+  s.lastActivity = Date.now();
+  beginSession(s);
+});
+
+document.getElementById("endBtn").addEventListener("click", ()=>{
+  if(!session) return;
+  finalize(false);
+});
+
+/* =================== keypad + keyboard =================== */
+document.querySelectorAll(".key").forEach(b=>{
+  b.addEventListener("click", ()=>press(b.dataset.k));
+});
+document.addEventListener("keydown", e=>{
+  if(document.getElementById("session").classList.contains("hidden")) return;
+  if(e.key >= "0" && e.key <= "9") press(e.key);
+  else if(e.key === "Backspace") press("back");
+  else if(e.key === "Enter") press("enter");
+});
+
+/* =================== done screen =================== */
+document.getElementById("doneHomeBtn").addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
+document.getElementById("doneReportsBtn").addEventListener("click", ()=>{ openReports(); });
+
+/* =================== reports =================== */
+let reportTab = "George";
+document.querySelectorAll(".tab").forEach(t=>{
+  t.addEventListener("click", ()=>{ reportTab = t.dataset.tab; renderReports(); });
+});
+document.getElementById("reportsBtn").addEventListener("click", openReports);
+document.getElementById("reportsHomeBtn").addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
+
+function openReports(){
+  if(store.lastLearner) reportTab = store.lastLearner;
+  renderReports();
+  showScreen("reports");
+}
+
+function renderReports(){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("selected", t.dataset.tab===reportTab));
+  const list = document.getElementById("sessionList");
+  list.innerHTML = "";
+  const rows = store.sessions.filter(s=>s.learner===reportTab);
+  if(rows.length===0){
+    list.innerHTML = '<div class="empty-note">No sessions yet for ' + reportTab + ".</div>";
+    return;
+  }
+  for(const s of rows){
+    const row = document.createElement("div");
+    row.className = "session-row";
+    const head = document.createElement("button");
+    head.className = "session-head";
+    const d = new Date(s.startedAt);
+    const when = d.toLocaleDateString(undefined,{month:"short",day:"numeric"}) + ", " +
+                 d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
+    head.innerHTML =
+      '<div class="s-op">' + (s.op==="mult"?"×":"÷") + '</div>' +
+      '<div class="s-main"><div class="s-title">' + (s.level==="beginner"?"Beginner":"Advanced") + '</div>' +
+      '<div class="s-date">' + when + '</div></div>' +
+      '<div class="s-stats">' +
+        '<span><span class="dot green"></span>' + s.greenCount + '</span>' +
+        '<span><span class="dot yellow"></span>' + s.yellowCount + '</span>' +
+        (s.unansweredCount ? '<span><span class="dot pending"></span>' + s.unansweredCount + '</span>' : '') +
+        '<span>' + fmtTime(s.durationSec) + '</span>' +
+      '</div>' +
+      '<span class="badge ' + (s.completed?"done":"partial") + '">' + (s.completed?"Completed":"Partial") + '</span>';
+    row.appendChild(head);
+
+    if(s.missed && s.missed.length){
+      const missed = document.createElement("div");
+      missed.className = "missed-list hidden";
+      missed.innerHTML = '<div class="missed-label">Needed a retry</div>' +
+        s.missed.map(m=>'<span class="missed-chip">'+m+'</span>').join("");
+      row.appendChild(missed);
+      head.addEventListener("click", ()=>missed.classList.toggle("hidden"));
+    }
+    list.appendChild(row);
+  }
+}
+
+let resetArmed = false;
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  const btn = document.getElementById("resetBtn");
+  if(!resetArmed){
+    resetArmed = true;
+    btn.textContent = "Tap again to erase everything — this can't be undone";
+    setTimeout(()=>{ resetArmed = false; btn.textContent = "Erase all data on this iPad"; }, 4000);
+    return;
+  }
+  store = { lastLearner:null, active:{}, sessions:[] };
+  saveStore();
+  selLearner = null;
+  resetArmed = false;
+  btn.textContent = "Erase all data on this iPad";
+  renderReports();
+});
+
+/* =================== screens & lifecycle =================== */
+function showScreen(id){
+  for(const s of ["home","session","done","reports"])
+    document.getElementById(s).classList.toggle("hidden", s!==id);
+}
+
+/* save on background so nothing is lost mid-drive */
+document.addEventListener("visibilitychange", ()=>{
+  if(document.hidden && session){ tickTime(); saveStore(); }
+  else if(!document.hidden && session){ session.lastActivity = Date.now(); }
+});
+
+/* service worker for full offline once hosted */
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+
+renderHome();
+</script>
+</body>
+</html>
