@@ -1,9 +1,18 @@
 /* Fact Board offline cache */
-const CACHE = "factboard-v1";
+const CACHE = "factboard-v22";
 const ASSETS = ["./", "./index.html", "./sw.js"];
+/* bird photos: cached individually so missing files never break install */
+const FLAGS = ["flags/al.png", "flags/ak.png", "flags/az.png", "flags/ar.png", "flags/ca.png", "flags/co.png", "flags/ct.png", "flags/de.png", "flags/fl.png", "flags/ga.png", "flags/hi.png", "flags/id.png", "flags/il.png", "flags/in.png", "flags/ia.png", "flags/ks.png", "flags/ky.png", "flags/la.png", "flags/me.png", "flags/md.png", "flags/ma.png", "flags/mi.png", "flags/mn.png", "flags/ms.png", "flags/mo.png", "flags/mt.png", "flags/ne.png", "flags/nv.png", "flags/nh.png", "flags/nj.png", "flags/nm.png", "flags/ny.png", "flags/nc.png", "flags/nd.png", "flags/oh.png", "flags/ok.png", "flags/or.png", "flags/pa.png", "flags/ri.png", "flags/sc.png", "flags/sd.png", "flags/tn.png", "flags/tx.png", "flags/ut.png", "flags/vt.png", "flags/va.png", "flags/wa.png", "flags/wv.png", "flags/wi.png", "flags/wy.png", "flags/ab.png", "flags/bc.png", "flags/mb.png", "flags/nb.png", "flags/nl.png", "flags/nt.png", "flags/ns.png", "flags/nu.png", "flags/on.png", "flags/pe.png", "flags/qc.png", "flags/sk.png", "flags/yt.png"];
+const BIRDS = ["birds/al.jpg", "birds/ak.jpg", "birds/az.jpg", "birds/ar.jpg", "birds/ca.jpg", "birds/co.jpg", "birds/ct.jpg", "birds/de.jpg", "birds/fl.jpg", "birds/ga.jpg", "birds/hi.jpg", "birds/id.jpg", "birds/il.jpg", "birds/in.jpg", "birds/ia.jpg", "birds/ks.jpg", "birds/ky.jpg", "birds/la.jpg", "birds/me.jpg", "birds/md.jpg", "birds/ma.jpg", "birds/mi.jpg", "birds/mn.jpg", "birds/ms.jpg", "birds/mo.jpg", "birds/mt.jpg", "birds/ne.jpg", "birds/nv.jpg", "birds/nh.jpg", "birds/nj.jpg", "birds/nm.jpg", "birds/ny.jpg", "birds/nc.jpg", "birds/nd.jpg", "birds/oh.jpg", "birds/ok.jpg", "birds/or.jpg", "birds/pa.jpg", "birds/ri.jpg", "birds/sc.jpg", "birds/sd.jpg", "birds/tn.jpg", "birds/tx.jpg", "birds/ut.jpg", "birds/vt.jpg", "birds/va.jpg", "birds/wa.jpg", "birds/wv.jpg", "birds/wi.jpg", "birds/wy.jpg", "birds/ab.jpg", "birds/bc.jpg", "birds/mb.jpg", "birds/nb.jpg", "birds/nl.jpg", "birds/nt.jpg", "birds/ns.jpg", "birds/nu.jpg", "birds/on.jpg", "birds/pe.jpg", "birds/qc.jpg", "birds/sk.jpg", "birds/yt.jpg"];
 
 self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => c.addAll(ASSETS).then(() =>
+        Promise.allSettled(BIRDS.concat(FLAGS).map(u => c.add(u)))
+      ))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", e => {
