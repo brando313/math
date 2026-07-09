@@ -67,12 +67,20 @@
   .home-card{background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
   .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;width:100%;margin:0 auto;}
   .section-label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;}
-  .learner-row{display:flex;gap:12px;}
+  .learner-row{display:flex;gap:12px;flex-wrap:wrap;}
   .learner-btn{
-    flex:1;font-family:var(--display);font-size:24px;font-weight:800;
-    padding:22px 10px;border-radius:14px;border:2px solid var(--line);background:#fff;
+    flex:1;min-width:120px;font-family:var(--display);font-size:22px;font-weight:800;
+    padding:20px 10px;border-radius:14px;border:2px solid var(--line);background:#fff;
   }
   .learner-btn.selected{border-color:var(--navy);background:var(--navy);color:#fff;}
+  .learner-btn.removing{border-color:#C0392B;background:#C0392B;color:#fff;font-size:17px;}
+  .add-row{display:flex;gap:10px;margin-top:12px;}
+  #newName{
+    flex:1;min-width:0;border:2px solid var(--line);border-radius:12px;
+    padding:12px 14px;font-size:17px;font-family:var(--body);color:var(--ink);
+    background:#fff;
+  }
+  #newName:focus{outline:none;border-color:var(--gold);}
   .toggle-row{display:flex;gap:10px;margin-bottom:14px;}
   .op-grid{display:grid;grid-template-columns:1fr 1fr;}
   .toggle-row:last-child{margin-bottom:0;}
@@ -371,6 +379,35 @@
   .region.reveal{animation:revealPulse 1.5s ease;}
   @keyframes revealPulse{0%{fill:#C9D7E5;}40%{fill:var(--gold);}75%{fill:var(--gold);}100%{fill:#C9D7E5;}}
 
+  /* penguin quiz */
+  .pg{flex:1;display:flex;gap:16px;min-width:0;}
+  .pg-img-wrap{
+    flex:1;min-width:0;min-height:0;
+    background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius);
+    display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden;
+  }
+  .pg-img-wrap img{max-width:100%;max-height:100%;object-fit:contain;}
+  .pg-side{width:300px;flex:0 0 auto;display:flex;flex-direction:column;gap:12px;justify-content:center;}
+  .pg-q{font-family:var(--display);font-weight:800;font-size:20px;text-align:center;}
+  .pg-choices{display:flex;flex-direction:column;gap:12px;}
+  .pg-choice{
+    font-family:var(--display);font-weight:800;font-size:20px;
+    padding:18px 12px;border-radius:14px;border:2px solid var(--line);
+    background:var(--panel);color:var(--ink);
+    transition:transform .06s ease;
+  }
+  .pg-choice:active{transform:scale(.97);}
+  .pg-choice.wrong{border-color:#C0392B;background:#F7DCD8;color:#8F2F24;pointer-events:none;opacity:.85;}
+  .pg-choice.correct-reveal{border-color:var(--green);background:var(--green);color:#fff;}
+  .pg-status{
+    font-family:var(--display);font-weight:700;font-size:16px;
+    color:var(--ink-soft);min-height:22px;text-align:center;
+  }
+  @media (orientation:portrait){
+    .pg{flex-direction:column;}
+    .pg-side{width:auto;}
+  }
+
   /* portrait fallback: stack board under the card */
   @media (orientation:portrait){
     .main{flex-direction:column;}
@@ -385,10 +422,12 @@
   <div class="home-grid">
     <div class="home-card">
       <div class="section-label">Who's playing?</div>
-      <div class="learner-row">
-        <button class="learner-btn" data-learner="George">George</button>
-        <button class="learner-btn" data-learner="Charlie">Charlie</button>
+      <div class="learner-row" id="learnerRow"></div>
+      <div class="add-row">
+        <input id="newName" maxlength="14" placeholder="Add a player" autocomplete="off">
+        <button class="btn" id="addBtn">Add</button>
       </div>
+      <div class="toggle-note">Press and hold a name to remove a player.</div>
     </div>
 
     <div class="home-card">
@@ -400,6 +439,8 @@
         <button class="toggle-btn" data-op="div">&divide; Divide</button>
         <button class="toggle-btn" data-op="usa">&#127482;&#127480; US States</button>
         <button class="toggle-btn" data-op="canada">&#127464;&#127462; Canada</button>
+        <button class="toggle-btn" data-op="penguins">&#128039; Penguins</button>
+        <button class="toggle-btn" data-op="eagles">&#129413; Eagles</button>
       </div>
       <div class="toggle-row" id="levelRow">
         <button class="toggle-btn selected" data-level="beginner">Beginner</button>
@@ -495,6 +536,15 @@
         </div>
       </div>
     </div>
+
+    <div class="pg hidden" id="pg">
+      <div class="pg-img-wrap"><img id="pgImg" alt="Which penguin is this?"></div>
+      <div class="pg-side">
+        <div class="pg-q">Which penguin is this?</div>
+        <div class="pg-choices" id="pgChoices"></div>
+        <div class="pg-status" id="pgStatus"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -519,10 +569,7 @@
     <span class="spacer"></span>
     <button class="btn btn-quiet" id="reportsHomeBtn">Back</button>
   </div>
-  <div class="tab-row">
-    <button class="tab selected" data-tab="George">George</button>
-    <button class="tab" data-tab="Charlie">Charlie</button>
-  </div>
+  <div class="tab-row" id="tabRow"></div>
   <div class="session-list" id="sessionList"></div>
   <div class="danger-zone">
     <button id="resetBtn">Erase all data on this iPad</button>
@@ -561,9 +608,33 @@ let store = loadStore();
    add beginner: rows + cols, each 0-10 (sums within 20)
    sub beginner: rows = number subtracted (0-10), cols = answer (0-10); prompt is (r+c) − r
    add/sub advanced: 30 generated multi-digit problems up to 9999, shown stacked */
-const OPSYM  = { add:"+", sub:"−", mult:"×", div:"÷", usa:"🇺🇸", canada:"🇨🇦" };
-const OPNAME = { add:"Addition", sub:"Subtraction", mult:"Multiplication", div:"Division", usa:"US States", canada:"Canada" };
+const OPSYM  = { add:"+", sub:"−", mult:"×", div:"÷", usa:"🇺🇸", canada:"🇨🇦", penguins:"🐧", eagles:"🦅" };
+const OPNAME = { add:"Addition", sub:"Subtraction", mult:"Multiplication", div:"Division", usa:"US States", canada:"Canada", penguins:"Penguins", eagles:"Eagles" };
 function isGeo(op){ return op === "usa" || op === "canada"; }
+function isChoice(op){ return op === "penguins" || op === "eagles"; }
+
+const EAGLES = [
+  {id:"bald",name:"Bald Eagle"}, {id:"golden",name:"Golden Eagle"}, {id:"little",name:"Little Eagle"},
+  {id:"philippine",name:"Philippine Eagle"}, {id:"stellerssea",name:"Steller's Sea Eagle"},
+  {id:"bateleur",name:"Bateleur Eagle"}, {id:"whitetailed",name:"White-Tailed Eagle"},
+  {id:"booted",name:"Booted Eagle"}, {id:"blackhawk",name:"Black Hawk Eagle"},
+  {id:"crowned",name:"Crowned Eagle"}, {id:"martial",name:"Martial Eagle"},
+  {id:"africanfish",name:"African Fish Eagle"}, {id:"crested",name:"Crested Eagle"},
+  {id:"harpy",name:"Harpy Eagle"}, {id:"andamanserpent",name:"Andaman Serpent Eagle"},
+  {id:"brownsnake",name:"Brown Snake Eagle"}, {id:"papuanharpy",name:"Papuan Harpy Eagle"},
+  {id:"chaco",name:"Chaco Eagle"}, {id:"solitary",name:"Solitary Eagle"},
+  {id:"madagascarfish",name:"Madagascar Fish Eagle"}, {id:"longcrested",name:"Long-Crested Eagle"}
+];
+
+const PENGUINS = [
+  {id:"adelie",name:"Adelie"}, {id:"african",name:"African"}, {id:"chinstrap",name:"Chinstrap"},
+  {id:"emperor",name:"Emperor"}, {id:"erectcrested",name:"Erect-Crested"}, {id:"fiordland",name:"Fiordland"},
+  {id:"galapagos",name:"Galapagos"}, {id:"gentoo",name:"Gentoo"}, {id:"humboldt",name:"Humboldt"},
+  {id:"king",name:"King"}, {id:"littleblue",name:"Little Blue"}, {id:"macaroni",name:"Macaroni"},
+  {id:"magellanic",name:"Magellanic"}, {id:"srockhopper",name:"Southern Rockhopper"},
+  {id:"nrockhopper",name:"Northern Rockhopper"}, {id:"royal",name:"Royal"},
+  {id:"snares",name:"Snares"}, {id:"yelloweyed",name:"Yellow-Eyed"}
+];
 
 /* capitals and official birds for every region */
 const GEOINFO = {
@@ -689,7 +760,14 @@ function genBeginner(op){
   return facts;
 }
 
+const CHOICE_QUIZZES = {
+  penguins:{ list:()=>PENGUINS, folder:"penguins", q:"Which penguin is this?", cols:9, synth:synthPenguin },
+  eagles:{ list:()=>EAGLES, folder:"eagles", q:"Which eagle is this?", cols:7, synth:synthEagle }
+};
+
 function buildFacts(op, level){
+  if(isChoice(op))
+    return CHOICE_QUIZZES[op].list().map(p => ({ key:"pg:"+p.id, name:p.name, prompt:p.name, answer:p.id }));
   if(isGeo(op))
     return GEO[op].regions.map(r => ({ key:"g:"+r.id, name:r.name, prompt:r.name, answer:r.id }));
   if(op === "add" || op === "sub")
@@ -739,13 +817,15 @@ function beginSession(sess){
   store.lastLearner = sess.learner;
   saveStore();
   const geo = isGeo(sess.op);
+  const pg = isChoice(sess.op);
   document.getElementById("boardPanel").classList.toggle("hidden", geo);
-  document.getElementById("playPanel").classList.toggle("hidden", geo);
+  document.getElementById("playPanel").classList.toggle("hidden", geo || pg);
   document.getElementById("geo").classList.toggle("hidden", !geo);
+  document.getElementById("pg").classList.toggle("hidden", !pg);
   if(geo) renderGeoMap(); else buildGrid();
   showScreen("session");
   document.getElementById("sLearner").textContent = sess.learner;
-  document.getElementById("sMode").textContent = geo
+  document.getElementById("sMode").textContent = (geo || pg)
     ? OPSYM[sess.op] + " " + OPNAME[sess.op]
     : OPSYM[sess.op] + " " + OPNAME[sess.op] + " · " +
       (sess.level==="beginner" ? "Beginner" : "Advanced");
@@ -768,6 +848,11 @@ function nextCard(){
   if(session.queue.length === 0){ finalize(true); return; }
   const f = factIndex[currentKey()];
   entry = ""; attempt = 1; locked = false;
+  if(isChoice(session.op)){
+    colBoxes = null; carryMarks = null; pendingCarry = null;
+    renderPgCard(f);
+    return;
+  }
   if(isGeo(session.op)){
     colBoxes = null;
     carryMarks = null;
@@ -880,7 +965,7 @@ function renderEntry(){
 function setStatusMsg(t){ document.getElementById("cardStatus").textContent = t; }
 
 function press(k){
-  if(locked || !session || isGeo(session.op)) return;
+  if(locked || !session || isGeo(session.op) || isChoice(session.op)) return;
   if(pendingBorrow){ scratchKey(k); return; }
   if(pendingCarry !== null){ carryKey(k); return; }
   if(colBoxes){
@@ -1283,6 +1368,117 @@ function carryKey(k){
     colShake(pendingCarry);
     playThunk();
     setStatusMsg("Not quite — try again");
+  }
+}
+
+/* =================== penguin quiz =================== */
+let pgButtons = [];
+
+function synthPenguin(seed){
+  const c = ac(); if(!c) return;
+  const base = 150 + (seed % 7) * 45;
+  const pulses = 2 + (seed % 3);
+  for(let i = 0; i < pulses; i++){
+    const t0 = c.currentTime + i * 0.24;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = "sawtooth";
+    o.frequency.setValueAtTime(base, t0);
+    o.frequency.exponentialRampToValueAtTime(base * 1.7, t0 + 0.07);
+    o.frequency.exponentialRampToValueAtTime(base * 0.75, t0 + 0.2);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(0.2, t0 + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.22);
+    o.connect(g); g.connect(c.destination);
+    o.start(t0); o.stop(t0 + 0.25);
+  }
+}
+function synthEagle(seed){
+  const c = ac(); if(!c) return;
+  const top = 1900 + (seed % 5) * 180;
+  const cries = 1 + (seed % 2);
+  for(let i = 0; i < cries; i++){
+    const t0 = c.currentTime + i * 0.55;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = "sawtooth";
+    o.frequency.setValueAtTime(top, t0);
+    o.frequency.exponentialRampToValueAtTime(top * 0.45, t0 + 0.45);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(0.12, t0 + 0.04);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.5);
+    o.connect(g); g.connect(c.destination);
+    o.start(t0); o.stop(t0 + 0.55);
+  }
+}
+function playCall(op, id){
+  const CH = CHOICE_QUIZZES[op];
+  const seed = Math.max(0, CH.list().findIndex(p => p.id === id));
+  let done = false;
+  const fallback = ()=>{ if(!done){ done = true; CH.synth(seed); } };
+  try{
+    const a = new Audio("sounds/" + id + ".mp3");
+    a.onerror = fallback;
+    a.play().catch(fallback);
+  }catch(e){ fallback(); }
+}
+
+function renderPgCard(f){
+  const CH = CHOICE_QUIZZES[session.op];
+  document.querySelector(".pg-q").textContent = CH.q;
+  const img = document.getElementById("pgImg");
+  img.src = CH.folder + "/" + f.answer + ".jpg";
+  const others = shuffle(Object.values(factIndex).filter(x => x.key !== f.key)).slice(0, 2).map(x => x.name);
+  const options = shuffle([f.name, ...others]);
+  const wrap = document.getElementById("pgChoices");
+  wrap.innerHTML = "";
+  pgButtons = options.map(name=>{
+    const b = document.createElement("button");
+    b.className = "pg-choice";
+    b.textContent = name;
+    b.addEventListener("click", ()=>tapChoice(name, b));
+    wrap.appendChild(b);
+    return b;
+  });
+  document.getElementById("pgStatus").textContent = "";
+}
+
+function tapChoice(name, btn){
+  if(locked || !session || !isChoice(session.op)) return;
+  const f = factIndex[currentKey()];
+  tickTime();
+  if(name === f.name){
+    locked = true;
+    session.status[f.key] = "green";
+    session.queue.shift();
+    saveStore();
+    paintCell(f.key);
+    playDing();
+    btn.classList.add("correct-reveal");
+    document.getElementById("pgStatus").textContent = "Nice!";
+    setTimeout(nextCard, 700);
+  }else if(attempt === 1){
+    attempt = 2;
+    session.everMissed = session.everMissed || {};
+    session.everMissed[f.key] = true;
+    session.status[f.key] = "yellow";
+    saveStore();
+    paintCell(f.key);
+    playThunk();
+    btn.classList.add("wrong");
+    document.getElementById("pgStatus").textContent = "Try again";
+  }else{
+    session.everMissed[f.key] = true;
+    session.requeued[f.key] = true;
+    session.queue.shift();
+    const pos = Math.min(4 + Math.floor(Math.random()*3), session.queue.length);
+    session.queue.splice(pos, 0, f.key);
+    saveStore();
+    locked = true;
+    btn.classList.add("wrong");
+    pgButtons.forEach(b => { if(b.textContent === f.name) b.classList.add("correct-reveal"); });
+    paintCell(f.key);
+    document.getElementById("pgStatus").textContent = "This is the " + f.name + " — it'll come back";
+    playCall(session.op, f.answer);
+    setTimeout(nextCard, 2100);
   }
 }
 
@@ -1743,6 +1939,19 @@ function buildGrid(){
   grid.innerHTML = "";
   const op = session.op, lvl = session.level;
 
+  /* picture quizzes: a strip of dots */
+  if(isChoice(op)){
+    grid.style.gridTemplateColumns = "repeat(" + CHOICE_QUIZZES[op].cols + ", 24px)";
+    for(const f of Object.values(factIndex)){
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.id = "cell-" + f.key.replace(/:/g,"_");
+      if(session.status[f.key]) cell.classList.add(session.status[f.key]);
+      grid.appendChild(cell);
+    }
+    return;
+  }
+
   /* add/sub: a strip of problem dots, no headers */
   if(op === "add" || op === "sub"){
     grid.style.gridTemplateColumns = "repeat(10, 24px)";
@@ -1800,14 +2009,14 @@ function highlightCurrent(key){
 }
 function updateHud(){
   if(!session) return;
-  const done = Object.keys(session.status).filter(k=>{
-    /* a fact is "done" once it's off the queue */
-    return session.queue.indexOf(k) === -1;
-  }).length;
-  document.getElementById("sProgress").textContent = done + " / " + session.totalFacts;
-  const g = Object.values(session.status).filter(v=>v==="green").length;
-  const y = Object.values(session.status).filter(v=>v==="yellow").length;
-  document.getElementById("boardCount").textContent = g + " green · " + y + " yellow";
+  const total = session.totalFacts;
+  const left = session.queue.length;
+  const done = total - left;
+  const retry = Object.keys(session.everMissed || {}).length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  const line = done + " right · " + retry + " retry · " + left + " left · " + pct + "%";
+  document.getElementById("sProgress").textContent = line;
+  document.getElementById("boardCount").textContent = line;
 }
 
 /* =================== home =================== */
@@ -1815,10 +2024,78 @@ let selLearner = store.lastLearner || null;
 let selOp = "mult";
 let selLevel = "beginner";
 
-function renderHome(){
-  document.querySelectorAll(".learner-btn").forEach(b=>{
-    b.classList.toggle("selected", b.dataset.learner === selLearner);
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function getLearners(){
+  if(!store.learners || !store.learners.length) store.learners = ["George","Charlie"];
+  return store.learners;
+}
+
+function renderLearners(){
+  const row = document.getElementById("learnerRow");
+  row.innerHTML = "";
+  getLearners().forEach(name=>{
+    const b = document.createElement("button");
+    b.className = "learner-btn" + (name === selLearner ? " selected" : "");
+    b.textContent = name;
+    let holdT = null, armed = false, swallow = false, revertT = null;
+    b.addEventListener("pointerdown", ()=>{
+      holdT = setTimeout(()=>{
+        holdT = null;
+        if(getLearners().length <= 1) return;
+        armed = true; swallow = true;
+        b.classList.add("removing");
+        b.textContent = "Remove?";
+        revertT = setTimeout(()=>{ armed = false; b.classList.remove("removing"); b.textContent = name; }, 3000);
+      }, 550);
+    });
+    const cancelHold = ()=>{ if(holdT){ clearTimeout(holdT); holdT = null; } };
+    b.addEventListener("pointerup", cancelHold);
+    b.addEventListener("pointercancel", cancelHold);
+    b.addEventListener("pointerleave", cancelHold);
+    b.addEventListener("click", ()=>{
+      if(swallow){ swallow = false; return; } /* the release after the hold */
+      if(armed){
+        clearTimeout(revertT);
+        store.learners = getLearners().filter(n => n !== name);
+        if(selLearner === name) selLearner = null;
+        if(store.lastLearner === name) store.lastLearner = null;
+        saveStore();
+        renderHome();
+        return;
+      }
+      selLearner = name;
+      store.lastLearner = name;
+      saveStore();
+      renderHome();
+    });
+    row.appendChild(b);
   });
+}
+
+function addLearner(){
+  const input = document.getElementById("newName");
+  const name = input.value.trim().slice(0, 14);
+  if(!name) return;
+  const list = getLearners();
+  if(list.some(n => n.toLowerCase() === name.toLowerCase())){
+    input.value = "";
+    return;
+  }
+  list.push(name);
+  selLearner = name;
+  store.lastLearner = name;
+  saveStore();
+  input.value = "";
+  renderHome();
+}
+document.getElementById("addBtn").addEventListener("click", addLearner);
+document.getElementById("newName").addEventListener("keydown", e=>{
+  if(e.key === "Enter"){ e.preventDefault(); addLearner(); }
+});
+
+function renderHome(){
+  renderLearners();
   document.querySelectorAll("#opRow .toggle-btn").forEach(b=>{
     b.classList.toggle("selected", b.dataset.op === selOp);
   });
@@ -1827,8 +2104,12 @@ function renderHome(){
   });
   const note = document.getElementById("levelNote");
   const beg = selLevel === "beginner";
-  document.getElementById("levelRow").classList.toggle("hidden", isGeo(selOp));
-  if(selOp === "usa"){
+  document.getElementById("levelRow").classList.toggle("hidden", isGeo(selOp) || isChoice(selOp));
+  if(selOp === "penguins"){
+    note.textContent = "Match all 18 penguin species to their pictures.";
+  }else if(selOp === "eagles"){
+    note.textContent = "Match all 21 eagle species to their pictures.";
+  }else if(selOp === "usa"){
     note.textContent = "Tap all 50 states on the map as they're called out.";
   }else if(selOp === "canada"){
     note.textContent = "Tap all 13 provinces and territories as they're called out.";
@@ -1860,9 +2141,6 @@ function renderHome(){
   }
 }
 
-document.querySelectorAll(".learner-btn").forEach(b=>{
-  b.addEventListener("click", ()=>{ selLearner = b.dataset.learner; store.lastLearner = selLearner; saveStore(); renderHome(); });
-});
 document.querySelectorAll("#opRow .toggle-btn").forEach(b=>{
   b.addEventListener("click", ()=>{ selOp = b.dataset.op; renderHome(); });
 });
@@ -1911,10 +2189,22 @@ document.getElementById("doneHomeBtn").addEventListener("click", ()=>{ renderHom
 document.getElementById("doneReportsBtn").addEventListener("click", ()=>{ openReports(); });
 
 /* =================== reports =================== */
-let reportTab = "George";
-document.querySelectorAll(".tab").forEach(t=>{
-  t.addEventListener("click", ()=>{ reportTab = t.dataset.tab; renderReports(); });
-});
+let reportTab = store.lastLearner || null;
+
+function renderReportTabs(){
+  const names = [...new Set([...getLearners(), ...store.sessions.map(s=>s.learner)])];
+  if(!names.includes(reportTab)) reportTab = names[0] || null;
+  const row = document.getElementById("tabRow");
+  row.innerHTML = "";
+  names.forEach(name=>{
+    const t = document.createElement("button");
+    t.className = "tab" + (name === reportTab ? " selected" : "");
+    t.textContent = name;
+    t.addEventListener("click", ()=>{ reportTab = name; renderReports(); });
+    row.appendChild(t);
+  });
+}
+
 document.getElementById("reportsBtn").addEventListener("click", openReports);
 document.getElementById("reportsHomeBtn").addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
 
@@ -1925,12 +2215,12 @@ function openReports(){
 }
 
 function renderReports(){
-  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("selected", t.dataset.tab===reportTab));
+  renderReportTabs();
   const list = document.getElementById("sessionList");
   list.innerHTML = "";
   const rows = store.sessions.filter(s=>s.learner===reportTab);
   if(rows.length===0){
-    list.innerHTML = '<div class="empty-note">No sessions yet for ' + reportTab + ".</div>";
+    list.innerHTML = '<div class="empty-note">No sessions yet' + (reportTab ? ' for ' + esc(reportTab) : '') + ".</div>";
     return;
   }
   for(const s of rows){

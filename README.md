@@ -104,3 +104,19 @@ bird filenames in the table above.
 Every region has a built-in stylized bird illustration (embedded SVG, works offline with no
 extra files). A real photo in `birds/<id>.jpg` automatically replaces the illustration for
 that region.
+
+## Penguins quiz
+
+Penguin pictures live in the `penguins` folder (included). Optional: add real penguin
+call recordings as `sounds/<id>.mp3` (e.g. `sounds/emperor.mp3`) and they'll play on
+a reveal instead of the built-in synthesized honk. Ids: adelie, african, chinstrap,
+emperor, erectcrested, fiordland, galapagos, gentoo, humboldt, king, littleblue,
+macaroni, magellanic, srockhopper, nrockhopper, royal, snares, yelloweyed.
+
+## Eagles quiz
+
+Eagle pictures live in the `eagles` folder (included). Optional real calls: add
+`sounds/<id>.mp3` (e.g. `sounds/bald.mp3`). Ids: whitetailed, booted, blackhawk, bald,
+golden, little, philippine, stellerssea, bateleur, crowned, martial, africanfish,
+crested, harpy, andamanserpent, brownsnake, papuanharpy, chaco, solitary,
+madagascarfish, longcrested.
