@@ -1,5 +1,5 @@
 /* Fact Board offline cache */
-const CACHE = "factboard-v22";
+const CACHE = "factboard-v23";
 const ASSETS = ["./", "./index.html", "./sw.js"];
 /* bird photos: cached individually so missing files never break install */
 const FLAGS = ["flags/al.png", "flags/ak.png", "flags/az.png", "flags/ar.png", "flags/ca.png", "flags/co.png", "flags/ct.png", "flags/de.png", "flags/fl.png", "flags/ga.png", "flags/hi.png", "flags/id.png", "flags/il.png", "flags/in.png", "flags/ia.png", "flags/ks.png", "flags/ky.png", "flags/la.png", "flags/me.png", "flags/md.png", "flags/ma.png", "flags/mi.png", "flags/mn.png", "flags/ms.png", "flags/mo.png", "flags/mt.png", "flags/ne.png", "flags/nv.png", "flags/nh.png", "flags/nj.png", "flags/nm.png", "flags/ny.png", "flags/nc.png", "flags/nd.png", "flags/oh.png", "flags/ok.png", "flags/or.png", "flags/pa.png", "flags/ri.png", "flags/sc.png", "flags/sd.png", "flags/tn.png", "flags/tx.png", "flags/ut.png", "flags/vt.png", "flags/va.png", "flags/wa.png", "flags/wv.png", "flags/wi.png", "flags/wy.png", "flags/ab.png", "flags/bc.png", "flags/mb.png", "flags/nb.png", "flags/nl.png", "flags/nt.png", "flags/ns.png", "flags/nu.png", "flags/on.png", "flags/pe.png", "flags/qc.png", "flags/sk.png", "flags/yt.png"];

@@ -153,7 +153,7 @@
   .st-op{color:var(--gold);}
 
   /* borrowing scratchpad */
-  .card.colmode .stack{margin-top:.6em;}
+  .card.colmode .stack{margin-top:1.15em;}
   .card.colmode{--colw:1.5ch;}
   .card.colmode .bcol{width:var(--colw);min-width:0;}
   .dgrp{display:inline-flex;}
@@ -190,18 +190,27 @@
     opacity:.5;
   }
   .bcol .scratch{
-    position:absolute;top:-.68em;left:50%;transform:translateX(-50%);
-    font-size:.42em;line-height:1;color:var(--gold);
+    position:absolute;bottom:1.02em;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;
+    font-size:.42em;line-height:1.1;color:var(--gold);
     white-space:nowrap;
   }
-  .bcol .scratch.active{min-width:.6em;min-height:1em;}
-  .bcol .scratch.active::after{
+  .sv{display:block;}
+  .sv.old{text-decoration:line-through;text-decoration-thickness:2px;opacity:.5;}
+  .sv.waiting{opacity:.35;}
+  .sv.active{min-width:.6em;min-height:1em;}
+  .sv.active::after{
+    content:"";display:inline-block;width:3px;height:.85em;
+    background:var(--gold);margin-left:2px;vertical-align:baseline;
+    animation:blinkCaret 1s steps(1) infinite;
+  }
+  .scratch.active::after{
     content:"";display:inline-block;width:3px;height:.85em;
     background:var(--gold);margin-left:2px;vertical-align:baseline;
     animation:blinkCaret 1s steps(1) infinite;
   }
   @keyframes blinkCaret{50%{opacity:0;}}
-  .bcol .scratch.waiting{opacity:.35;}
+  .scratch.waiting{opacity:.35;}
   .bcol.holding{transform:scale(1.18);}
   .bcol.colshake{animation:shake .35s;}
   .bcol.pop .scratch{animation:popIn .28s ease;}
@@ -931,6 +940,7 @@ function submit(){
     saveStore();
     paintCell(f.key);
     card.classList.add("correct");
+    playDing();
     setStatusMsg("Nice!");
     setTimeout(nextCard, 550);
   }else if(attempt === 1){
@@ -941,6 +951,7 @@ function submit(){
     saveStore();
     paintCell(f.key);
     card.classList.add("shake");
+    playThunk();
     setStatusMsg("Try again");
     setTimeout(()=>{
       card.classList.remove("shake");
@@ -961,6 +972,7 @@ function submit(){
     saveStore();
     paintCell(f.key);
     card.classList.add("shake");
+    playThunk();
     setStatusMsg(f.prompt + " = " + f.answer + " — it'll come back");
     setTimeout(()=>{ card.classList.remove("shake"); nextCard(); }, 1600);
   }
@@ -1033,7 +1045,7 @@ let pendingBorrow = null; /* {lender, receiver, stage:"lender"|"receiver", entry
 function buildBorrowRow(a){
   const top = document.getElementById("stTop");
   top.innerHTML = "";
-  borrowCols = String(a).split("").map(d => ({ orig:+d, plus10:false, lent:false }));
+  borrowCols = String(a).split("").map(d => ({ orig:+d, plus10:false, lent:false, hist:[] }));
   pendingBorrow = null;
   borrowCols.forEach((c, i) => {
     const col = document.createElement("span");
@@ -1056,19 +1068,22 @@ function renderBorrow(){
   const cols = document.querySelectorAll("#stTop .bcol");
   cols.forEach((col, i) => {
     const c = borrowCols[i];
-    const modified = c.plus10 || c.lent;
-    col.classList.toggle("bmod", modified);
+    col.classList.toggle("bmod", c.plus10 || c.lent);
     const sc = col.querySelector(".scratch");
     sc.classList.remove("active","waiting");
-    if(pendingBorrow && i === (pendingBorrow.stage==="lender" ? pendingBorrow.lender : pendingBorrow.receiver)){
-      sc.textContent = pendingBorrow.entry;
-      sc.classList.add("active");
-    }else if(pendingBorrow && pendingBorrow.stage==="lender" && i === pendingBorrow.receiver){
-      sc.textContent = "_";
-      sc.classList.add("waiting");
-    }else{
-      sc.textContent = modified ? colValue(c) : "";
+    const pendingHere = pendingBorrow &&
+      i === (pendingBorrow.stage==="lender" ? pendingBorrow.lender : pendingBorrow.receiver);
+    const waitingHere = pendingBorrow && pendingBorrow.stage==="lender" && i === pendingBorrow.receiver;
+    let html = "";
+    if(pendingHere) html += '<span class="sv active">' + pendingBorrow.entry + '</span>';
+    else if(waitingHere) html += '<span class="sv waiting">_</span>';
+    const hist = c.hist || [];
+    for(let k = hist.length - 1; k >= 0; k--){
+      /* struck if a newer value sits above it (or one is being written now) */
+      const struck = k < hist.length - 1 || pendingHere;
+      html += '<span class="sv' + (struck ? " old" : "") + '">' + hist[k] + '</span>';
     }
+    sc.innerHTML = html;
   });
   const any = pendingBorrow || (borrowCols && borrowCols.some(c => c.plus10 || c.lent));
   document.getElementById("clearWork").classList.toggle("hidden", !any);
@@ -1100,6 +1115,7 @@ function scratchKey(k){
   if(k === "back"){
     if(p.entry !== ""){ p.entry = p.entry.slice(0,-1); renderBorrow(); return; }
     /* empty slot + backspace: cancel the whole borrow */
+    if(p.stage === "receiver") borrowCols[p.lender].hist.pop();
     borrowCols[p.lender].lent = false;
     borrowCols[p.receiver].plus10 = false;
     pendingBorrow = null;
@@ -1117,19 +1133,23 @@ function confirmScratch(){
   const idx = p.stage === "lender" ? p.lender : p.receiver;
   const expected = colValue(borrowCols[idx]);
   if(parseInt(p.entry, 10) === expected){
+    borrowCols[idx].hist.push(expected);
     if(p.stage === "lender"){
       p.stage = "receiver"; p.entry = ""; p.misses = 0;
+      playDing();
       popCol(p.lender);
       setStatusMsg("Now write this column's new value");
     }else{
       const r = p.receiver;
       pendingBorrow = null;
+      playDing();
       popCol(r);
       setStatusMsg("");
     }
     renderBorrow();
   }else{
     colShake(idx);
+    playThunk();
     p.entry = "";
     p.misses = (p.misses || 0) + 1;
     renderBorrow();
@@ -1179,7 +1199,7 @@ function attachHold(el, fn){
 
 document.getElementById("clearWork").addEventListener("click", ()=>{
   if(borrowCols){
-    borrowCols.forEach(c => { c.plus10 = false; c.lent = false; });
+    borrowCols.forEach(c => { c.plus10 = false; c.lent = false; c.hist = []; });
     pendingBorrow = null;
     renderBorrow();
   }
@@ -1246,11 +1266,13 @@ function carryKey(k){
     const i = pendingCarry;
     carryMarks[i] = true;
     pendingCarry = null;
+    playDing();
     renderCarry();
     popCol(i);
     setStatusMsg("");
   }else{
     colShake(pendingCarry);
+    playThunk();
     setStatusMsg("Not quite — try again");
   }
 }
@@ -1442,6 +1464,38 @@ function showFlag(id){
   img.src = "flags/" + id + ".png";
 }
 
+/* =================== sounds (synthesized, fully offline) =================== */
+let audioCtx = null;
+function ac(){
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === "suspended") audioCtx.resume();
+    return audioCtx;
+  }catch(e){ return null; }
+}
+function playDing(){
+  const c = ac(); if(!c) return;
+  [[880, 0, .16, .16], [1318.5, .07, .22, .12]].forEach(([f, t0, dur, vol])=>{
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = "sine"; o.frequency.value = f;
+    g.gain.setValueAtTime(vol, c.currentTime + t0);
+    g.gain.exponentialRampToValueAtTime(.0001, c.currentTime + t0 + dur);
+    o.connect(g); g.connect(c.destination);
+    o.start(c.currentTime + t0); o.stop(c.currentTime + t0 + dur + .02);
+  });
+}
+function playThunk(){
+  const c = ac(); if(!c) return;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = "triangle";
+  o.frequency.setValueAtTime(160, c.currentTime);
+  o.frequency.exponentialRampToValueAtTime(70, c.currentTime + .12);
+  g.gain.setValueAtTime(.3, c.currentTime);
+  g.gain.exponentialRampToValueAtTime(.0001, c.currentTime + .14);
+  o.connect(g); g.connect(c.destination);
+  o.start(); o.stop(c.currentTime + .16);
+}
+
 function speak(text){
   try{
     if(!("speechSynthesis" in window)) return;
@@ -1516,6 +1570,7 @@ function renderGeoMap(){
   const pointers = new Map();
   let lastDist = null, lastMid = null, panActive = false;
   svg.addEventListener("pointerdown", e => {
+    clearTimeout(geoRestoreTimer);
     svg.setPointerCapture(e.pointerId);
     pointers.set(e.pointerId, {
       x:e.clientX, y:e.clientY, sx:e.clientX, sy:e.clientY, target:e.target
@@ -1594,12 +1649,23 @@ function flashRegion(id){
   el.classList.add("wrongflash");
   setTimeout(()=>el.classList.remove("wrongflash"), 550);
 }
+let geoRestoreTimer = null;
 function revealRegion(id){
+  /* zoom out so the pulse is visible, then restore the user's framing */
+  const saved = geoView && geoView.w < geoBase.w - 0.5
+    ? { x:geoView.x, y:geoView.y, w:geoView.w, h:geoView.h } : null;
   geoResetZoom();
   const el = document.getElementById("cell-g_" + id);
-  if(!el) return;
-  el.classList.add("reveal");
-  setTimeout(()=>el.classList.remove("reveal"), 1600);
+  if(el){
+    el.classList.add("reveal");
+    setTimeout(()=>el.classList.remove("reveal"), 1600);
+  }
+  if(saved){
+    clearTimeout(geoRestoreTimer);
+    geoRestoreTimer = setTimeout(()=>{
+      if(geoSvg){ geoView = saved; setGeoViewBox(); }
+    }, 1750);
+  }
 }
 
 function tapRegion(id, name){
@@ -1612,6 +1678,7 @@ function tapRegion(id, name){
     session.queue.shift();
     saveStore();
     paintCell(f.key);
+    playDing();
     setGeoStatus("Nice!");
     setTimeout(nextCard, 650);
   }else if(attempt === 1){
@@ -1620,6 +1687,7 @@ function tapRegion(id, name){
     session.everMissed[f.key] = true;
     saveStore();
     flashRegion(id);
+    playThunk();
     setGeoStatus("That's " + name + " — try again");
   }else{
     /* second miss: reveal the answer, requeue; region stays neutral
@@ -1632,6 +1700,7 @@ function tapRegion(id, name){
     saveStore();
     locked = true;
     flashRegion(id);
+    playThunk();
     revealRegion(f.answer);
     setGeoStatus("This is " + f.name + " — it'll come back");
     speak(f.name);
