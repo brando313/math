@@ -153,9 +153,13 @@
   .st-op{color:var(--gold);}
 
   /* borrowing scratchpad */
-  .card.colmode .stack{margin-top:1.3em;}
+  .card.colmode .stack{margin-top:.3em;}
+  .card.colmode .st-row{align-items:flex-end;}
   .card.colmode{--colw:1.5ch;}
-  .card.colmode .bcol{width:var(--colw);min-width:0;}
+  .card.colmode .bcol{
+    width:var(--colw);min-width:0;
+    display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
+  }
   .dgrp{display:inline-flex;}
   .dgrp .dcell{width:var(--colw);text-align:center;}
   .card.stacked.colmode .answer-slot{
@@ -190,10 +194,9 @@
     opacity:.5;
   }
   .bcol .scratch{
-    position:absolute;bottom:1.12em;left:50%;transform:translateX(-50%);
     display:flex;flex-direction:column;align-items:center;
-    font-size:.42em;line-height:1.1;color:var(--gold);
-    white-space:nowrap;
+    font-size:.42em;line-height:1.15;color:var(--gold);
+    white-space:nowrap;margin-bottom:3px;
   }
   .sv{display:block;}
   .sv.old{text-decoration:line-through;text-decoration-thickness:2px;opacity:.5;}
@@ -213,8 +216,8 @@
   .scratch.waiting{opacity:.35;}
   .bcol.holding{transform:scale(1.18);}
   .bcol.colshake{animation:shake .35s;}
-  .bcol.pop .scratch{animation:popIn .28s ease;}
-  @keyframes popIn{from{transform:translateX(-50%) scale(.2);}to{transform:translateX(-50%) scale(1);}}
+  .bcol.pop .scratch{animation:popIn .28s ease;transform-origin:center bottom;}
+  @keyframes popIn{from{transform:scale(.2);}to{transform:scale(1);}}
   #clearWork{
     position:absolute;top:12px;right:14px;
     font-family:var(--display);font-weight:700;font-size:14px;
