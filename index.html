@@ -153,7 +153,7 @@
   .st-op{color:var(--gold);}
 
   /* borrowing scratchpad */
-  .card.colmode .stack{margin-top:1.15em;}
+  .card.colmode .stack{margin-top:1.3em;}
   .card.colmode{--colw:1.5ch;}
   .card.colmode .bcol{width:var(--colw);min-width:0;}
   .dgrp{display:inline-flex;}
@@ -190,7 +190,7 @@
     opacity:.5;
   }
   .bcol .scratch{
-    position:absolute;bottom:1.02em;left:50%;transform:translateX(-50%);
+    position:absolute;bottom:1.12em;left:50%;transform:translateX(-50%);
     display:flex;flex-direction:column;align-items:center;
     font-size:.42em;line-height:1.1;color:var(--gold);
     white-space:nowrap;
@@ -200,8 +200,8 @@
   .sv.waiting{opacity:.35;}
   .sv.active{min-width:.6em;min-height:1em;}
   .sv.active::after{
-    content:"";display:inline-block;width:3px;height:.85em;
-    background:var(--gold);margin-left:2px;vertical-align:baseline;
+    content:"";display:inline-block;width:2px;height:.8em;
+    background:var(--gold);margin-left:5px;opacity:.9;vertical-align:baseline;
     animation:blinkCaret 1s steps(1) infinite;
   }
   .scratch.active::after{
@@ -831,6 +831,9 @@ let boxCursor = 0;
 
 function activeBoxIndex(){
   if(!colBoxes) return -1;
+  /* while a borrow/carry is being written, the keypad belongs to the scratch —
+     no answer box or column should claim focus */
+  if(pendingBorrow || pendingCarry !== null) return -1;
   return boxManual ? boxCursor : colBoxes.lastIndexOf("");
 }
 
@@ -1088,6 +1091,7 @@ function renderBorrow(){
   const any = pendingBorrow || (borrowCols && borrowCols.some(c => c.plus10 || c.lent));
   document.getElementById("clearWork").classList.toggle("hidden", !any);
   updateGoKey();
+  if(colBoxes) renderEntry();
 }
 
 function borrowInto(i){ /* i = the digit being held: the LENDER */
@@ -1243,6 +1247,7 @@ function renderCarry(){
   });
   document.getElementById("clearWork").classList.toggle("hidden",
     pendingCarry === null && !carryMarks.some(x=>x));
+  if(colBoxes) renderEntry();
 }
 
 function carryInto(i){
