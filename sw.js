@@ -1,5 +1,5 @@
 /* Fact Board offline cache */
-const CACHE = "factboard-v30";
+const CACHE = "factboard-v31";
 const ASSETS = ["./", "./index.html", "./sw.js"];
 /* bird photos: cached individually so missing files never break install */
 const EAGLES = ["eagles/whitetailed.jpg", "eagles/booted.jpg", "eagles/blackhawk.jpg", "eagles/bald.jpg", "eagles/golden.jpg", "eagles/little.jpg", "eagles/philippine.jpg", "eagles/stellerssea.jpg", "eagles/bateleur.jpg", "eagles/crowned.jpg", "eagles/martial.jpg", "eagles/africanfish.jpg", "eagles/crested.jpg", "eagles/harpy.jpg", "eagles/andamanserpent.jpg", "eagles/brownsnake.jpg", "eagles/papuanharpy.jpg", "eagles/chaco.jpg", "eagles/solitary.jpg", "eagles/madagascarfish.jpg", "eagles/longcrested.jpg"];

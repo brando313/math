@@ -14,7 +14,7 @@ Two files: `index.html` (the whole app) and `sw.js` (makes it work offline after
 - All data (sessions, progress, reports) is stored on the iPad itself in localStorage. Nothing leaves the device. George's results live on George's iPad, Charlie's on Charlie's.
 - Both names appear on both iPads. The app remembers whoever played last, so each kid taps their name once and it stays selected.
 - If a session gets interrupted (app closed, iPad sleeps, battery dies), progress is saved on every single answer. The home screen offers a Resume button, and abandoned sessions are written to Reports as Partial.
-- The timer only counts active time. Pauses longer than 30 seconds (bathroom break, gas stop) don't inflate the session length.
+- The timer counts time while the app is on screen and pauses automatically when the app is backgrounded or the iPad locks, so a gas stop doesn't inflate the session length.
 - "Erase all data on this iPad" is at the bottom of the Reports screen if you ever want a clean slate.
 - To update the app later, replace the files on the host and bump the cache name in `sw.js` (change `factboard-v1` to `factboard-v2`), then reopen once on wifi.
 

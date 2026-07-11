@@ -588,7 +588,6 @@ const GEO = {"usa":{"viewBox":"192 9 1028 746","regions":[{"id":"ak","name":"Ala
 
 /* =================== storage =================== */
 const STORE_KEY = "factBoardV1";
-const IDLE_CAP_MS = 30000; /* pauses longer than 30s don't count toward session time */
 
 function loadStore(){
   try{
@@ -835,8 +834,10 @@ function beginSession(sess){
 }
 
 function tickTime(){
+  /* counts continuously while the app is visible; the visibilitychange
+     handler banks and pauses when the app is backgrounded or the iPad locks */
   const now = Date.now();
-  session.elapsedMs += Math.min(now - session.lastActivity, IDLE_CAP_MS);
+  session.elapsedMs += now - session.lastActivity;
   session.lastActivity = now;
 }
 
@@ -1923,7 +1924,7 @@ function startTimer(){
   stopTimer();
   timerId = setInterval(()=>{
     if(!session) return;
-    const live = session.elapsedMs + Math.min(Date.now()-session.lastActivity, IDLE_CAP_MS);
+    const live = session.elapsedMs + (Date.now() - session.lastActivity);
     document.getElementById("sTimer").textContent = fmtTime(Math.round(live/1000));
   }, 1000);
 }
