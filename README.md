@@ -120,3 +120,9 @@ Eagle pictures live in the `eagles` folder (included). Optional real calls: add
 golden, little, philippine, stellerssea, bateleur, crowned, martial, africanfish,
 crested, harpy, andamanserpent, brownsnake, papuanharpy, chaco, solitary,
 madagascarfish, longcrested.
+
+## Countries quiz
+
+Tap the Countries button, pick a continent, and name every country on its map —
+197 countries across six continents, plus Antarctica as a one-tap bonus round.
+Country flags live in the `worldflags` folder (included). Capitals are built in.
