@@ -383,6 +383,34 @@
   .region.reveal{animation:revealPulse 1.5s ease;}
   @keyframes revealPulse{0%{fill:#C9D7E5;}40%{fill:var(--gold);}75%{fill:var(--gold);}100%{fill:#C9D7E5;}}
 
+  /* number lab */
+  .forge{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-width:0;}
+  .forge-target{font-family:var(--display);font-weight:800;font-size:34px;}
+  .forge-rule{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-soft);margin-top:-8px;letter-spacing:.04em;}
+  .forge-work{font-family:var(--display);font-weight:700;font-size:16px;color:var(--ink-soft);min-height:22px;text-align:center;}
+  .forge-tiles{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .forge-tile{
+    font-family:var(--display);font-weight:800;font-size:34px;
+    min-width:86px;padding:20px 18px;border-radius:16px;
+    border:2.5px solid var(--line);background:var(--panel);color:var(--ink);
+  }
+  .forge-tile.selected{border-color:var(--gold);background:#FFF6E0;}
+  .forge-tile.win{
+    border-color:var(--green);background:var(--green);color:#fff;
+    animation:winPop .55s ease;
+  }
+  @keyframes winPop{0%{transform:scale(1);}40%{transform:scale(1.22);}100%{transform:scale(1);}}
+  .forge-tile.lose{border-color:#C0392B;background:#F7DCD8;color:#8F2F24;}
+  .forge-ops{display:flex;gap:12px;}
+  .forge-op{
+    font-family:var(--display);font-weight:800;font-size:28px;
+    width:64px;padding:12px 0;border-radius:14px;
+    border:2px solid var(--line);background:var(--panel);color:var(--ink);
+  }
+  .forge-op.selected{border-color:var(--navy);background:var(--navy);color:#fff;}
+  .forge-ctl{display:flex;gap:12px;}
+  .forge-status{font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink-soft);min-height:24px;text-align:center;}
+
   /* penguin quiz */
   .pg{flex:1;display:flex;gap:16px;min-width:0;}
   .pg-img-wrap{
@@ -446,6 +474,7 @@
         <button class="toggle-btn" data-op="countries">&#127757; Countries</button>
         <button class="toggle-btn" data-op="penguins">&#128039; Penguins</button>
         <button class="toggle-btn" data-op="eagles">&#129413; Eagles</button>
+        <button class="toggle-btn" data-op="forge">&#129513; Number Lab</button>
       </div>
       <div class="toggle-row" id="levelRow">
         <button class="toggle-btn selected" data-level="beginner">Beginner</button>
@@ -559,6 +588,24 @@
         <div class="pg-status" id="pgStatus"></div>
       </div>
     </div>
+
+    <div class="forge hidden" id="forge">
+      <div class="forge-target" id="forgeTarget">Make 24</div>
+      <div class="forge-rule">use all the numbers</div>
+      <div class="forge-work" id="forgeWork"></div>
+      <div class="forge-tiles" id="forgeTiles"></div>
+      <div class="forge-ops">
+        <button class="forge-op" data-fop="+">+</button>
+        <button class="forge-op" data-fop="−">−</button>
+        <button class="forge-op" data-fop="×">×</button>
+        <button class="forge-op" data-fop="÷">÷</button>
+      </div>
+      <div class="forge-ctl">
+        <button class="btn" id="forgeUndo">Undo</button>
+        <button class="btn" id="forgeReset">Start over</button>
+      </div>
+      <div class="forge-status" id="forgeStatus"></div>
+    </div>
   </div>
 </div>
 
@@ -627,8 +674,9 @@ let store = loadStore();
    add beginner: rows + cols, each 0-10 (sums within 20)
    sub beginner: rows = number subtracted (0-10), cols = answer (0-10); prompt is (r+c) − r
    add/sub advanced: 30 generated multi-digit problems up to 9999, shown stacked */
-const OPSYM  = { add:"+", sub:"−", mult:"×", div:"÷", usa:"🇺🇸", canada:"🇨🇦", countries:"🌍", penguins:"🐧", eagles:"🦅" };
-const OPNAME = { add:"Addition", sub:"Subtraction", mult:"Multiplication", div:"Division", usa:"US States", canada:"Canada", countries:"Countries", penguins:"Penguins", eagles:"Eagles" };
+const OPSYM  = { add:"+", sub:"−", mult:"×", div:"÷", usa:"🇺🇸", canada:"🇨🇦", countries:"🌍", penguins:"🐧", eagles:"🦅", forge:"🧩" };
+const OPNAME = { add:"Addition", sub:"Subtraction", mult:"Multiplication", div:"Division", usa:"US States", canada:"Canada", countries:"Countries", penguins:"Penguins", eagles:"Eagles", forge:"Number Lab" };
+function isForge(op){ return op === "forge"; }
 const COUNTRYINFO = {
 dz:"Algiers",ao:"Luanda",bj:"Porto-Novo",bw:"Gaborone",bf:"Ouagadougou",bi:"Gitega",cv:"Praia",
 cm:"Yaoundé",cf:"Bangui",td:"N'Djamena",km:"Moroni",cg:"Brazzaville",cd:"Kinshasa",ci:"Yamoussoukro",
@@ -821,7 +869,102 @@ const CHOICE_QUIZZES = {
   eagles:{ list:()=>EAGLES, folder:"eagles", q:"Which eagle is this?", cols:7, synth:synthEagle }
 };
 
+/* forge-pure-start */
+function forgeCanon(a, op, b){
+  if(op === "+" || op === "×"){
+    const [x, y] = a <= b ? [a, b] : [b, a];
+    return x + op + y;
+  }
+  return a + op + b;
+}
+function forgeSolve(tiles, ops){
+  /* returns Map(value -> Set(canonical solution strings)), exploring every
+     pairing order; intermediates must stay non-negative integers */
+  const out = new Map();
+  function note(v, expr){
+    if(!out.has(v)) out.set(v, new Set());
+    out.get(v).add(expr);
+  }
+  function rec(list){
+    if(list.length === 1){ note(list[0].v, list[0].e); return; }
+    for(let i = 0; i < list.length; i++){
+      for(let j = 0; j < list.length; j++){
+        if(i === j) continue;
+        const a = list[i], b = list[j];
+        for(const op of ops){
+          if((op === "+" || op === "×") && i > j) continue; /* commutative once */
+          let v = null;
+          if(op === "+") v = a.v + b.v;
+          if(op === "−"){ v = a.v - b.v; if(v < 0) v = null; }
+          if(op === "×") v = a.v * b.v;
+          if(op === "÷"){ if(b.v === 0 || a.v % b.v !== 0) v = null; else v = a.v / b.v; }
+          if(v === null) continue;
+          const e = "(" + forgeCanon(a.e, op, b.e) + ")";
+          const rest = list.filter((_, k) => k !== i && k !== j);
+          rec(rest.concat([{ v, e }]));
+        }
+      }
+    }
+  }
+  rec(tiles.map(t => ({ v: t, e: String(t) })));
+  return out;
+}
+function forgeGen(level, count){
+  const beginner = level === "beginner";
+  const ops = beginner ? ["+","−","×"] : ["+","−","×","÷"];
+  const nTiles = beginner ? 3 : 4;
+  const tMin = beginner ? 3 : 4, tMax = beginner ? 20 : 30;
+  const minWays = beginner ? 2 : 3; /* advanced: many paths in = forgiving */
+  const puzzles = [];
+  let guard = 0;
+  while(puzzles.length < count && guard++ < 6000){
+    const tiles = [];
+    if(beginner){
+      for(let i = 0; i < nTiles; i++) tiles.push(1 + Math.floor(Math.random() * 10));
+    }else{
+      /* two small tiles (1-6) + two medium (1-9): workable mixes, no monsters */
+      tiles.push(1 + Math.floor(Math.random() * 6));
+      tiles.push(1 + Math.floor(Math.random() * 6));
+      tiles.push(1 + Math.floor(Math.random() * 9));
+      tiles.push(1 + Math.floor(Math.random() * 9));
+    }
+    const res = forgeSolve(tiles, ops);
+    /* a target reachable by only SOME of the tiles is a trap: the learner can
+       hit it early and be stranded with leftovers — exclude such targets */
+    const subsetVals = new Set(tiles);
+    for(let mask = 1; mask < (1 << nTiles) - 1; mask++){
+      const sub = tiles.filter((_, i) => mask & (1 << i));
+      if(sub.length < 2) continue;
+      for(const v of forgeSolve(sub, ops).keys()) subsetVals.add(v);
+    }
+    const cands = [];
+    for(const [v, set] of res){
+      if(v < tMin || v > tMax) continue;
+      if(subsetVals.has(v)) continue;
+      cands.push({ target: v, ways: set.size, sol: set.values().next().value });
+    }
+    if(!cands.length) continue;
+    cands.sort((a, b) => b.ways - a.ways);
+    let pool = cands.filter(c => c.ways >= minWays);
+    if(!pool.length) pool = cands.filter(c => c.ways >= 2);
+    if(!pool.length) continue; /* single-path puzzles don't make the cut */
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    /* avoid duplicate puzzles in a session */
+    const sig = tiles.slice().sort((a,b)=>a-b).join(",") + ">" + pick.target;
+    if(puzzles.some(p => p.sig === sig)) continue;
+    puzzles.push({ sig, tiles, target: pick.target, sol: pick.sol, ways: pick.ways });
+  }
+  return puzzles;
+}
+/* forge-pure-end */
+
 function buildFacts(op, level){
+  if(isForge(op)){
+    return forgeGen(level, 12).map((p, i) => ({
+      key: "nl:" + i, prompt: "Make " + p.target,
+      tiles: p.tiles, target: p.target, sol: p.sol, ways: p.ways, answer: p.target
+    }));
+  }
   if(isChoice(op))
     return CHOICE_QUIZZES[op].list().map(p => ({ key:"pg:"+p.id, name:p.name, prompt:p.name, answer:p.id }));
   if(op === "countries"){
@@ -881,10 +1024,12 @@ function beginSession(sess){
   saveStore();
   const geo = isGeo(sess.op);
   const pg = isChoice(sess.op);
+  const fg = isForge(sess.op);
   document.getElementById("boardPanel").classList.toggle("hidden", geo);
-  document.getElementById("playPanel").classList.toggle("hidden", geo || pg);
+  document.getElementById("playPanel").classList.toggle("hidden", geo || pg || fg);
   document.getElementById("geo").classList.toggle("hidden", !geo);
   document.getElementById("pg").classList.toggle("hidden", !pg);
+  document.getElementById("forge").classList.toggle("hidden", !fg);
   showScreen("session"); /* must precede map render: getBBox needs a visible element */
   if(geo) renderGeoMap(); else buildGrid();
   document.getElementById("sLearner").textContent = sess.learner;
@@ -914,6 +1059,12 @@ function nextCard(){
   if(session.queue.length === 0){ finalize(true); return; }
   const f = factIndex[currentKey()];
   entry = ""; attempt = 1; locked = false;
+  if(isForge(session.op)){
+    colBoxes = null; carryMarks = null; pendingCarry = null;
+    speak(f.prompt);
+    forgeStart(f);
+    return;
+  }
   if(isChoice(session.op)){
     colBoxes = null; carryMarks = null; pendingCarry = null;
     renderPgCard(f);
@@ -1039,7 +1190,7 @@ function renderEntry(){
 function setStatusMsg(t){ document.getElementById("cardStatus").textContent = t; }
 
 function press(k){
-  if(locked || !session || isGeo(session.op) || isChoice(session.op)) return;
+  if(locked || !session || isGeo(session.op) || isChoice(session.op) || isForge(session.op)) return;
   if(pendingBorrow){ scratchKey(k); return; }
   if(pendingCarry !== null){ carryKey(k); return; }
   if(colBoxes){
@@ -1445,6 +1596,159 @@ function carryKey(k){
   }
 }
 
+/* =================== number lab =================== */
+let forgeState = null;
+
+function forgeStart(f){
+  forgeState = {
+    tiles: f.tiles.map((v, i) => ({ v, id: i })),
+    hist: [], sel: null, op: null, nextId: f.tiles.length
+  };
+  document.getElementById("forgeTarget").textContent = "Make " + f.target;
+  document.getElementById("forgeStatus").textContent = "";
+  document.querySelector('.forge-op[data-fop="÷"]').classList.toggle("hidden", session.level === "beginner");
+  renderForge();
+}
+
+function renderForge(){
+  const st = forgeState; if(!st) return;
+  const wrap = document.getElementById("forgeTiles");
+  wrap.innerHTML = "";
+  st.tiles.forEach(t=>{
+    const b = document.createElement("button");
+    b.className = "forge-tile" + (st.sel === t.id ? " selected" : "");
+    b.textContent = t.v;
+    b.addEventListener("click", ()=>forgeTapTile(t.id));
+    wrap.appendChild(b);
+  });
+  document.querySelectorAll(".forge-op").forEach(b=>{
+    b.classList.toggle("selected", st.op === b.dataset.fop);
+  });
+  const work = st.hist.map(h => h.line).join("   ");
+  document.getElementById("forgeWork").textContent = work;
+  document.getElementById("forgeUndo").disabled = !st.hist.length;
+}
+
+function forgeTapTile(id){
+  const st = forgeState; if(!st || locked) return;
+  if(st.sel === null || st.op === null || st.sel === id){
+    st.sel = id; st.op = st.sel === id ? st.op : null;
+    if(st.sel === id && st.op === null) st.op = null;
+    renderForge(); return;
+  }
+  const a = st.tiles.find(t => t.id === st.sel);
+  const b = st.tiles.find(t => t.id === id);
+  let v = null;
+  if(st.op === "+") v = a.v + b.v;
+  if(st.op === "−"){ v = a.v - b.v; if(v < 0){ forgeNudge("Keep it positive — try the other order"); return; } }
+  if(st.op === "×") v = a.v * b.v;
+  if(st.op === "÷"){
+    if(b.v === 0 || a.v % b.v !== 0){ forgeNudge("That doesn't divide evenly"); return; }
+    v = a.v / b.v;
+  }
+  st.hist.push({ tiles: st.tiles.map(t => ({...t})), line: a.v + " " + st.op + " " + b.v + " = " + v });
+  st.tiles = st.tiles.filter(t => t.id !== a.id && t.id !== b.id)
+                     .concat([{ v, id: st.nextId++ }]);
+  st.sel = null; st.op = null;
+  renderForge();
+  if(st.tiles.length === 1){
+    forgeEvaluate(st.tiles[0].v);
+  }else if(v === factIndex[currentKey()].target){
+    document.getElementById("forgeStatus").textContent =
+      "That's " + v + " — but every number must be used. Undo and find another path!";
+  }
+}
+
+function forgeNudge(msg){
+  playThunk();
+  document.getElementById("forgeStatus").textContent = msg;
+  const st = forgeState; st.op = null; renderForge();
+}
+
+function forgeTapOp(o){
+  const st = forgeState; if(!st || locked) return;
+  if(st.sel === null){
+    document.getElementById("forgeStatus").textContent = "Pick a number first";
+    return;
+  }
+  st.op = o;
+  document.getElementById("forgeStatus").textContent = "";
+  renderForge();
+}
+document.querySelectorAll(".forge-op").forEach(b=>{
+  b.addEventListener("click", ()=>forgeTapOp(b.dataset.fop));
+});
+document.getElementById("forgeUndo").addEventListener("click", ()=>{
+  const st = forgeState; if(!st || !st.hist.length || locked) return;
+  const h = st.hist.pop();
+  st.tiles = h.tiles; st.sel = null; st.op = null;
+  document.getElementById("forgeStatus").textContent = "";
+  renderForge();
+});
+document.getElementById("forgeReset").addEventListener("click", ()=>{
+  if(!session || !isForge(session.op) || locked) return;
+  forgeStart(factIndex[currentKey()]);
+});
+
+function forgeSpeakExpr(e){
+  return e.replace(/\(/g,"").replace(/\)/g,"")
+          .replace(/×/g," times ").replace(/÷/g," divided by ")
+          .replace(/−/g," minus ").replace(/\+/g," plus ");
+}
+
+function forgeEvaluate(v){
+  const f = factIndex[currentKey()];
+  tickTime();
+  const lastTile = document.querySelector("#forgeTiles .forge-tile");
+  if(v === f.target){
+    locked = true;
+    session.status[f.key] = "green";
+    session.queue.shift();
+    saveStore();
+    paintCell(f.key);
+    playFanfare();
+    if(lastTile) lastTile.classList.add("win");
+    document.getElementById("forgeStatus").textContent =
+      f.ways > 1 ? "You found 1 of " + f.ways + " ways!" : "Nice!";
+    setTimeout(nextCard, f.ways > 1 ? 1600 : 1150);
+  }else if(attempt === 1){
+    attempt = 2;
+    session.everMissed = session.everMissed || {};
+    session.everMissed[f.key] = true;
+    session.status[f.key] = "yellow";
+    saveStore();
+    paintCell(f.key);
+    playThunk();
+    if(lastTile) lastTile.classList.add("lose");
+    document.getElementById("forgeStatus").textContent =
+      "You made " + v + ", not " + f.target + " — tiles are back, try again";
+    locked = true;
+    setTimeout(()=>{
+      forgeState.tiles = f.tiles.map((tv, i) => ({ v: tv, id: i }));
+      forgeState.hist = []; forgeState.sel = null; forgeState.op = null;
+      forgeState.nextId = f.tiles.length;
+      locked = false;
+      renderForge();
+    }, 750);
+  }else{
+    session.everMissed[f.key] = true;
+    session.requeued[f.key] = true;
+    session.queue.shift();
+    const pos = Math.min(4 + Math.floor(Math.random()*3), session.queue.length);
+    session.queue.splice(pos, 0, f.key);
+    saveStore();
+    locked = true;
+    paintCell(f.key);
+    playThunk();
+    if(lastTile) lastTile.classList.add("lose");
+    const shown = f.sol.replace(/^\(|\)$/g, "");
+    document.getElementById("forgeStatus").textContent =
+      "One way: " + shown + " = " + f.target + " — it'll come back";
+    speak("One way: " + forgeSpeakExpr(f.sol) + " equals " + f.target);
+    setTimeout(nextCard, 2400);
+  }
+}
+
 /* =================== penguin quiz =================== */
 let pgButtons = [];
 
@@ -1761,6 +2065,17 @@ function playDing(){
     g.gain.exponentialRampToValueAtTime(.0001, c.currentTime + t0 + dur);
     o.connect(g); g.connect(c.destination);
     o.start(c.currentTime + t0); o.stop(c.currentTime + t0 + dur + .02);
+  });
+}
+function playFanfare(){
+  const c = ac(); if(!c) return;
+  [[523.25, 0], [659.25, .09], [783.99, .18], [1046.5, .3]].forEach(([f, t0])=>{
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = "sine"; o.frequency.value = f;
+    g.gain.setValueAtTime(.15, c.currentTime + t0);
+    g.gain.exponentialRampToValueAtTime(.0001, c.currentTime + t0 + .35);
+    o.connect(g); g.connect(c.destination);
+    o.start(c.currentTime + t0); o.stop(c.currentTime + t0 + .4);
   });
 }
 function playThunk(){
@@ -2178,6 +2493,19 @@ function buildGrid(){
   grid.innerHTML = "";
   const op = session.op, lvl = session.level;
 
+  /* number lab: a strip of 12 dots */
+  if(isForge(op)){
+    grid.style.gridTemplateColumns = "repeat(6, 24px)";
+    for(const f of Object.values(factIndex)){
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.id = "cell-" + f.key.replace(/:/g,"_");
+      if(session.status[f.key]) cell.classList.add(session.status[f.key]);
+      grid.appendChild(cell);
+    }
+    return;
+  }
+
   /* picture quizzes: a strip of dots */
   if(isChoice(op)){
     grid.style.gridTemplateColumns = "repeat(" + CHOICE_QUIZZES[op].cols + ", 24px)";
@@ -2356,7 +2684,11 @@ function renderHome(){
   document.querySelectorAll("#contRow .toggle-btn").forEach(b=>{
     b.classList.toggle("selected", b.dataset.cont === selContinent);
   });
-  if(selOp === "countries"){
+  if(selOp === "forge"){
+    note.textContent = selLevel === "beginner"
+      ? "Combine 3 numbers with + − × to hit the target. Many right answers!"
+      : "Combine 4 numbers with + − × ÷ to hit the target. Many right answers!";
+  }else if(selOp === "countries"){
     const counts = { africa:54, asia:49, europe:45, northamerica:23, southamerica:12, oceania:14 };
     note.textContent = selContinent === "antarctica"
       ? "One giant frozen continent — no countries at all!"
