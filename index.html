@@ -463,6 +463,9 @@
     display:inline-flex;align-items:center;justify-content:center;padding:4px 12px;background:var(--panel);
   }
   .mslot.filled{border-style:solid;border-color:var(--navy);}
+  .mslot.activeslot{border-color:var(--gold);border-style:solid;background:#FFFBF0;}
+  .mslot.activeslot::after{content:"";display:inline-block;width:2px;height:30px;background:var(--gold);margin-left:2px;animation:caretBlink 1s steps(1) infinite;}
+  @keyframes caretBlink{50%{opacity:0;}}
   .mslot.slotwrong{border-color:#C0392B;background:#F7DCD8;animation:shake .35s;}
   .mslot.slotgold{border-color:var(--gold);background:#FFF6E0;border-style:solid;}
   .mans.win{border-color:var(--green);background:var(--green);color:#fff;border-style:solid;animation:winPop .55s ease;}
@@ -5744,60 +5747,56 @@ function storyToModel(){
   const f = factIndex[currentKey()];
   storyState.stage = "model";
   document.getElementById("storyStage").textContent = "Build the number model";
-  const orderHint = (f.sop === "−" || f.sop === "÷") ? "Order matters for this one!" : "";
-  document.getElementById("storyStatus").textContent = orderHint;
+  const orderHint = (f.sop === "−" || f.sop === "÷") ? " Order matters for this one!" : "";
+  document.getElementById("storyStatus").textContent = "Type each number, then press Go." + orderHint;
   document.getElementById("storyOps").classList.add("hidden");
   document.getElementById("storyModel").classList.remove("hidden");
   document.getElementById("mop").textContent = f.sop;
-  const nums = [f.a, f.b];
-  if(f.decoy !== null && f.decoy !== undefined) nums.push(f.decoy);
-  const chips = shuffle(nums.slice());
-  const wrap = document.getElementById("storyChips");
-  wrap.innerHTML = "";
-  chips.forEach((v, i)=>{
-    const c = document.createElement("button");
-    c.className = "chip-num";
-    c.textContent = v;
-    c.dataset.v = v; c.dataset.ci = i;
-    c.addEventListener("click", ()=>storyChipTap(c));
-    wrap.appendChild(c);
-  });
+  document.getElementById("storyChips").innerHTML = "";
   storyState.slots = [null, null];
+  storyState.active = 0;
+  storyState.entry = "";
+  ensureStoryPad();
+  document.getElementById("storyPad").classList.remove("hidden");
   renderStorySlots();
 }
 
+function ensureStoryPad(){
+  const pad = document.getElementById("storyPad");
+  if(pad.childElementCount) return;
+  ["1","2","3","4","5","6","7","8","9","\u232B","0","Go"].forEach(k=>{
+    const b = document.createElement("button");
+    b.className = "skey" + (k === "Go" ? " go" : "");
+    b.textContent = k;
+    b.addEventListener("click", ()=>storyKey(k));
+    pad.appendChild(b);
+  });
+}
+
 function renderStorySlots(){
+  const modelling = storyState && storyState.stage === "model";
   [0,1].forEach(i=>{
     const s = document.getElementById("mslot" + i);
     const v = storyState.slots[i];
-    s.textContent = v === null ? "" : v.v;
+    const isActive = modelling && storyState.active === i;
+    s.textContent = v !== null ? v.v : (isActive ? storyState.entry : "");
     s.classList.toggle("filled", v !== null);
+    s.classList.toggle("activeslot", isActive);
   });
   document.getElementById("mans").textContent = "?";
 }
 [0,1].forEach(i=>{
   document.getElementById("mslot" + i).addEventListener("click", ()=>{
     if(locked || !storyState || storyState.stage !== "model") return;
-    const v = storyState.slots[i];
-    if(v === null) return;
-    v.chip.classList.remove("used");
+    if(storyState.slots[i] === null && storyState.active === i) return;
     storyState.slots[i] = null;
+    storyState.active = i;
+    storyState.entry = "";
     renderStorySlots();
   });
 });
 
-function storyChipTap(chip){
-  if(locked || !storyState || storyState.stage !== "model") return;
-  if(chip.classList.contains("used")) return;
-  const idx = storyState.slots[0] === null ? 0 : (storyState.slots[1] === null ? 1 : -1);
-  if(idx < 0) return;
-  chip.classList.add("used");
-  storyState.slots[idx] = { v: +chip.dataset.v, chip };
-  renderStorySlots();
-  if(storyState.slots[0] !== null && storyState.slots[1] !== null){
-    setTimeout(storyCheckModel, 220);
-  }
-}
+
 
 function storyCheckModel(){
   const f = factIndex[currentKey()];
@@ -5822,10 +5821,8 @@ function storyCheckModel(){
       });
       if(storyState.modelMiss >= 2){
         /* reveal the correct model, then still let them solve it */
-        document.querySelectorAll("#storyChips .chip-num").forEach(c=>c.classList.add("used"));
-        storyState.slots = [
-          { v: f.a, chip: null }, { v: f.b, chip: null }
-        ];
+        storyState.slots = [{ v: f.a }, { v: f.b }];
+        storyState.active = -1; storyState.entry = "";
         [0,1].forEach(i=>{
           const s = document.getElementById("mslot" + i);
           s.textContent = storyState.slots[i].v;
@@ -5835,8 +5832,8 @@ function storyCheckModel(){
           "The model is " + f.a + " " + f.sop + " " + f.b + " — now solve it!";
         setTimeout(storyToSolve, 1400);
       }else{
-        storyState.slots.forEach(v=>{ if(v && v.chip) v.chip.classList.remove("used"); });
         storyState.slots = [null, null];
+        storyState.active = 0; storyState.entry = "";
         renderStorySlots();
         document.getElementById("storyStatus").textContent = "Check the story again — which numbers, which order?";
       }
@@ -5850,23 +5847,17 @@ function storyToSolve(){
   document.getElementById("storyStage").textContent = "Solve it!";
   document.getElementById("storyStatus").textContent = "";
   [0,1].forEach(i=>document.getElementById("mslot" + i).classList.remove("slotgold"));
-  const pad = document.getElementById("storyPad");
-  pad.classList.remove("hidden");
-  if(!pad.childElementCount){
-    ["1","2","3","4","5","6","7","8","9","⌫","0","Go"].forEach(k=>{
-      const b = document.createElement("button");
-      b.className = "skey" + (k === "Go" ? " go" : "");
-      b.textContent = k;
-      b.addEventListener("click", ()=>storyKey(k));
-      pad.appendChild(b);
-    });
-  }
+  [0,1].forEach(i=>document.getElementById("mslot" + i).classList.remove("activeslot"));
+  ensureStoryPad();
+  document.getElementById("storyPad").classList.remove("hidden");
   document.getElementById("mans").textContent = "?";
   document.getElementById("mans").classList.remove("win","lose");
 }
 
 function storyKey(k){
-  if(locked || !storyState || storyState.stage !== "solve") return;
+  if(locked || !storyState) return;
+  if(storyState.stage === "model"){ storyModelKey(k); return; }
+  if(storyState.stage !== "solve") return;
   const ansEl = document.getElementById("mans");
   if(k === "⌫"){
     storyState.entry = storyState.entry.slice(0, -1);
@@ -5878,6 +5869,28 @@ function storyKey(k){
     storyState.entry += k;
   }
   ansEl.textContent = storyState.entry || "?";
+}
+
+function storyModelKey(k){
+  const i = storyState.active;
+  if(i !== 0 && i !== 1) return;
+  if(k === "\u232B"){
+    storyState.entry = storyState.entry.slice(0, -1);
+  }else if(k === "Go"){
+    if(!storyState.entry) return;
+    storyState.slots[i] = { v: +storyState.entry };
+    storyState.entry = "";
+    if(storyState.slots[0] !== null && storyState.slots[1] !== null){
+      storyState.active = -1;
+      renderStorySlots();
+      setTimeout(storyCheckModel, 220);
+      return;
+    }
+    storyState.active = storyState.slots[0] === null ? 0 : 1;
+  }else if(storyState.entry.length < 4){
+    storyState.entry += k;
+  }
+  renderStorySlots();
 }
 
 function storySolve(v){
