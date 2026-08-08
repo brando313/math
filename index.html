@@ -546,6 +546,79 @@
     .main{flex-direction:column;}
     .board{align-items:center;}
   }
+
+/* =================== long division =================== */
+.ld-title{width:fit-content;margin:6px auto 28px;padding:10px 20px;border:2px solid #8fa7bd;border-radius:12px;background:#fff;font-size:24px;font-weight:700;text-align:center}
+.ld-blank{display:inline-block;min-width:52px;border-bottom:3px solid #2b4a66;text-align:center;color:#0a7d2c;font-weight:800;line-height:1.1}
+.ld-wrap{display:flex;justify-content:center;margin:4px 0 12px}
+.ld-grid{display:grid;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:30px;line-height:1;position:relative}
+.ld-arrow{position:absolute;left:0;top:0;pointer-events:none}
+.ld-cell{width:36px;height:44px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;box-sizing:border-box}
+.ld-divisor{color:#2b4a66;font-weight:700}
+.ld-brkt{border-right:3px solid #2b4a66;border-bottom-right-radius:100% 100%;margin-bottom:2px}
+.ld-top{border-top:3px solid #2b4a66}
+.ld-q{color:#0a7d2c;font-weight:800}
+.ld-under{border-bottom:3px solid #2b4a66}
+.ld-minus{color:#a23b3b}
+.ld-hl{background:#f3ecff;border-radius:8px}
+.ld-ask{display:flex;align-items:center;justify-content:center;gap:12px;font-size:26px;margin:8px 0;font-weight:700}
+/* =================== order of operations =================== */
+.oo-expr{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:14px 0;font-size:30px;font-weight:700}
+.oo-num{padding:6px 12px;background:#fff;border:2px solid #cdd6e0;border-radius:10px}
+.oo-par{font-size:36px;color:#66788a;font-weight:700}
+.oo-parm{font-size:32px;color:#9fb0c0;font-weight:700}
+.oo-opbtn{font-size:30px;font-weight:700;padding:6px 16px;border-radius:10px;border:2px solid #8fa7bd;background:#eef4fb;cursor:pointer;font-family:inherit}
+.oo-opbtn:disabled{opacity:.55;cursor:default}
+.oo-wrong{background:#ffd9d9 !important;border-color:#d66 !important}
+.oo-reveal{background:#d9f4de !important;border-color:#2c9a4b !important;animation:ooPulse .45s ease 3}
+.oo-sel{background:#fff3c9 !important;border-color:#e0b53f !important}
+.oo-done{background:#d9f4de;border-color:#2c9a4b}
+.oo-unk{border-style:dashed;border-color:#e0b53f;background:#fffbe8;color:#8a6d1a}
+@keyframes ooPulse{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+#ooPanel{position:relative}
+.oo-help{position:absolute;top:0;right:0;width:42px;height:42px;border-radius:50%;border:2px solid #8fa7bd;background:#fff;font-size:22px;font-weight:800;color:#2b4a66;cursor:pointer;z-index:5;font-family:inherit}
+.oo-modal{position:fixed;inset:0;background:rgba(20,30,45,.45);display:flex;align-items:center;justify-content:center;z-index:50}
+.oo-modal.hidden{display:none}
+.oo-card{background:#fff;border-radius:16px;padding:22px 26px;max-width:430px;width:88%;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.oo-card h3{margin:0 0 12px;font-size:22px;color:#1d2f42;text-align:center}
+.bedmas-row{display:flex;gap:12px;align-items:flex-start;margin:10px 0}
+.bedmas-letter{flex:0 0 48px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff}
+.bl-b{background:#7048b6}
+.bl-e{background:#2b7de0}
+.bl-dm{background:#0a9a64}
+.bl-as{background:#e0812c}
+.bedmas-row div:last-child{font-size:17px;line-height:1.35;padding-top:8px}
+.bedmas-ex{margin-top:14px;padding:12px 14px;border-radius:10px;background:#eef4fb;font-weight:700;font-size:19px}
+.bex-line{display:flex;align-items:center;gap:12px;margin:5px 0}
+.bex-tag{flex:0 0 36px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800}
+.bx-eqtag{background:#1d2f42}
+.bx-b{color:#7048b6}
+.bx-e{color:#2b7de0}
+.bx-dm{color:#0a9a64}
+.bx-as{color:#e0812c}
+.bx-ans{font-size:22px;color:#1d2f42}
+.oo-close{display:block;margin:16px auto 0}
+.oo-models{display:flex;flex-direction:column;gap:10px;align-items:center;margin:12px 0}
+.mod-next{display:block;margin:12px auto;font-size:22px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;margin:0 4px;vertical-align:middle}
+.fnum,.fden{font-size:26px;font-weight:700;line-height:1.2;padding:0 8px}
+.fnum{border-bottom:3px solid #2b4a66}
+.fr-visual{display:flex;flex-direction:column;gap:12px;align-items:center;margin:10px 0}
+.fr-work{display:flex;align-items:center;justify-content:center;gap:8px;font-size:26px;font-weight:700;margin:12px 0;flex-wrap:wrap}
+.fr-rows{display:flex;flex-direction:column;gap:10px;align-items:center}
+.fr-row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:26px;font-weight:700;flex-wrap:wrap}
+.fslot{display:inline-block;min-width:44px;padding:2px 8px;border:2px dashed #9fb0c0;border-radius:8px;background:#fff;text-align:center;font-size:24px}
+.fslot.factive{border-color:#e0b53f;background:#fffbe8}
+.fslot.fgood{border-style:solid;border-color:#2c9a4b;background:#d9f4de}
+.fslot.fbad{border-style:solid;border-color:#d66;background:#ffd9d9}
+.fr-choices{display:flex;gap:16px;align-items:center;justify-content:center;margin:12px 0;flex-wrap:wrap}
+.fr-card{border:2px solid #8fa7bd;border-radius:14px;background:#fff;padding:14px 20px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:26px;font-weight:700;font-family:inherit}
+.fr-eq{font-size:20px;font-weight:800;padding:12px 18px;border-radius:12px;border:2px solid #8fa7bd;background:#eef4fb;cursor:pointer;font-family:inherit}
+.fr-note{font-size:15px;color:#567;font-weight:600;text-align:center}
+.dc-q{display:flex;align-items:center;justify-content:center;gap:10px;font-size:28px;font-weight:700;margin:12px 0;flex-wrap:wrap}
+.dc-big{font-size:34px;letter-spacing:2px}
+.kwide{grid-column:1 / -1}
+.model-btn{font-size:24px;font-weight:700;padding:10px 22px;border-radius:12px;border:2px solid #8fa7bd;background:#fff;cursor:pointer;min-width:230px;font-family:inherit}
 </style>
 </head>
 <body>
@@ -570,6 +643,10 @@
         <button class="toggle-btn" data-op="sub">&minus; Subtract</button>
         <button class="toggle-btn selected" data-op="mult">&times; Multiply</button>
         <button class="toggle-btn" data-op="div">&divide; Divide</button>
+        <button class="toggle-btn" data-op="longdiv">&#10135; Long Divide</button>
+        <button class="toggle-btn" data-op="orderops">&#129518; Order of Ops</button>
+        <button class="toggle-btn" data-op="fractions">&#189; Fractions</button>
+        <button class="toggle-btn" data-op="decimals">&#128290; Decimals</button>
         <button class="toggle-btn" data-op="usa">&#127482;&#127480; US States</button>
         <button class="toggle-btn" data-op="canada">&#127464;&#127462; Canada</button>
         <button class="toggle-btn" data-op="countries">&#127757; Countries</button>
@@ -582,6 +659,7 @@
       <div class="toggle-row" id="levelRow">
         <button class="toggle-btn selected" data-level="beginner">Beginner</button>
         <button class="toggle-btn" data-level="advanced">Advanced</button>
+        <button class="toggle-btn hidden" data-level="advancedplus" id="lvlPlusBtn">Advanced+</button>
       </div>
       <div class="toggle-row cont-grid hidden" id="contRow">
         <button class="toggle-btn selected" data-cont="northamerica">North America</button>
@@ -736,6 +814,67 @@
       <div class="story-status" id="storyStatus"></div>
     </div>
 
+    <div class="story hidden" id="ldPanel">
+      <div class="ld-title" id="ldTitle"></div>
+      <div class="ld-wrap"><div class="ld-grid" id="ldGrid"></div></div>
+      <div class="ld-ask"><span id="ldQuestion"></span> <span class="mslot mans" id="ldEntry">?</span></div>
+      <div class="story-pad" id="ldPad"></div>
+      <div class="story-status" id="ldStatus"></div>
+      <button class="btn btn-primary mod-next hidden" id="ldNextBtn">Next &#9654;</button>
+    </div>
+
+    <div class="story hidden" id="ooPanel">
+      <button class="oo-help" id="ooHelpBtn">?</button>
+      <div class="oo-modal hidden" id="ooModal">
+        <div class="oo-card">
+          <h3>BEDMAS &mdash; the order to solve</h3>
+          <div class="bedmas-row"><div class="bedmas-letter bl-b">B</div><div><b>Brackets</b> &mdash; do what is inside ( ) first.</div></div>
+          <div class="bedmas-row"><div class="bedmas-letter bl-e">E</div><div><b>Exponents</b> &mdash; powers like 3&sup2;. Not in these problems yet!</div></div>
+          <div class="bedmas-row"><div class="bedmas-letter bl-dm">DM</div><div><b>Divide and Multiply</b> &mdash; left to right, before adding or subtracting.</div></div>
+          <div class="bedmas-row"><div class="bedmas-letter bl-as">AS</div><div><b>Add and Subtract</b> &mdash; last, left to right.</div></div>
+          <div class="bedmas-ex">
+            <div class="bex-line"><span class="bex-tag bl-b">B</span><span><span class="bx-b">(3 + 1)</span><sup>2</sup> &times; 2 &minus; 5</span></div>
+            <div class="bex-line"><span class="bex-tag bl-e">E</span><span><span class="bx-e">4<sup>2</sup></span> &times; 2 &minus; 5</span></div>
+            <div class="bex-line"><span class="bex-tag bl-dm">DM</span><span><span class="bx-dm">16 &times; 2</span> &minus; 5</span></div>
+            <div class="bex-line"><span class="bex-tag bl-as">AS</span><span><span class="bx-as">32 &minus; 5</span></span></div>
+            <div class="bex-line"><span class="bex-tag bx-eqtag">=</span><span class="bx-ans">27</span></div>
+          </div>
+          <button class="btn btn-primary oo-close" id="ooModalClose">Got it</button>
+        </div>
+      </div>
+      <div class="story-text-wrap hidden" id="ooStoryWrap">
+        <button class="speak-btn" id="ooSpeakBtn">&#128266;</button>
+        <div class="story-text" id="ooStoryText"></div>
+      </div>
+      <div class="story-stage" id="ooStage"></div>
+      <div class="oo-models hidden" id="ooModels"></div>
+      <div class="oo-expr hidden" id="ooExpr"></div>
+      <div class="ld-ask hidden" id="ooAskRow"><span id="ooQuestion"></span> <span class="mslot mans" id="ooEntry">?</span></div>
+      <div class="story-pad hidden" id="ooPad"></div>
+      <div class="story-status" id="ooStatus"></div>
+      <button class="btn btn-primary mod-next hidden" id="ooNextBtn">Next &#9654;</button>
+    </div>
+
+    <div class="story hidden" id="frPanel">
+      <div class="story-stage" id="frStage"></div>
+      <div class="fr-visual" id="frVisual"></div>
+      <div class="fr-work" id="frWork"></div>
+      <div class="fr-choices hidden" id="frChoices"></div>
+      <div class="story-pad hidden" id="frPad"></div>
+      <div class="story-status" id="frStatus"></div>
+      <button class="btn btn-primary mod-next hidden" id="frNextBtn">Next &#9654;</button>
+    </div>
+
+    <div class="story hidden" id="dcPanel">
+      <div class="story-stage" id="dcStage"></div>
+      <div class="dc-q" id="dcQ"></div>
+      <div class="fr-choices hidden" id="dcChoices"></div>
+      <div class="ld-ask hidden" id="dcAskRow"><span class="mslot mans" id="dcEntry">?</span></div>
+      <div class="story-pad hidden" id="dcPad"></div>
+      <div class="story-status" id="dcStatus"></div>
+      <button class="btn btn-primary mod-next hidden" id="dcNextBtn">Next &#9654;</button>
+    </div>
+
     <div class="heropanel hidden" id="heroPanel">
       <div class="hero-read" id="heroRead">
         <div class="hero-name" id="heroName"></div>
@@ -851,11 +990,15 @@ let store = loadStore();
    add beginner: rows + cols, each 0-10 (sums within 20)
    sub beginner: rows = number subtracted (0-10), cols = answer (0-10); prompt is (r+c) − r
    add/sub advanced: 30 generated multi-digit problems up to 9999, shown stacked */
-const OPSYM  = { add:"+", sub:"−", mult:"×", div:"÷", usa:"🇺🇸", canada:"🇨🇦", countries:"🌍", penguins:"🐧", eagles:"🦅", forge:"🧩", story:"📖", heroes:"🌟" };
-const OPNAME = { add:"Addition", sub:"Subtraction", mult:"Multiplication", div:"Division", usa:"US States", canada:"Canada", countries:"Countries", penguins:"Penguins", eagles:"Eagles", forge:"Number Lab", story:"Story Problems", heroes:"Hero Stories" };
+const OPSYM  = { add:"+", sub:"−", mult:"×", div:"÷", longdiv:"➗", orderops:"🧮", fractions:"½", decimals:"🔢", usa:"🇺🇸", canada:"🇨🇦", countries:"🌍", penguins:"🐧", eagles:"🦅", forge:"🧩", story:"📖", heroes:"🌟" };
+const OPNAME = { add:"Addition", sub:"Subtraction", mult:"Multiplication", div:"Division", longdiv:"Long Division", orderops:"Order of Operations", fractions:"Fractions", decimals:"Decimals", usa:"US States", canada:"Canada", countries:"Countries", penguins:"Penguins", eagles:"Eagles", forge:"Number Lab", story:"Story Problems", heroes:"Hero Stories" };
 function isForge(op){ return op === "forge"; }
 function isStory(op){ return op === "story"; }
 function isHeroes(op){ return op === "heroes"; }
+function isLongdiv(op){ return op === "longdiv"; }
+function isOrder(op){ return op === "orderops"; }
+function isFractions(op){ return op === "fractions"; }
+function isDecimals(op){ return op === "decimals"; }
 const COUNTRYINFO = {
 dz:"Algiers",ao:"Luanda",bj:"Porto-Novo",bw:"Gaborone",bf:"Ouagadougou",bi:"Gitega",cv:"Praia",
 cm:"Yaoundé",cf:"Bangui",td:"N'Djamena",km:"Moroni",cg:"Brazzaville",cd:"Kinshasa",ci:"Yamoussoukro",
@@ -4851,6 +4994,21 @@ function buildFacts(op, level, extra){
       kind: s.kind, answer: s.ans
     }));
   }
+  if(isLongdiv(op)){
+    return longdivGen(level, 8).map((p, i) => ({
+      key: "ld:" + i, prompt: p.dividend + " ÷ " + p.d,
+      dividend: p.dividend, d: p.d, q: p.q, r: p.r, answer: p.q
+    }));
+  }
+  if(isOrder(op)){
+    return ooGen(level, 10);
+  }
+  if(isFractions(op)){
+    return frGen(level, 10);
+  }
+  if(isDecimals(op)){
+    return dcGen(level, 10);
+  }
   if(isForge(op)){
     return forgeGen(level, 12).map((p, i) => ({
       key: "nl:" + i, prompt: "Make " + p.target,
@@ -4920,13 +5078,21 @@ function beginSession(sess){
   const fg = isForge(sess.op);
   const st = isStory(sess.op);
   const hr = isHeroes(sess.op);
+  const ld = isLongdiv(sess.op);
+  const oo = isOrder(sess.op);
+  const fr = isFractions(sess.op);
+  const dc = isDecimals(sess.op);
   document.getElementById("boardPanel").classList.toggle("hidden", geo);
-  document.getElementById("playPanel").classList.toggle("hidden", geo || pg || fg || st || hr);
+  document.getElementById("playPanel").classList.toggle("hidden", geo || pg || fg || st || hr || ld || oo || fr || dc);
   document.getElementById("geo").classList.toggle("hidden", !geo);
   document.getElementById("pg").classList.toggle("hidden", !pg);
   document.getElementById("forge").classList.toggle("hidden", !fg);
   document.getElementById("storyPanel").classList.toggle("hidden", !st);
   document.getElementById("heroPanel").classList.toggle("hidden", !hr);
+  document.getElementById("ldPanel").classList.toggle("hidden", !ld);
+  document.getElementById("ooPanel").classList.toggle("hidden", !oo);
+  document.getElementById("frPanel").classList.toggle("hidden", !fr);
+  document.getElementById("dcPanel").classList.toggle("hidden", !dc);
   showScreen("session"); /* must precede map render: getBBox needs a visible element */
   if(geo) renderGeoMap(); else buildGrid();
   document.getElementById("sLearner").textContent = sess.learner;
@@ -4935,7 +5101,7 @@ function beginSession(sess){
     : sess.op === "countries" ? OPSYM[sess.op] + " " + CONTNAME[sess.level]
     : (geo || pg) ? OPSYM[sess.op] + " " + OPNAME[sess.op]
     : OPSYM[sess.op] + " " + OPNAME[sess.op] + " · " +
-      (sess.level==="beginner" ? "Beginner" : "Advanced");
+      (sess.level==="beginner" ? "Beginner" : sess.level==="advancedplus" ? "Advanced+" : "Advanced");
   session.lastActivity = Date.now();
   startTimer();
   nextCard();
@@ -4970,6 +5136,26 @@ function nextCard(){
   if(isStory(session.op)){
     colBoxes = null; carryMarks = null; pendingCarry = null;
     storyStart(f);
+    return;
+  }
+  if(isLongdiv(session.op)){
+    colBoxes = null; carryMarks = null; pendingCarry = null;
+    ldStart(f);
+    return;
+  }
+  if(isOrder(session.op)){
+    colBoxes = null; carryMarks = null; pendingCarry = null;
+    ooStart(f);
+    return;
+  }
+  if(isFractions(session.op)){
+    colBoxes = null; carryMarks = null; pendingCarry = null;
+    frStart(f);
+    return;
+  }
+  if(isDecimals(session.op)){
+    colBoxes = null; carryMarks = null; pendingCarry = null;
+    dcStart(f);
     return;
   }
   if(isForge(session.op)){
@@ -5103,7 +5289,7 @@ function renderEntry(){
 function setStatusMsg(t){ document.getElementById("cardStatus").textContent = t; }
 
 function press(k){
-  if(locked || !session || isGeo(session.op) || isChoice(session.op) || isForge(session.op) || isStory(session.op) || isHeroes(session.op)) return;
+  if(locked || !session || isGeo(session.op) || isChoice(session.op) || isForge(session.op) || isStory(session.op) || isHeroes(session.op) || isLongdiv(session.op) || isOrder(session.op) || isFractions(session.op) || isDecimals(session.op)) return;
   if(pendingBorrow){ scratchKey(k); return; }
   if(pendingCarry !== null){ carryKey(k); return; }
   if(colBoxes){
@@ -6874,6 +7060,19 @@ function buildGrid(){
     return;
   }
 
+  /* long division and order of ops: strips of dots */
+  if(isLongdiv(op) || isOrder(op) || isFractions(op) || isDecimals(op)){
+    grid.style.gridTemplateColumns = isLongdiv(op) ? "repeat(4, 24px)" : "repeat(5, 24px)";
+    for(const f of Object.values(factIndex)){
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.id = "cell-" + f.key.replace(/:/g,"_");
+      if(session.status[f.key]) cell.classList.add(session.status[f.key]);
+      grid.appendChild(cell);
+    }
+    return;
+  }
+
   /* number lab: a strip of 12 dots */
   if(isForge(op)){
     grid.style.gridTemplateColumns = "repeat(6, 24px)";
@@ -7055,6 +7254,8 @@ function renderHome(){
   document.querySelectorAll("#opRow .toggle-btn").forEach(b=>{
     b.classList.toggle("selected", b.dataset.op === selOp);
   });
+  document.getElementById("lvlPlusBtn").classList.toggle("hidden", selOp !== "orderops");
+  if(selOp !== "orderops" && selLevel === "advancedplus") selLevel = "advanced";
   document.querySelectorAll("#levelRow .toggle-btn").forEach(b=>{
     b.classList.toggle("selected", b.dataset.level === selLevel);
   });
@@ -7090,6 +7291,24 @@ function renderHome(){
     note.textContent = "Tap all 50 states on the map as they're called out.";
   }else if(selOp === "canada"){
     note.textContent = "Tap all 13 provinces and territories as they're called out.";
+  }else if(selOp === "longdiv"){
+    note.textContent = beg
+      ? "Beginner: 8 problems, 2-digit ÷ 1-digit, no remainders. Divide, multiply, subtract, bring down."
+      : "Advanced: 8 problems, 3-digit ÷ 1-digit, remainders included.";
+  }else if(selOp === "orderops"){
+    note.textContent = beg
+      ? "Beginner: 10 two-step problems and stories. Multiply before you add!"
+      : selLevel === "advancedplus"
+      ? "Advanced+: bracket combinations and missing-number equations like 5 + ? × 3 = 17."
+      : "Advanced: parentheses, all four operations, and stories full of extra information.";
+  }else if(selOp === "fractions"){
+    note.textContent = beg
+      ? "Beginner: shaded bars, equivalent fractions, comparing, and adding with like denominators."
+      : "Advanced: simplifying, adding unlike denominators step by step, multiplying, and fraction of a set.";
+  }else if(selOp === "decimals"){
+    note.textContent = beg
+      ? "Beginner: fractions to decimals, comparing decimals, and place value."
+      : "Advanced: adding, subtracting, and multiplying decimals, plus rounding.";
   }else if(selOp === "mult"){
     note.textContent = beg
       ? "Beginner: 0s through 5s times tables (78 facts)."
@@ -7294,6 +7513,1863 @@ document.addEventListener("visibilitychange", ()=>{
 if("serviceWorker" in navigator && location.protocol.startsWith("http")){
   navigator.serviceWorker.register("sw.js").catch(()=>{});
 }
+
+/* =================== long division =================== */
+let ldState = null;
+
+function longdivGen(level, count){
+  const beginner = level === "beginner";
+  const ri = n => Math.floor(Math.random() * n);
+  const out = []; const seen = {};
+  let guard = 0;
+  while(out.length < count && guard++ < 3000){
+    let d, dividend;
+    if(beginner){
+      d = 2 + ri(8);                       /* 2..9 */
+      const qmax = Math.floor(99 / d);
+      if(qmax < 10) continue;
+      const q = 10 + ri(qmax - 9);         /* 10..qmax => 2-digit quotient */
+      dividend = q * d;
+    }else{
+      d = 3 + ri(7);                       /* 3..9 */
+      dividend = 100 + ri(900);            /* 100..999 */
+    }
+    const k = dividend + ":" + d;
+    if(seen[k] || dividend % 10 === dividend) continue;
+    seen[k] = true;
+    out.push({ dividend, d, q: Math.floor(dividend / d), r: dividend % d });
+  }
+  return out;
+}
+
+function ldMark(){
+  const f = factIndex[currentKey()];
+  session.everMissed = session.everMissed || {};
+  if(!session.everMissed[f.key]){
+    session.everMissed[f.key] = true;
+    session.status[f.key] = "yellow";
+    saveStore();
+    paintCell(f.key);
+  }
+}
+
+function ensureLdPad(){
+  const pad = document.getElementById("ldPad");
+  if(pad.childElementCount) return;
+  ["1","2","3","4","5","6","7","8","9","\u232B","0","Go"].forEach(k=>{
+    const b = document.createElement("button");
+    b.className = "skey" + (k === "Go" ? " go" : "");
+    b.textContent = k;
+    b.addEventListener("click", ()=>ldKey(k));
+    pad.appendChild(b);
+  });
+}
+
+function ldStart(f){
+  ensureLdPad();
+  const digits = String(f.dividend).split("").map(Number);
+  ldState = {
+    digits,
+    pos: 1,
+    w: digits[0],
+    curEnd: 0,
+    qcol0: 0,
+    qd: [], lines: [],
+    stage: "divide",
+    entry: "", lastProd: null, lastRem: null
+  };
+  document.getElementById("ldTitle").innerHTML =
+    f.dividend + " ÷ " + f.d + " = " + '<span class="ld-blank" id="ldBlank">&nbsp;</span>';
+  document.getElementById("ldStatus").textContent = "";
+  document.getElementById("ldEntry").textContent = "?";
+  document.getElementById("ldEntry").classList.remove("win","lose");
+  ldRender();
+  ldPrompt();
+}
+
+function ldRender(){
+  const st = ldState, f = factIndex[currentKey()];
+  const g = document.getElementById("ldGrid");
+  const nd = st.digits.length;
+  g.style.gridTemplateColumns = "repeat(" + (nd + 2) + ", 36px)";
+  g.innerHTML = "";
+  const cell = (row, col, txt, cls)=>{
+    const el = document.createElement("div");
+    el.className = "ld-cell" + (cls ? " " + cls : "");
+    el.style.gridRow = row;
+    el.style.gridColumn = col;
+    el.textContent = txt;
+    g.appendChild(el);
+  };
+  const mul = st.stage === "multiply";
+  const showR = st.showR != null && st.showR > 0;
+  const rStr = showR ? String(st.showR) : "";
+  const cR = 3 + st.qcol0 + st.qd.length;   /* grid column of the R label */
+  if(showR) g.style.gridAutoColumns = "36px";
+  st.qd.forEach((q, i)=> cell(1, 3 + st.qcol0 + i, q,
+    "ld-q" + (mul && i === st.qd.length - 1 ? " ld-hl" : "")));
+  if(showR){
+    cell(1, cR, "R", "ld-q");
+    rStr.split("").forEach((ch, i)=> cell(1, cR + 1 + i, ch, "ld-q"));
+  }
+  cell(2, 1, f.d, "ld-divisor" + (mul ? " ld-hl" : ""));
+  cell(2, 2, "", "ld-brkt");
+  st.digits.forEach((dg, i)=> cell(2, 3 + i, dg, "ld-top"));
+  st.lines.forEach((ln, li)=>{
+    const row = 3 + li;
+    const chars = String(ln.str).split("");
+    const colStart = 3 + ln.end - (chars.length - 1);
+    if(ln.cls === "ld-prod"){
+      const span = ln.span || chars.length;
+      const spanStart = 3 + ln.end - (span - 1);
+      if(spanStart - 1 >= 1) cell(row, spanStart - 1, "−", "ld-minus");
+      for(let c = spanStart; c < colStart; c++) cell(row, c, "", "ld-under");
+      chars.forEach((ch, k)=> cell(row, colStart + k, ch, "ld-under"));
+    }else{
+      chars.forEach((ch, k)=> cell(row, colStart + k, ch, ""));
+    }
+  });
+  if(showR && st.lines.length){
+    const totalCols = Math.max(nd + 2, cR + rStr.length);
+    const W = totalCols * 36 + 26, H = (2 + st.lines.length) * 44;
+    const li = st.lines.length - 1;
+    const endCol = 3 + st.lines[li].end;
+    const x1 = (endCol - 0.5) * 36 + 20;
+    const y1 = (2 + li) * 44 + 20;
+    const x2 = (cR + 0.5) * 36 + 4;
+    const y2 = 40;
+    const cx = totalCols * 36 + 18;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", "ld-arrow");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.style.width = W + "px";
+    svg.style.height = H + "px";
+    svg.innerHTML =
+      '<defs><marker id="ldRHead" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto" markerUnits="userSpaceOnUse">' +
+      '<path d="M0,1 L8,5 L0,9 Z" fill="#d97a1f"/></marker></defs>' +
+      '<path d="M ' + x1 + ' ' + y1 + ' Q ' + cx + ' ' + ((y1 + y2) / 2) + ' ' + x2 + ' ' + y2 +
+      '" fill="none" stroke="#d97a1f" stroke-width="3" stroke-dasharray="5 4" stroke-linecap="round" marker-end="url(#ldRHead)"/>';
+    g.appendChild(svg);
+  }
+  if(mul && st.qd.length){
+    const W = (nd + 2) * 36, H = (2 + st.lines.length) * 44;
+    const xq = (2.5 + st.qcol0 + (st.qd.length - 1)) * 36;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", "ld-arrow ld-mul");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.style.width = W + "px";
+    svg.style.height = H + "px";
+    svg.innerHTML =
+      '<defs><marker id="ldMulHead" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto" markerUnits="userSpaceOnUse">' +
+      '<path d="M0,1 L8,5 L0,9 Z" fill="#7048b6"/></marker></defs>' +
+      '<path d="M 30 56 Q ' + ((30 + xq) / 2) + ' 2 ' + (xq - 8) + ' 32" fill="none" ' +
+      'stroke="#7048b6" stroke-width="3" stroke-linecap="round" marker-end="url(#ldMulHead)"/>';
+    g.appendChild(svg);
+  }
+  if(st.arrow){
+    const W = (nd + 2) * 36, H = (2 + st.lines.length) * 44;
+    const x = (2.5 + st.arrow.col) * 36;
+    const y1 = 2 * 44 - 8, y2 = (2 + st.arrow.li) * 44 + 4;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", "ld-arrow");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.style.width = W + "px";
+    svg.style.height = H + "px";
+    svg.innerHTML =
+      '<line x1="' + x + '" y1="' + y1 + '" x2="' + x + '" y2="' + (y2 - 9) +
+      '" stroke="#d97a1f" stroke-width="3" stroke-dasharray="5 4" stroke-linecap="round"/>' +
+      '<polygon points="' + (x - 6) + ',' + (y2 - 10) + ' ' + (x + 6) + ',' + (y2 - 10) + ' ' + x + ',' + y2 +
+      '" fill="#d97a1f"/>';
+    g.appendChild(svg);
+  }
+}
+
+function ldPrompt(){
+  const st = ldState, f = factIndex[currentKey()];
+  let q;
+  if(st.stage === "divide") q = "How many times does " + f.d + " go into " + st.w + "?";
+  else if(st.stage === "multiply") q = st.qd[st.qd.length - 1] + " × " + f.d + " = ?";
+  else q = st.w + " − " + st.lastProd + " = ?";
+  document.getElementById("ldQuestion").textContent = q;
+}
+
+function ldKey(k){
+  if(locked || !ldState || !session || !isLongdiv(session.op)) return;
+  if(k === "\u232B"){
+    ldState.entry = ldState.entry.slice(0, -1);
+  }else if(k === "Go"){
+    if(!ldState.entry) return;
+    ldSubmit(+ldState.entry);
+    return;
+  }else if(ldState.entry.length < 3){
+    ldState.entry += k;
+  }
+  document.getElementById("ldEntry").textContent = ldState.entry || "?";
+}
+
+function ldSubmit(v){
+  const st = ldState, f = factIndex[currentKey()];
+  tickTime();
+  let exp;
+  if(st.stage === "divide") exp = Math.floor(st.w / f.d);
+  else if(st.stage === "multiply") exp = st.qd[st.qd.length - 1] * f.d;
+  else exp = st.w - st.lastProd;
+  const e = document.getElementById("ldEntry");
+  if(v === exp){
+    playDing();
+    ldAdvance(exp);
+    return;
+  }
+  if(attempt === 1){
+    attempt = 2;
+    playThunk();
+    e.classList.add("lose");
+    document.getElementById("ldStatus").textContent = "Not quite — try again";
+    setTimeout(()=>{
+      e.classList.remove("lose");
+      st.entry = "";
+      e.textContent = "?";
+    }, 700);
+    return;
+  }
+  ldMark();
+  playThunk();
+  locked = true;
+  e.textContent = exp;
+  e.classList.add("lose");
+  document.getElementById("ldStatus").textContent = "The answer is " + exp;
+  const tok = session;
+  setTimeout(()=>{
+    if(session !== tok) return;
+    locked = false;
+    e.classList.remove("lose");
+    ldAdvance(exp);
+  }, 1500);
+}
+
+function ldAdvance(val){
+  const st = ldState, f = factIndex[currentKey()];
+  st.entry = "";
+  attempt = 1;
+  const e = document.getElementById("ldEntry");
+  e.textContent = "?";
+  e.classList.remove("lose");
+  document.getElementById("ldStatus").textContent = "";
+  if(st.stage === "divide"){
+    if(val === 0 && st.qd.length === 0 && st.pos < st.digits.length){
+      /* leading zero: the divisor does not go into the first digit(s);
+         extend the working value instead of writing a quotient digit */
+      const dnext = st.digits[st.pos];
+      const w2 = st.w * 10 + dnext;
+      locked = true;
+      document.getElementById("ldQuestion").textContent = "";
+      document.getElementById("ldStatus").textContent =
+        f.d + " does not go into " + st.w + " — look at " + w2;
+      const tok = session;
+      setTimeout(()=>{
+        if(session !== tok) return;
+        locked = false;
+        st.w = w2;
+        st.pos++;
+        st.curEnd = st.pos - 1;
+        document.getElementById("ldStatus").textContent = "";
+        ldRender();
+        ldPrompt();
+      }, 1800);
+      return;
+    }
+    if(st.qd.length === 0) st.qcol0 = st.pos - 1;
+    st.arrow = null;
+    st.qd.push(val);
+    st.stage = "multiply";
+    ldRender();
+    ldPrompt();
+  }else if(st.stage === "multiply"){
+    st.lastProd = val;
+    st.lines.push({ str: String(val), end: st.curEnd, cls: "ld-prod",
+      span: Math.max(String(val).length, String(st.w).length) });
+    st.stage = "subtract";
+    ldRender();
+    ldPrompt();
+  }else{
+    const r = val;
+    st.lastRem = r;
+    st.lines.push({ str: String(r), end: st.curEnd, cls: "ld-rem" });
+    if(st.pos < st.digits.length){
+      const dnext = st.digits[st.pos];
+      locked = true;
+      st.w = r * 10 + dnext;
+      st.pos++;
+      st.curEnd = st.pos - 1;
+      st.lines[st.lines.length - 1] = { str: String(st.w), end: st.curEnd, cls: "ld-rem" };
+      st.arrow = { col: st.curEnd, li: st.lines.length - 1 };
+      document.getElementById("ldQuestion").textContent = "";
+      document.getElementById("ldStatus").textContent = "Bring down the " + dnext;
+      ldRender();
+      const tok = session;
+      setTimeout(()=>{
+        if(session !== tok) return;
+        locked = false;
+        st.arrow = null;
+        st.stage = "divide";
+        document.getElementById("ldStatus").textContent = "";
+        ldRender();
+        ldPrompt();
+      }, 1600);
+    }else{
+      ldFinish(r);
+    }
+  }
+}
+
+function ldFinish(r){
+  const f = factIndex[currentKey()];
+  locked = true;
+  ldState.arrow = null;
+  ldState.showR = r;
+  ldRender();
+  session.status[f.key] =
+    (session.everMissed && session.everMissed[f.key]) ? "yellow" : "green";
+  session.queue.shift();
+  saveStore();
+  paintCell(f.key);
+  playFanfare();
+  const res = r > 0 ? f.q + " remainder " + r : String(f.q);
+  document.getElementById("ldQuestion").textContent = "";
+  document.getElementById("ldEntry").textContent = r > 0 ? f.q + " R " + r : String(f.q);
+  document.getElementById("ldEntry").classList.add("win");
+  document.getElementById("ldStatus").textContent = f.dividend + " ÷ " + f.d + " = " + res;
+  const blank = document.getElementById("ldBlank");
+  if(blank) blank.textContent = r > 0 ? f.q + " R " + r : String(f.q);
+  document.getElementById("ldNextBtn").classList.remove("hidden");
+}
+
+document.getElementById("ldNextBtn").addEventListener("click", ()=>{
+  if(!session || !isLongdiv(session.op)) return;
+  document.getElementById("ldNextBtn").classList.add("hidden");
+  document.getElementById("ldEntry").classList.remove("win");
+  nextCard();
+});
+
+/* =================== order of operations =================== */
+let ooState = null;
+const OO_OPWORD = { "+":"plus", "−":"minus", "×":"times", "÷":"divided by" };
+
+function ooN(v){ return { t:"n", v }; }
+function ooO(v){ return { t:"op", v }; }
+function ooL(){ return { t:"(" }; }
+function ooR(){ return { t:")" }; }
+
+function ooValidOps(tokens){
+  let depth = 0, gid = 0;
+  const stack = [];
+  const info = [];
+  tokens.forEach((t, i)=>{
+    if(t.t === "("){ depth++; gid++; stack.push(gid); }
+    else if(t.t === ")"){ depth--; stack.pop(); }
+    else if(t.t === "op")
+      info.push({ i, d: depth, g: stack.length ? stack[stack.length - 1] : 0, v: t.v });
+  });
+  const maxd = Math.max.apply(null, info.map(o=>o.d));
+  const atDepth = info.filter(o=>o.d === maxd);
+  const groups = {};
+  atDepth.forEach(o=>{ (groups[o.g] = groups[o.g] || []).push(o); });
+  const accept = {};
+  let canonical = null;
+  Object.keys(groups).forEach(k=>{
+    const g = groups[k];
+    const hasMul = g.some(o=>o.v === "×" || o.v === "÷");
+    const cls = g.filter(o=> hasMul ? (o.v === "×" || o.v === "÷") : true);
+    const syms = {};
+    cls.forEach(o=>{ syms[o.v] = true; });
+    const symList = Object.keys(syms);
+    const comm = symList.length === 1 && (symList[0] === "×" || symList[0] === "+");
+    (comm ? cls : [cls[0]]).forEach(o=>{ accept[o.i] = true; });
+    if(canonical === null || cls[0].i < canonical) canonical = cls[0].i;
+  });
+  return { accept, canonical };
+}
+
+function ooApplyAt(tokens, i, val){
+  tokens.splice(i - 1, 3, ooN(val));
+  for(let j = 0; j < tokens.length - 2; j++){
+    if(tokens[j].t === "(" && tokens[j+1].t === "n" && tokens[j+2].t === ")"){
+      /* the token model drops the pair, but the value remembers it came
+         from brackets so the display can keep showing them */
+      tokens.splice(j, 3, { ...tokens[j+1], paren: true });
+      j = -1;
+    }
+  }
+}
+
+function ooEval(src){
+  const t = src.map(x=>({ ...x }));
+  let guard = 0;
+  while(t.filter(x=>x.t === "n").length > 1 && guard++ < 20){
+    const v = ooValidOps(t);
+    const i = v.canonical;
+    const a = t[i-1].v, b = t[i+1].v, op = t[i].v;
+    const r = op === "+" ? a + b : op === "−" ? a - b : op === "×" ? a * b : a / b;
+    ooApplyAt(t, i, r);
+  }
+  return t[0].v;
+}
+
+function ooExprStr(tk){
+  let s = "";
+  tk.forEach(t=>{
+    if(t.t === "(") s += "(";
+    else if(t.t === ")"){ s = s.replace(/\s+$/, ""); s += ") "; }
+    else if(t.t === "u") s += "? ";
+    else s += String(t.v) + " ";
+  });
+  return s.replace(/\s+$/, "");
+}
+
+function ooExprGen(level){
+  const ri = n => Math.floor(Math.random() * n);
+  if(level === "beginner"){
+    const shape = ri(4);
+    if(shape === 0){
+      const a = 2 + ri(11), b = 2 + ri(5), c = 2 + ri(5);
+      return [ooN(a), ooO("+"), ooN(b), ooO("×"), ooN(c)];
+    }
+    if(shape === 1){
+      const a = 2 + ri(5), b = 2 + ri(5), c = 2 + ri(11);
+      return [ooN(a), ooO("×"), ooN(b), ooO("+"), ooN(c)];
+    }
+    if(shape === 2){
+      const a = 3 + ri(4), b = 2 + ri(4);
+      const c = 1 + ri(Math.min(10, a * b - 1));
+      return [ooN(a), ooO("×"), ooN(b), ooO("−"), ooN(c)];
+    }
+    const b = 2 + ri(4), c = 2 + ri(4);
+    const a = b * c + 2 + ri(10);
+    return [ooN(a), ooO("−"), ooN(b), ooO("×"), ooN(c)];
+  }
+  const shape = ri(7);
+  if(shape === 0){
+    const a = 3 + ri(7), b = 2 + ri(7), c = 3 + ri(6);
+    return [ooL(), ooN(a), ooO("+"), ooN(b), ooR(), ooO("×"), ooN(c)];
+  }
+  if(shape === 1){
+    const a = 6 + ri(10), b = 2 + ri(a - 3), c = 3 + ri(6);
+    return [ooL(), ooN(a), ooO("−"), ooN(b), ooR(), ooO("×"), ooN(c)];
+  }
+  if(shape === 2){
+    const a = 5 + ri(16), b = 3 + ri(6), c = 3 + ri(6);
+    const d = 2 + ri(Math.min(14, a + b * c - 2));
+    return [ooN(a), ooO("+"), ooN(b), ooO("×"), ooN(c), ooO("−"), ooN(d)];
+  }
+  if(shape === 3){
+    let a, b, c, d, guard = 0;
+    do{
+      a = 3 + ri(7); b = 3 + ri(7); c = 3 + ri(7); d = 2 + ri(6);
+    }while(a * b <= c * d && guard++ < 40);
+    if(a * b <= c * d){ a = 9; b = 9; c = 3; d = 3; }
+    return [ooN(a), ooO("×"), ooN(b), ooO("−"), ooN(c), ooO("×"), ooN(d)];
+  }
+  if(shape === 4){
+    const c = 3 + ri(6), k = 3 + ri(7), a = 4 + ri(17);
+    return [ooN(a), ooO("+"), ooN(c * k), ooO("÷"), ooN(c)];
+  }
+  if(shape === 5){
+    const c = 3 + ri(6), k = 3 + ri(7);
+    const tot = c * k;
+    const a = 2 + ri(tot - 3), b = tot - a;
+    return [ooL(), ooN(a), ooO("+"), ooN(b), ooR(), ooO("÷"), ooN(c)];
+  }
+  const d = 3 + ri(4), k = 2 + ri(7), a = 3 + ri(6), b = 3 + ri(6);
+  return [ooN(a), ooO("×"), ooN(b), ooO("+"), ooN(d * k), ooO("÷"), ooN(d)];
+}
+
+function ooExprGenPlus(){
+  const ri = n => Math.floor(Math.random() * n);
+  const shape = ri(5);
+  if(shape === 0){ /* (a+b) × (c−d) */
+    const a = 2 + ri(7), b = 2 + ri(7), c = 5 + ri(8), d = 1 + ri(c - 2);
+    return [ooL(), ooN(a), ooO("+"), ooN(b), ooR(), ooO("×"), ooL(), ooN(c), ooO("−"), ooN(d), ooR()];
+  }
+  if(shape === 1){ /* a × (b+c) − d */
+    const a = 3 + ri(6), b = 2 + ri(6), c = 2 + ri(6);
+    const d = 2 + ri(Math.min(20, a * (b + c) - 2));
+    return [ooN(a), ooO("×"), ooL(), ooN(b), ooO("+"), ooN(c), ooR(), ooO("−"), ooN(d)];
+  }
+  if(shape === 2){ /* (a+b) ÷ c + d */
+    const c = 3 + ri(5), k = 3 + ri(6);
+    const tot = c * k, a = 2 + ri(tot - 3), b = tot - a, d = 2 + ri(12);
+    return [ooL(), ooN(a), ooO("+"), ooN(b), ooR(), ooO("÷"), ooN(c), ooO("+"), ooN(d)];
+  }
+  if(shape === 3){ /* (a−b) × c + d */
+    const a = 8 + ri(10), b = 2 + ri(a - 4), c = 3 + ri(6), d = 2 + ri(15);
+    return [ooL(), ooN(a), ooO("−"), ooN(b), ooR(), ooO("×"), ooN(c), ooO("+"), ooN(d)];
+  }
+  /* ((a−b) × c) + d : nested brackets */
+  const a = 8 + ri(10), b = 2 + ri(a - 4), c = 3 + ri(5), d = 2 + ri(15);
+  return [ooL(), ooL(), ooN(a), ooO("−"), ooN(b), ooR(), ooO("×"), ooN(c), ooR(), ooO("+"), ooN(d)];
+}
+
+function ooU(){ return { t:"u" }; }
+
+function ooEqGen(){
+  const ri = n => Math.floor(Math.random() * n);
+  const shape = ri(6);
+  let tokens, u, R;
+  if(shape === 0){ /* a + ? × c = R */
+    const a = 2 + ri(15), c = 2 + ri(7); u = 2 + ri(8);
+    tokens = [ooN(a), ooO("+"), ooU(), ooO("×"), ooN(c)]; R = a + u * c;
+  }else if(shape === 1){ /* ? × b − c = R */
+    const b = 2 + ri(7); u = 2 + ri(8);
+    const c = 1 + ri(Math.min(15, u * b - 2));
+    tokens = [ooU(), ooO("×"), ooN(b), ooO("−"), ooN(c)]; R = u * b - c;
+  }else if(shape === 2){ /* (a + ?) × c = R */
+    const a = 2 + ri(9), c = 2 + ri(6); u = 2 + ri(9);
+    tokens = [ooL(), ooN(a), ooO("+"), ooU(), ooR(), ooO("×"), ooN(c)]; R = (a + u) * c;
+  }else if(shape === 3){ /* a × b + ? = R */
+    const a = 3 + ri(7), b = 3 + ri(7); u = 2 + ri(20);
+    tokens = [ooN(a), ooO("×"), ooN(b), ooO("+"), ooU()]; R = a * b + u;
+  }else if(shape === 4){ /* ? ÷ b + c = R */
+    const b = 2 + ri(7), q = 2 + ri(8), c = 2 + ri(12); u = b * q;
+    tokens = [ooU(), ooO("÷"), ooN(b), ooO("+"), ooN(c)]; R = q + c;
+  }else{ /* (? + b) ÷ c = R */
+    const c = 3 + ri(5), k = 2 + ri(7);
+    const b = 1 + ri(c * k - 2); u = c * k - b;
+    tokens = [ooL(), ooU(), ooO("+"), ooN(b), ooR(), ooO("÷"), ooN(c)]; R = k;
+  }
+  return { tokens, u, R, prompt: ooExprStr(tokens) + " = " + R };
+}
+
+const OO_LEADS = [
+  n => "NAME1 is " + n + " years old. ",
+  n => "It was " + n + " degrees outside. ",
+  n => "The bus ride took " + n + " minutes. ",
+  n => "NAME2 lives " + n + " blocks away. ",
+  n => "The store opened " + n + " minutes early. ",
+  n => "NAME1 saved " + n + " dollars last week. "
+];
+
+function ooStoryGen(level){
+  const ri = n => Math.floor(Math.random() * n);
+  const pick = arr => arr[ri(arr.length)];
+  const n1 = pick(STORY_NAMES);
+  let n2 = pick(STORY_NAMES);
+  while(n2 === n1) n2 = pick(STORY_NAMES);
+  const pair = pick(STORY_OBJS);
+  const obj = pair[1];
+  let tokens, text;
+  if(level === "beginner"){
+    const shape = ri(3);
+    if(shape === 0){
+      const a = 3 + ri(10), b = 2 + ri(3), c = 2 + ri(4);
+      tokens = [ooN(a), ooO("+"), ooN(b), ooO("×"), ooN(c)];
+      text = n1 + " had " + a + " " + obj + ". " + n2 + " gave " + n1 + " " + b +
+        " bags with " + c + " " + obj + " in each bag. How many " + obj + " does " + n1 + " have now?";
+    }else if(shape === 1){
+      const a = 2 + ri(4), b = 2 + ri(4);
+      const c = 1 + ri(Math.min(10, a * b - 1));
+      tokens = [ooN(a), ooO("×"), ooN(b), ooO("−"), ooN(c)];
+      text = n1 + " made " + a + " bags of " + obj + " with " + b + " in each bag. Then " + n1 +
+        " gave " + c + " " + obj + " to " + n2 + ". How many " + obj + " are left?";
+    }else{
+      const a = 2 + ri(5), b = 2 + ri(5), c = 2 + ri(8);
+      tokens = [ooN(a), ooO("×"), ooN(b), ooO("+"), ooN(c)];
+      text = "There are " + a + " rows of chairs with " + b + " chairs in each row, and " + c +
+        " extra chairs by the wall. How many chairs are there in all?";
+    }
+    return { text, tokens, decoys: [] };
+  }
+  const shape = ri(4);
+  let parts, q, inlineSlot = null;
+  if(shape === 0){
+    const a = 3 + ri(5), b = 4 + ri(6);
+    const c = 5 + ri(Math.min(11, a * b - 6));
+    tokens = [ooN(a), ooO("×"), ooN(b), ooO("−"), ooN(c)];
+    parts = [
+      n1 + " bought " + a + " boxes of " + obj + " with " + b + " in each box.",
+      "Then " + n1 + " gave " + c + " " + obj + " to " + n2 + "."
+    ];
+    q = "How many " + obj + " does " + n1 + " have now?";
+    inlineSlot = x => { parts[0] = n1 + " bought " + a + " boxes of " + obj +
+      ", paying " + x + " dollars in all, with " + b + " in each box."; };
+  }else if(shape === 1){
+    const a = 8 + ri(18), b = 3 + ri(4), c = 4 + ri(6);
+    tokens = [ooN(a), ooO("+"), ooN(b), ooO("×"), ooN(c)];
+    parts = [
+      n1 + " had " + a + " " + obj + ".",
+      "Then " + n1 + " bought " + b + " packs with " + c + " " + obj + " in each pack."
+    ];
+    q = "How many " + obj + " does " + n1 + " have now?";
+    inlineSlot = x => { parts[1] = "Then " + n1 + " bought " + b + " packs with " + c + " " + obj +
+      " in each pack from the store " + x + " blocks away."; };
+  }else if(shape === 2){
+    const b = 3 + ri(4), qq = 4 + ri(6), c = 2 + ri(8);
+    const a = b * qq;
+    tokens = [ooN(a), ooO("÷"), ooN(b), ooO("+"), ooN(c)];
+    parts = [
+      n1 + " collected " + a + " " + obj + " and split them equally into " + b + " boxes.",
+      "Then " + n1 + " put " + c + " more " + obj + " into one of the boxes."
+    ];
+    q = "How many " + obj + " are in that box now?";
+    inlineSlot = x => { parts[0] = n1 + " spent " + x + " minutes collecting " + a + " " + obj +
+      ", then split them equally into " + b + " boxes."; };
+  }else{
+    const a = 3 + ri(6), b = 2 + ri(6), c = 3 + ri(5);
+    tokens = [ooL(), ooN(a), ooO("+"), ooN(b), ooR(), ooO("×"), ooN(c)];
+    parts = [
+      "Each gift bag gets " + a + " stickers and " + b + " " + obj + ".",
+      n1 + " filled " + c + " gift bags."
+    ];
+    q = "How many things did " + n1 + " use in all?";
+    inlineSlot = x => { parts[1] = n1 + " filled " + c + " gift bags in " + x + " minutes."; };
+  }
+  const operands = tokens.filter(t=>t.t === "n").map(t=>t.v);
+  const ans = ooEval(tokens);
+  const decoys = [];
+  const usedX = {};
+  const freshX = ()=>{
+    let x, g = 0;
+    do{ x = 3 + ri(22); }while((operands.indexOf(x) !== -1 || x === ans || usedX[x]) && g++ < 40);
+    if(operands.indexOf(x) !== -1 || x === ans || usedX[x]) return null;
+    usedX[x] = true;
+    return x;
+  };
+  /* two decoy families: different units, and same objects owned by someone else */
+  const poolA = [
+    x => n1 + " is " + x + " years old.",
+    x => "It was " + x + " degrees outside.",
+    x => "The bus ride took " + x + " minutes.",
+    x => n2 + " lives " + x + " blocks away.",
+    x => n1 + " saved " + x + " dollars last week.",
+    x => "The store opened " + x + " minutes early.",
+    x => n1 + " walked " + x + " blocks to get there.",
+    x => "School ends in " + x + " days."
+  ];
+  const poolB = [
+    x => n2 + " has " + x + " " + obj + " at home.",
+    x => "Yesterday " + n2 + " counted " + x + " " + obj + " in a jar.",
+    x => n2 + " once collected " + x + " " + obj + " in a single day.",
+    x => "Last summer " + n1 + " had " + x + " " + obj + "."
+  ];
+  /* sometimes bury a decoy inside a core sentence */
+  if(inlineSlot && Math.random() < 0.35){
+    const x = freshX();
+    if(x !== null){ inlineSlot(x); decoys.push(x); }
+  }
+  /* 1-3 decoy sentences woven anywhere among the core sentences */
+  const nDec = 1 + (Math.random() < 0.7 ? 1 : 0) + (Math.random() < 0.25 ? 1 : 0);
+  for(let k = 0; k < nDec; k++){
+    const x = freshX();
+    if(x === null) break;
+    const pool = Math.random() < 0.45 ? poolB : poolA;
+    const sent = pool[ri(pool.length)](x);
+    parts.splice(ri(parts.length + 1), 0, sent);
+    decoys.push(x);
+  }
+  return { text: parts.join(" ") + " " + q, tokens, decoys };
+}
+
+function ooModels(tokens, decoys){
+  const ri = n => Math.floor(Math.random() * n);
+  const correct = ooExprStr(tokens);
+  const numIdx = [];
+  tokens.forEach((t, i)=>{ if(t.t === "n") numIdx.push(i); });
+  const opIdx = [];
+  tokens.forEach((t, i)=>{ if(t.t === "op") opIdx.push(i); });
+  /* distractor 1: swap one operand for a decoy or a nearby number */
+  const t1 = tokens.map(x=>({ ...x }));
+  const pi = numIdx[ri(numIdx.length)];
+  let nv = decoys && decoys.length ? decoys[ri(decoys.length)] : t1[pi].v + 1 + ri(3);
+  if(nv === t1[pi].v) nv += 2;
+  t1[pi].v = nv;
+  /* distractor 2: change one operator */
+  const t2 = tokens.map(x=>({ ...x }));
+  const oi = opIdx[ri(opIdx.length)];
+  const swap = { "+":"×", "×":"+", "−":"+", "÷":"−" };
+  t2[oi].v = swap[t2[oi].v];
+  let s1 = ooExprStr(t1), s2 = ooExprStr(t2);
+  if(s1 === correct || s1 === s2){
+    t1[pi].v += 3;
+    s1 = ooExprStr(t1);
+  }
+  const models = [{ s: correct, ok: true }, { s: s1, ok: false }, { s: s2, ok: false }];
+  for(let i = models.length - 1; i > 0; i--){
+    const j = ri(i + 1);
+    const tmp = models[i]; models[i] = models[j]; models[j] = tmp;
+  }
+  return models;
+}
+
+function ooGen(level, count){
+  if(level === "advancedplus"){
+    const facts = [];
+    const seen = {};
+    let guard = 0;
+    while(facts.length < count && guard++ < 3000){
+      const wantEq = facts.filter(f=>f.eq).length < 5 &&
+        (facts.length % 2 === 1 || facts.filter(f=>!f.eq).length >= count - 5);
+      if(wantEq){
+        const e = ooEqGen();
+        if(seen[e.prompt]) continue;
+        /* sanity: substituting the answer must satisfy the equation */
+        const sub = e.tokens.map(t=> t.t === "u" ? ooN(e.u) : ({ ...t }));
+        if(ooEval(sub) !== e.R) continue;
+        seen[e.prompt] = true;
+        facts.push({
+          key: "oo:" + facts.length, eq: true,
+          tokens: e.tokens, result: e.R, prompt: e.prompt, answer: e.u
+        });
+      }else{
+        const tk = ooExprGenPlus();
+        const str = ooExprStr(tk);
+        if(seen[str]) continue;
+        const val = ooEval(tk);
+        if(val < 0 || val !== Math.floor(val) || val > 400) continue;
+        seen[str] = true;
+        facts.push({ key: "oo:" + facts.length, story: false, tokens: tk, prompt: str, answer: val });
+      }
+    }
+    return facts;
+  }
+  const facts = [];
+  const seen = {};
+  const nStory = 4;
+  let guard = 0;
+  while(facts.length < count && guard++ < 3000){
+    const wantStory = facts.filter(f=>f.story).length < nStory &&
+      (facts.length % 2 === 1 || facts.filter(f=>!f.story).length >= count - nStory);
+    if(wantStory){
+      const st = ooStoryGen(level);
+      const key = "T:" + st.text;
+      if(seen[key]) continue;
+      seen[key] = true;
+      facts.push({
+        key: "oo:" + facts.length, story: true,
+        text: st.text, tokens: st.tokens,
+        models: ooModels(st.tokens, st.decoys),
+        prompt: ooExprStr(st.tokens), answer: ooEval(st.tokens)
+      });
+    }else{
+      const tk = ooExprGen(level);
+      const str = ooExprStr(tk);
+      if(seen[str]) continue;
+      const val = ooEval(tk);
+      if(val < 0 || val !== Math.floor(val) || val > 400) continue;
+      seen[str] = true;
+      facts.push({
+        key: "oo:" + facts.length, story: false,
+        tokens: tk, prompt: str, answer: val
+      });
+    }
+  }
+  return facts;
+}
+
+function ooMark(){
+  const f = factIndex[currentKey()];
+  session.everMissed = session.everMissed || {};
+  if(!session.everMissed[f.key]){
+    session.everMissed[f.key] = true;
+    session.status[f.key] = "yellow";
+    saveStore();
+    paintCell(f.key);
+  }
+}
+
+function ensureOoPad(){
+  const pad = document.getElementById("ooPad");
+  if(pad.childElementCount) return;
+  ["1","2","3","4","5","6","7","8","9","\u232B","0","Go"].forEach(k=>{
+    const b = document.createElement("button");
+    b.className = "skey" + (k === "Go" ? " go" : "");
+    b.textContent = k;
+    b.addEventListener("click", ()=>ooKey(k));
+    pad.appendChild(b);
+  });
+}
+
+function ooStart(f){
+  ensureOoPad();
+  ooState = { fact: f, tokens: f.tokens.map(t=>({ ...t })), stage: f.story ? "model" : "tap", sel: null, entry: "" };
+  attempt = 1;
+  const wrap = document.getElementById("ooStoryWrap");
+  wrap.classList.toggle("hidden", !f.story);
+  document.getElementById("ooStatus").textContent = "";
+  document.getElementById("ooAskRow").classList.add("hidden");
+  document.getElementById("ooPad").classList.add("hidden");
+  document.getElementById("ooEntry").classList.remove("win","lose");
+  if(f.eq){
+    document.getElementById("ooModels").classList.add("hidden");
+    ooState.stage = "eq";
+    document.getElementById("ooStage").textContent = "What number goes in the ?";
+    renderOoExpr();
+    document.getElementById("ooQuestion").textContent = "? =";
+    document.getElementById("ooEntry").textContent = "?";
+    document.getElementById("ooAskRow").classList.remove("hidden");
+    document.getElementById("ooPad").classList.remove("hidden");
+  }else if(f.story){
+    document.getElementById("ooStoryText").textContent = f.text;
+    document.getElementById("ooExpr").classList.add("hidden");
+    document.getElementById("ooStage").textContent = "Pick the number model";
+    renderOoModels(f);
+  }else{
+    document.getElementById("ooModels").classList.add("hidden");
+    ooNextStage();
+  }
+}
+
+function renderOoModels(f){
+  const box = document.getElementById("ooModels");
+  box.classList.remove("hidden");
+  box.innerHTML = "";
+  f.models.forEach(m=>{
+    const b = document.createElement("button");
+    b.className = "model-btn";
+    b.textContent = m.s;
+    b.addEventListener("click", ()=>{
+      if(locked || !ooState || ooState.stage !== "model") return;
+      tickTime();
+      if(m.ok){
+        playDing();
+        b.classList.add("oo-reveal");
+        locked = true;
+        setTimeout(()=>{ locked = false; ooModelToSolve(); }, 700);
+      }else{
+        ooMark();
+        playThunk();
+        b.classList.add("oo-wrong");
+        if(attempt === 1){
+          attempt = 2;
+          document.getElementById("ooStatus").textContent =
+            "Which numbers does the question really need?";
+        }else{
+          locked = true;
+          const btns = box.querySelectorAll(".model-btn");
+          f.models.forEach((mm, k)=>{ if(mm.ok) btns[k].classList.add("oo-reveal"); });
+          document.getElementById("ooStatus").textContent = "This is the number model.";
+          const tok = session;
+          setTimeout(()=>{
+            if(session !== tok) return;
+            locked = false;
+            ooModelToSolve();
+          }, 1400);
+        }
+      }
+    });
+    box.appendChild(b);
+  });
+}
+
+function ooNextStage(){
+  const opPos = [];
+  ooState.tokens.forEach((t, i)=>{ if(t.t === "op") opPos.push(i); });
+  if(opPos.length === 1){
+    ooState.stage = "tap";
+    ooSelect(opPos[0]);
+    return;
+  }
+  ooState.stage = "tap";
+  attempt = 1;
+  document.getElementById("ooStage").textContent = "Tap the part you solve first";
+  renderOoExpr();
+}
+
+function ooModelToSolve(){
+  document.getElementById("ooModels").classList.add("hidden");
+  document.getElementById("ooStatus").textContent = "";
+  ooNextStage();
+}
+
+function renderOoExpr(){
+  const st = ooState;
+  const f = ooState ? ooState.fact : null;
+  const box = document.getElementById("ooExpr");
+  box.classList.remove("hidden");
+  box.innerHTML = "";
+  st.tokens.forEach((t, i)=>{
+    if(t.t === "u"){
+      const s = document.createElement("span");
+      s.className = "oo-num oo-unk";
+      s.textContent = "?";
+      box.appendChild(s);
+    }else if(t.t === "n"){
+      if(t.paren && st.tokens.length > 1){
+        const lp = document.createElement("span");
+        lp.className = "oo-parm";
+        lp.textContent = "(";
+        box.appendChild(lp);
+      }
+      const s = document.createElement("span");
+      s.className = "oo-num" +
+        (t.uFill ? " oo-done" : "") +
+        (st.sel !== null && (i === st.sel - 1 || i === st.sel + 1) ? " oo-sel" : "") +
+        (st.tokens.length === 1 ? " oo-done" : "");
+      s.textContent = t.v;
+      box.appendChild(s);
+      if(t.paren && st.tokens.length > 1){
+        const rp = document.createElement("span");
+        rp.className = "oo-parm";
+        rp.textContent = ")";
+        box.appendChild(rp);
+      }
+    }else if(t.t === "op"){
+      const b = document.createElement("button");
+      b.className = "oo-opbtn" + (st.sel === i ? " oo-sel" : "");
+      b.textContent = t.v;
+      b.disabled = st.stage !== "tap";
+      b.addEventListener("click", ()=>ooTapOp(i, b));
+      box.appendChild(b);
+    }else{
+      const s = document.createElement("span");
+      s.className = "oo-par";
+      s.textContent = t.t;
+      box.appendChild(s);
+    }
+  });
+  if(f && f.eq){
+    const eq = document.createElement("span");
+    eq.className = "oo-par";
+    eq.textContent = "=";
+    box.appendChild(eq);
+    const rr = document.createElement("span");
+    rr.className = "oo-num";
+    rr.textContent = f.result;
+    box.appendChild(rr);
+  }
+}
+
+function ooTapOp(pos, btn){
+  if(locked || !ooState || ooState.stage !== "tap") return;
+  tickTime();
+  const v = ooValidOps(ooState.tokens);
+  if(v.accept[pos]){
+    playDing();
+    ooSelect(pos);
+    return;
+  }
+  ooMark();
+  playThunk();
+  btn.classList.add("oo-wrong");
+  if(attempt === 1){
+    attempt = 2;
+    document.getElementById("ooStatus").textContent =
+      "Remember the order: parentheses first, then × and ÷, then + and −.";
+  }else{
+    locked = true;
+    const btns = document.querySelectorAll("#ooExpr .oo-opbtn");
+    let bi = 0;
+    ooState.tokens.forEach((t, i)=>{
+      if(t.t === "op"){
+        if(i === v.canonical) btns[bi].classList.add("oo-reveal");
+        bi++;
+      }
+    });
+    document.getElementById("ooStatus").textContent = "Do this part first.";
+    const tok = session;
+    setTimeout(()=>{
+      if(session !== tok) return;
+      locked = false;
+      ooSelect(v.canonical);
+    }, 1400);
+  }
+}
+
+function ooSelect(pos){
+  const st = ooState;
+  st.sel = pos;
+  st.stage = "num";
+  st.entry = "";
+  attempt = 1;
+  document.getElementById("ooStage").textContent = "Solve:";
+  document.getElementById("ooStatus").textContent = "";
+  renderOoExpr();
+  const a = st.tokens[pos - 1].v, b = st.tokens[pos + 1].v, op = st.tokens[pos].v;
+  document.getElementById("ooQuestion").textContent = a + " " + op + " " + b + " =";
+  document.getElementById("ooEntry").textContent = "?";
+  document.getElementById("ooEntry").classList.remove("win","lose");
+  document.getElementById("ooAskRow").classList.remove("hidden");
+  document.getElementById("ooPad").classList.remove("hidden");
+}
+
+function ooKey(k){
+  if(locked || !ooState || (ooState.stage !== "num" && ooState.stage !== "eq")) return;
+  if(k === "\u232B"){
+    ooState.entry = ooState.entry.slice(0, -1);
+  }else if(k === "Go"){
+    if(!ooState.entry) return;
+    ooSubmit(+ooState.entry);
+    return;
+  }else if(ooState.entry.length < 4){
+    ooState.entry += k;
+  }
+  document.getElementById("ooEntry").textContent = ooState.entry || "?";
+}
+
+function ooSubmit(v){
+  if(ooState.stage === "eq"){ ooEqSubmit(v); return; }
+  const st = ooState;
+  const i = st.sel;
+  const a = st.tokens[i-1].v, b = st.tokens[i+1].v, op = st.tokens[i].v;
+  const exp = op === "+" ? a + b : op === "−" ? a - b : op === "×" ? a * b : a / b;
+  const e = document.getElementById("ooEntry");
+  tickTime();
+  if(v === exp){
+    playDing();
+    ooApplyMove(i, exp);
+    return;
+  }
+  if(attempt === 1){
+    attempt = 2;
+    playThunk();
+    e.classList.add("lose");
+    document.getElementById("ooStatus").textContent = "Not quite — try again";
+    setTimeout(()=>{
+      e.classList.remove("lose");
+      st.entry = "";
+      e.textContent = "?";
+    }, 700);
+    return;
+  }
+  ooMark();
+  playThunk();
+  locked = true;
+  e.textContent = exp;
+  e.classList.add("lose");
+  document.getElementById("ooStatus").textContent =
+    a + " " + op + " " + b + " = " + exp;
+  const tok = session;
+  setTimeout(()=>{
+    if(session !== tok) return;
+    locked = false;
+    e.classList.remove("lose");
+    ooApplyMove(i, exp);
+  }, 1600);
+}
+
+function ooEqSubmit(v){
+  const f = factIndex[currentKey()];
+  const e = document.getElementById("ooEntry");
+  tickTime();
+  if(v === f.answer){
+    playDing();
+    ooEqFill(f.answer);
+    ooEqFinish();
+    return;
+  }
+  if(attempt === 1){
+    attempt = 2;
+    playThunk();
+    e.classList.add("lose");
+    document.getElementById("ooStatus").textContent = "Not quite — try again";
+    setTimeout(()=>{
+      e.classList.remove("lose");
+      ooState.entry = "";
+      e.textContent = "?";
+    }, 700);
+    return;
+  }
+  ooMark();
+  playThunk();
+  locked = true;
+  e.textContent = f.answer;
+  e.classList.add("lose");
+  const tok = session;
+  setTimeout(()=>{
+    if(session !== tok) return;
+    locked = false;
+    e.classList.remove("lose");
+    ooEqFill(f.answer);
+    ooEqFinish();
+  }, 1500);
+}
+
+function ooEqFill(v){
+  ooState.tokens = ooState.tokens.map(t=> t.t === "u" ? { t:"n", v, uFill: true } : t);
+  renderOoExpr();
+}
+
+function ooEqFinish(){
+  const f = factIndex[currentKey()];
+  locked = true;
+  session.status[f.key] =
+    (session.everMissed && session.everMissed[f.key]) ? "yellow" : "green";
+  session.queue.shift();
+  saveStore();
+  paintCell(f.key);
+  playFanfare();
+  document.getElementById("ooAskRow").classList.add("hidden");
+  document.getElementById("ooPad").classList.add("hidden");
+  document.getElementById("ooStage").textContent = "Solved!";
+  document.getElementById("ooStatus").textContent = f.prompt.replace("?", String(f.answer));
+  document.getElementById("ooNextBtn").classList.remove("hidden");
+}
+
+function ooApplyMove(i, val){
+  const st = ooState;
+  ooApplyAt(st.tokens, i, val);
+  st.sel = null;
+  st.entry = "";
+  document.getElementById("ooAskRow").classList.add("hidden");
+  document.getElementById("ooPad").classList.add("hidden");
+  document.getElementById("ooStatus").textContent = "";
+  if(st.tokens.length === 1){
+    ooFinish(val);
+    return;
+  }
+  ooNextStage();
+}
+
+function ooFinish(val){
+  const f = factIndex[currentKey()];
+  locked = true;
+  session.status[f.key] =
+    (session.everMissed && session.everMissed[f.key]) ? "yellow" : "green";
+  session.queue.shift();
+  saveStore();
+  paintCell(f.key);
+  playFanfare();
+  renderOoExpr();
+  document.getElementById("ooStage").textContent = "Solved!";
+  document.getElementById("ooStatus").textContent = f.prompt + " = " + val;
+  document.getElementById("ooNextBtn").classList.remove("hidden");
+}
+
+document.getElementById("ooNextBtn").addEventListener("click", ()=>{
+  if(!session || !isOrder(session.op)) return;
+  document.getElementById("ooNextBtn").classList.add("hidden");
+  nextCard();
+});
+
+document.getElementById("ooHelpBtn").addEventListener("click", ()=>{
+  document.getElementById("ooModal").classList.remove("hidden");
+});
+document.getElementById("ooModalClose").addEventListener("click", ()=>{
+  document.getElementById("ooModal").classList.add("hidden");
+});
+document.getElementById("ooModal").addEventListener("click", (e)=>{
+  if(e.target === document.getElementById("ooModal"))
+    document.getElementById("ooModal").classList.add("hidden");
+});
+
+document.getElementById("ooSpeakBtn").addEventListener("click", ()=>{
+  if(session && isOrder(session.op)){
+    const f = factIndex[currentKey()];
+    if(f && f.story) speak(f.text);
+  }
+});
+
+
+/* =================== fractions =================== */
+let frState = null;
+
+function frGcd(a, b){ return b ? frGcd(b, a % b) : a; }
+function frLcm(a, b){ return a / frGcd(a, b) * b; }
+
+function frGen(level, count){
+  const ri = n => Math.floor(Math.random() * n);
+  const plan = level === "beginner"
+    ? ["shade","shade","shade","equiv","equiv","equiv","compare","compare","addlike","addlike"]
+    : ["simplify","simplify","unlike","unlike","unlike","unlike","multwhole","multwhole","ofset","ofset"];
+  const order = shuffle(plan.slice());
+  const seen = {};
+  const facts = [];
+  for(const kind of order){
+    let f = null, g = 0;
+    while(!f && g++ < 300){
+      if(kind === "shade"){
+        const d = 3 + ri(8), k = 1 + ri(d - 1);
+        const key = "sh:" + k + ":" + d;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, d, k, prompt: k + "/" + d + " shaded", answer: k + "/" + d };
+      }else if(kind === "equiv"){
+        const b = 2 + ri(5), a = 1 + ri(b - 1), m = 2 + ri(3), c = b * m;
+        if(c > 12) continue;
+        const key = "eq:" + a + ":" + b + ":" + c;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, a, b, c, m, ansN: a * m, prompt: a + "/" + b + " = ?/" + c, answer: a * m };
+      }else if(kind === "compare"){
+        const t = ri(10);
+        let n1, d1, n2, d2, correct;
+        if(t < 2){
+          const b = 2 + ri(4), a = 1 + ri(b - 1), m = 2 + ri(3);
+          n1 = a; d1 = b; n2 = a * m; d2 = b * m;
+          correct = "equal";
+        }else if(t < 6){
+          d1 = d2 = 4 + ri(7);
+          n1 = 1 + ri(d1 - 1);
+          do{ n2 = 1 + ri(d1 - 1); }while(n2 === n1);
+          correct = n1 > n2 ? "left" : "right";
+        }else{
+          n1 = n2 = 1 + ri(4);
+          d1 = n1 + 1 + ri(Math.min(8, 12 - n1));
+          do{ d2 = n1 + 1 + ri(Math.min(8, 12 - n1)); }while(d2 === d1);
+          correct = d1 < d2 ? "left" : "right";
+        }
+        if(d1 > 12 || d2 > 12) continue;
+        const key = "cmp:" + n1 + ":" + d1 + ":" + n2 + ":" + d2;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, n1, d1, n2, d2, correct, prompt: n1 + "/" + d1 + " vs " + n2 + "/" + d2, answer: correct };
+      }else if(kind === "addlike"){
+        const d = 4 + ri(7), a = 1 + ri(d - 2), b = 1 + ri(d - a - 1 > 0 ? d - a - 1 : 1);
+        if(a + b > d) continue;
+        const key = "al:" + a + ":" + b + ":" + d;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, a, b, d, ansN: a + b, prompt: a + "/" + d + " + " + b + "/" + d, answer: a + b };
+      }else if(kind === "simplify"){
+        const g2 = 2 + ri(4), dd = 2 + ri(4), nn = 1 + ri(dd - 1);
+        if(frGcd(nn, dd) !== 1) continue;
+        const n = nn * g2, d = dd * g2;
+        if(d > 20) continue;
+        const key = "si:" + n + ":" + d;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, n, d, ansN: nn, ansD: dd, prompt: n + "/" + d + " simplified", answer: nn + "/" + dd };
+      }else if(kind === "unlike"){
+        const b = 2 + ri(5), e = 2 + ri(5);
+        if(b === e) continue;
+        const L = frLcm(b, e);
+        if(L > 24) continue;
+        const a = 1 + ri(b - 1), c = 1 + ri(e - 1);
+        if(a / b + c / e >= 1) continue;
+        const key = "un:" + a + ":" + b + ":" + c + ":" + e;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        const sumN = a * (L / b) + c * (L / e);
+        f = { kind, a, b, c, e, L, sumN, prompt: a + "/" + b + " + " + c + "/" + e, answer: sumN + "/" + L };
+      }else if(kind === "multwhole"){
+        const b = 3 + ri(6), a = 1 + ri(b - 1), w = 2 + ri(5);
+        const key = "mw:" + w + ":" + a + ":" + b;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, w, a, b, ansN: w * a, prompt: w + " × " + a + "/" + b, answer: w * a };
+      }else{
+        const b = 2 + ri(5), a = 1 + ri(b - 1), q = 2 + ri(6), N = b * q;
+        const key = "os:" + a + ":" + b + ":" + N;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, a, b, N, prompt: a + "/" + b + " of " + N, answer: q * a };
+      }
+    }
+    if(f) facts.push(f);
+  }
+  return facts.map((f, i)=>({ ...f, key: "fr:" + i }));
+}
+
+function frBarSVG(parts, shaded, secondUnshaded){
+  const w = Math.min(280, parts * 34), h = 40;
+  const cw = w / parts;
+  let cells = "";
+  for(let i = 0; i < parts; i++){
+    const fill = i < shaded ? "#4a90d9" : "#ffffff";
+    cells += '<rect x="' + (i * cw) + '" y="0" width="' + cw + '" height="' + h +
+      '" fill="' + fill + '" stroke="#2b4a66" stroke-width="2"/>';
+  }
+  return '<svg width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '">' + cells + '</svg>';
+}
+
+function frFracHTML(n, d){
+  return '<span class="frac"><span class="fnum">' + n + '</span><span class="fden">' + d + '</span></span>';
+}
+function frSlotHTML(i){
+  return '<span class="fslot" id="frS' + i + '">?</span>';
+}
+function frFracSlotHTML(slotIdx, d){
+  return '<span class="frac"><span class="fnum" style="border-bottom:none">' + frSlotHTML(slotIdx) +
+    '</span><span class="fden">' + d + '</span></span>';
+}
+
+function frMark(){
+  const f = factIndex[currentKey()];
+  session.everMissed = session.everMissed || {};
+  if(!session.everMissed[f.key]){
+    session.everMissed[f.key] = true;
+    session.status[f.key] = "yellow";
+    saveStore();
+    paintCell(f.key);
+  }
+}
+
+function ensureFrPad(){
+  const pad = document.getElementById("frPad");
+  if(pad.childElementCount) return;
+  ["1","2","3","4","5","6","7","8","9","\u232B","0","Go"].forEach(k=>{
+    const b = document.createElement("button");
+    b.className = "skey" + (k === "Go" ? " go" : "");
+    b.textContent = k;
+    b.addEventListener("click", ()=>frKey(k));
+    pad.appendChild(b);
+  });
+}
+
+function frSetSlots(slots){
+  frState.slots = slots;      /* [{exp, val:null, validate?}] */
+  frState.active = 0;
+  frState.entry = "";
+  frRenderSlots();
+}
+function frRenderSlots(){
+  frState.slots.forEach((sl, i)=>{
+    const el = document.getElementById("frS" + i);
+    if(!el) return;
+    el.classList.toggle("factive", i === frState.active && sl.val === null);
+    el.classList.remove("fgood","fbad");
+    el.textContent = sl.val !== null ? sl.val : (i === frState.active && frState.entry ? frState.entry : "?");
+  });
+}
+
+function frStart(f){
+  ensureFrPad();
+  frState = { fact: f, kind: f.kind, stage: "entry", slots: [], active: 0, entry: "" };
+  const vis = document.getElementById("frVisual");
+  const work = document.getElementById("frWork");
+  const ch = document.getElementById("frChoices");
+  vis.innerHTML = ""; work.innerHTML = ""; ch.innerHTML = "";
+  ch.classList.add("hidden");
+  document.getElementById("frPad").classList.add("hidden");
+  document.getElementById("frStatus").textContent = "";
+  document.getElementById("frNextBtn").classList.add("hidden");
+  const stage = document.getElementById("frStage");
+
+  if(f.kind === "shade"){
+    stage.textContent = "What fraction of the bar is shaded?";
+    vis.innerHTML = frBarSVG(f.d, f.k);
+    work.innerHTML = frFracSlotHTML(0, frSlotHTML(1)).replace('<span class="fden">' + frSlotHTML(1) + '</span>',
+      '<span class="fden" style="padding-top:2px">' + frSlotHTML(1) + '</span>');
+    frSetSlots([{ exp: f.k, val: null }, { exp: f.d, val: null }]);
+    document.getElementById("frPad").classList.remove("hidden");
+  }else if(f.kind === "equiv"){
+    stage.textContent = "Make the fractions equal";
+    vis.innerHTML = frBarSVG(f.b, f.a) + frBarSVG(f.c, 0);
+    work.innerHTML = frFracHTML(f.a, f.b) + '<span>=</span>' + frFracSlotWrap(0, f.c);
+    frSetSlots([{ exp: f.ansN, val: null }]);
+    document.getElementById("frPad").classList.remove("hidden");
+  }else if(f.kind === "compare"){
+    stage.textContent = "Tap the bigger fraction";
+    ch.classList.remove("hidden");
+    frState.stage = "choose";
+    const mk = (side, n, d)=>{
+      const b = document.createElement("button");
+      b.className = "fr-card";
+      b.innerHTML = frFracHTML(n, d) + frBarSVG(d, n);
+      b.addEventListener("click", ()=>frChoose(side, b));
+      return b;
+    };
+    ch.appendChild(mk("left", f.n1, f.d1));
+    const eqb = document.createElement("button");
+    eqb.className = "fr-eq";
+    eqb.textContent = "They are equal";
+    eqb.addEventListener("click", ()=>frChoose("equal", eqb));
+    ch.appendChild(eqb);
+    ch.appendChild(mk("right", f.n2, f.d2));
+  }else if(f.kind === "addlike"){
+    stage.textContent = "Add the fractions";
+    work.innerHTML = frFracHTML(f.a, f.d) + '<span>+</span>' + frFracHTML(f.b, f.d) +
+      '<span>=</span>' + frFracSlotWrap(0, f.d);
+    frSetSlots([{ exp: f.ansN, val: null }]);
+    document.getElementById("frPad").classList.remove("hidden");
+  }else if(f.kind === "simplify"){
+    stage.textContent = "Write it in simplest form";
+    work.innerHTML = frFracHTML(f.n, f.d) + '<span>=</span>' +
+      '<span class="frac"><span class="fnum" style="border-bottom:none">' + frSlotHTML(0) +
+      '</span><span class="fden">' + frSlotHTML(1) + '</span></span>';
+    frState.joint = "simplify";
+    frSetSlots([{ exp: f.ansN, val: null }, { exp: f.ansD, val: null }]);
+    document.getElementById("frPad").classList.remove("hidden");
+  }else if(f.kind === "unlike"){
+    frState.stage = "lcd";
+    frState.L = null;
+    stage.textContent = "What denominator can both fractions share?";
+    work.innerHTML = '<div class="fr-rows"><div class="fr-row">' +
+      frFracHTML(f.a, f.b) + '<span>+</span>' + frFracHTML(f.c, f.e) + '</div>' +
+      '<div class="fr-row">shared denominator: ' + frSlotHTML(0) + '</div></div>';
+    frSetSlots([{ exp: frLcm(f.b, f.e), val: null,
+      validate: v => v > 0 && v <= 99 && v % f.b === 0 && v % f.e === 0 }]);
+    document.getElementById("frPad").classList.remove("hidden");
+  }else if(f.kind === "multwhole"){
+    stage.textContent = "Multiply";
+    work.innerHTML = '<span>' + f.w + '</span><span>×</span>' + frFracHTML(f.a, f.b) +
+      '<span>=</span>' + frFracSlotWrap(0, f.b);
+    frSetSlots([{ exp: f.ansN, val: null }]);
+    document.getElementById("frPad").classList.remove("hidden");
+  }else{ /* ofset */
+    stage.textContent = "Fraction of a set";
+    work.innerHTML = '<span>What is</span>' + frFracHTML(f.a, f.b) +
+      '<span>of ' + f.N + '?</span><span>=</span>' + frSlotHTML(0);
+    frSetSlots([{ exp: f.answer, val: null }]);
+    document.getElementById("frPad").classList.remove("hidden");
+  }
+  frRenderSlots();
+}
+function frFracSlotWrap(slotIdx, d){
+  return '<span class="frac"><span class="fnum" style="border-bottom:none">' + frSlotHTML(slotIdx) +
+    '</span><span class="fden">' + d + '</span></span>';
+}
+
+function frKey(k){
+  if(locked || !frState || frState.stage === "choose" || frState.stage === "done") return;
+  if(k === "\u232B"){
+    frState.entry = frState.entry.slice(0, -1);
+  }else if(k === "Go"){
+    if(!frState.entry) return;
+    frCommit(+frState.entry);
+    return;
+  }else if(frState.entry.length < 2){
+    frState.entry += k;
+  }
+  frRenderSlots();
+}
+
+function frCommit(v){
+  const st = frState;
+  st.slots[st.active].val = v;
+  st.entry = "";
+  const next = st.slots.findIndex(sl=>sl.val === null);
+  if(next !== -1){
+    st.active = next;
+    frRenderSlots();
+    return;
+  }
+  frRenderSlots();
+  frCheck();
+}
+
+function frCheck(){
+  const st = frState, f = st.fact;
+  tickTime();
+  let ok, hint = "";
+  if(st.joint === "simplify"){
+    const n = st.slots[0].val, d = st.slots[1].val;
+    const equalVal = d > 0 && n * f.d === d * f.n;
+    const simplest = equalVal && frGcd(n, d) === 1;
+    ok = simplest;
+    if(equalVal && !simplest) hint = "That equals it — but simplify all the way down.";
+  }else{
+    ok = st.slots.every(sl => sl.validate ? sl.validate(sl.val) : sl.val === sl.exp);
+  }
+  if(ok){
+    playDing();
+    st.slots.forEach((sl, i)=>{
+      const el = document.getElementById("frS" + i);
+      if(el){ el.classList.add("fgood"); el.classList.remove("factive","fbad"); }
+    });
+    if(st.kind === "unlike"){ frUnlikeAdvance(); return; }
+    frFinish();
+    return;
+  }
+  playThunk();
+  st.slots.forEach((sl, i)=>{
+    const el = document.getElementById("frS" + i);
+    if(el) el.classList.add("fbad");
+  });
+  if(attempt === 1){
+    attempt = 2;
+    document.getElementById("frStatus").textContent = hint || "Not quite — try again";
+    setTimeout(()=>{
+      st.slots.forEach(sl=>{ sl.val = null; });
+      st.active = 0;
+      document.getElementById("frStatus").textContent = hint ? hint : "";
+      frRenderSlots();
+    }, 800);
+    return;
+  }
+  frMark();
+  locked = true;
+  st.slots.forEach((sl, i)=>{
+    sl.val = sl.exp;
+    const el = document.getElementById("frS" + i);
+    if(el){ el.textContent = sl.exp; el.classList.remove("fbad"); el.classList.add("fgood"); }
+  });
+  document.getElementById("frStatus").textContent = "Here is the answer";
+  const tok = session;
+  setTimeout(()=>{
+    if(session !== tok) return;
+    locked = false;
+    if(st.kind === "unlike"){ frUnlikeAdvance(); return; }
+    frFinish();
+  }, 1400);
+}
+
+function frUnlikeAdvance(){
+  const st = frState, f = st.fact;
+  attempt = 1;
+  const work = document.getElementById("frWork");
+  if(st.stage === "lcd"){
+    st.L = st.slots[0].val;   /* honor any valid common denominator they chose */
+    st.stage = "cv1";
+    document.getElementById("frStage").textContent = "Convert the first fraction";
+    work.innerHTML = '<div class="fr-rows"><div class="fr-row">' +
+      frFracHTML(f.a, f.b) + '<span>+</span>' + frFracHTML(f.c, f.e) + '</div>' +
+      '<div class="fr-row">' + frFracHTML(f.a, f.b) + '<span>=</span>' + frFracSlotWrap(0, st.L) + '</div></div>';
+    frSetSlots([{ exp: f.a * (st.L / f.b), val: null }]);
+  }else if(st.stage === "cv1"){
+    st.n1 = st.slots[0].val !== null ? f.a * (st.L / f.b) : f.a * (st.L / f.b);
+    st.stage = "cv2";
+    document.getElementById("frStage").textContent = "Convert the second fraction";
+    work.innerHTML = '<div class="fr-rows"><div class="fr-row">' +
+      frFracHTML(st.n1, st.L) + '<span>+</span>' + frFracHTML(f.c, f.e) + '</div>' +
+      '<div class="fr-row">' + frFracHTML(f.c, f.e) + '<span>=</span>' + frFracSlotWrap(0, st.L) + '</div></div>';
+    frSetSlots([{ exp: f.c * (st.L / f.e), val: null }]);
+  }else if(st.stage === "cv2"){
+    st.n2 = f.c * (st.L / f.e);
+    st.stage = "sum";
+    document.getElementById("frStage").textContent = "Now add them";
+    work.innerHTML = '<div class="fr-rows"><div class="fr-row">' +
+      frFracHTML(st.n1, st.L) + '<span>+</span>' + frFracHTML(st.n2, st.L) +
+      '<span>=</span>' + frFracSlotWrap(0, st.L) + '</div></div>';
+    frSetSlots([{ exp: st.n1 + st.n2, val: null }]);
+  }else{
+    /* sum answered */
+    const total = st.n1 + st.n2;
+    const g = frGcd(total, st.L);
+    if(g > 1){
+      document.getElementById("frStatus").textContent =
+        "Also equals " + (total / g) + "/" + (st.L / g) + " in simplest form.";
+    }
+    frFinish();
+  }
+}
+
+function frFinish(){
+  const f = factIndex[currentKey()];
+  locked = true;
+  frState.stage = "done";
+  session.status[f.key] =
+    (session.everMissed && session.everMissed[f.key]) ? "yellow" : "green";
+  session.queue.shift();
+  saveStore();
+  paintCell(f.key);
+  playFanfare();
+  document.getElementById("frStage").textContent = "Solved!";
+  document.getElementById("frNextBtn").classList.remove("hidden");
+}
+
+function frChoose(side, btn){
+  if(locked || !frState || frState.stage !== "choose") return;
+  const f = frState.fact;
+  tickTime();
+  if(side === f.correct){
+    playDing();
+    btn.classList.add("oo-reveal");
+    locked = true;
+    setTimeout(()=>{ locked = false; frFinish(); }, 700);
+    return;
+  }
+  frMark();
+  playThunk();
+  btn.classList.add("oo-wrong");
+  if(attempt === 1){
+    attempt = 2;
+    document.getElementById("frStatus").textContent =
+      f.d1 === f.d2 ? "Same-size pieces — compare how many." :
+      f.n1 === f.n2 ? "Same number of pieces — bigger denominator means smaller pieces." :
+      "Look at the bars.";
+    return;
+  }
+  locked = true;
+  const ch = document.getElementById("frChoices");
+  const kids = [...ch.children]; /* left card, equal, right card */
+  const idx = f.correct === "left" ? 0 : f.correct === "equal" ? 1 : 2;
+  kids[idx].classList.add("oo-reveal");
+  document.getElementById("frStatus").textContent = "This is the answer";
+  const tok = session;
+  setTimeout(()=>{
+    if(session !== tok) return;
+    locked = false;
+    frFinish();
+  }, 1400);
+}
+
+document.getElementById("frNextBtn").addEventListener("click", ()=>{
+  if(!session || !isFractions(session.op)) return;
+  document.getElementById("frNextBtn").classList.add("hidden");
+  nextCard();
+});
+
+/* =================== decimals =================== */
+let dcState = null;
+
+function dcGen(level, count){
+  const ri = n => Math.floor(Math.random() * n);
+  const plan = level === "beginner"
+    ? ["frdec","frdec","frdec","frdec","dccompare","dccompare","dccompare","place","place","place"]
+    : ["dcadd","dcadd","dcadd","dcsub","dcsub","dcsub","dcmul","dcmul","round","round"];
+  const order = shuffle(plan.slice());
+  const seen = {};
+  const facts = [];
+  for(const kind of order){
+    let f = null, g = 0;
+    while(!f && g++ < 400){
+      if(kind === "frdec"){
+        const hundred = Math.random() < 0.4;
+        const den = hundred ? 100 : 10;
+        const num = 1 + ri(den - 1);
+        if(hundred && num % 10 === 0) continue;
+        const key = "fd:" + num + ":" + den;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, num, den, prompt: num + "/" + den + " as decimal", answer: num / den };
+      }else if(kind === "dccompare"){
+        const t = ri(10);
+        let da, db, correct;
+        if(t < 2){
+          const x = 1 + ri(9);
+          da = "0." + x; db = "0." + x + "0";
+          if(Math.random() < 0.5){ const tmp = da; da = db; db = tmp; }
+          correct = "equal";
+        }else{
+          const a = 1 + ri(9), b2 = 10 + ri(89);
+          const va = a / 10, vb = b2 / 100;
+          if(va === vb) continue;
+          da = "0." + a; db = "0." + b2;
+          correct = va > vb ? "left" : "right";
+        }
+        const key = "dcc:" + da + ":" + db;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, da, db, correct, prompt: da + " vs " + db, answer: correct };
+      }else if(kind === "place"){
+        const whole = 1 + ri(9), t2 = ri(10), h = ri(10);
+        if(t2 === h || t2 === whole || h === whole) continue;
+        const num = whole + "." + t2 + h;
+        const which = ri(3);
+        const wname = ["ones","tenths","hundredths"][which];
+        const ansd = [whole, t2, h][which];
+        const key = "pl:" + num + ":" + wname;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, num, wname, prompt: wname + " digit of " + num, answer: ansd };
+      }else if(kind === "dcadd" || kind === "dcsub"){
+        let x = (10 + ri(490)) / 100, y = (10 + ri(290)) / 100;
+        x = Math.round(x * 100) / 100;
+        y = Math.round(y * 100) / 100;
+        if(kind === "dcsub" && y > x){ const tmp = x; x = y; y = tmp; }
+        const ans = Math.round((kind === "dcadd" ? x + y : x - y) * 100) / 100;
+        if(kind === "dcsub" && ans === 0) continue;
+        const key = kind + ":" + x + ":" + y;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, x, y, prompt: x + (kind === "dcadd" ? " + " : " − ") + y, answer: ans };
+      }else if(kind === "dcmul"){
+        const w = 2 + ri(8), d = 2 + ri(8);
+        const ans = Math.round(w * d) / 10;
+        const key = "dm:" + w + ":" + d;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, w, d, prompt: w + " × 0." + d, answer: ans };
+      }else{
+        const toTenth = Math.random() < 0.6;
+        const whole = 1 + ri(9);
+        const t2 = ri(10), h = 1 + ri(9);
+        if(toTenth && h === 5) continue;
+        if(!toTenth && t2 === 5) continue;
+        const num = whole + "." + t2 + h;
+        const v = parseFloat(num);
+        const ans = toTenth ? Math.round(v * 10) / 10 : Math.round(v);
+        const key = "rd:" + num + ":" + toTenth;
+        if(seen[key]) continue;
+        seen[key] = 1;
+        f = { kind, num, toTenth, prompt: "round " + num, answer: ans };
+      }
+    }
+    if(f) facts.push(f);
+  }
+  return facts.map((f, i)=>({ ...f, key: "dc:" + i }));
+}
+
+function dcMark(){
+  const f = factIndex[currentKey()];
+  session.everMissed = session.everMissed || {};
+  if(!session.everMissed[f.key]){
+    session.everMissed[f.key] = true;
+    session.status[f.key] = "yellow";
+    saveStore();
+    paintCell(f.key);
+  }
+}
+
+function ensureDcPad(){
+  const pad = document.getElementById("dcPad");
+  if(pad.childElementCount) return;
+  ["1","2","3","4","5","6","7","8","9",".","0","\u232B","Go"].forEach(k=>{
+    const b = document.createElement("button");
+    b.className = "skey" + (k === "Go" ? " go kwide" : "");
+    b.textContent = k;
+    b.addEventListener("click", ()=>dcKey(k));
+    pad.appendChild(b);
+  });
+}
+
+function dcStart(f){
+  ensureDcPad();
+  dcState = { fact: f, kind: f.kind, stage: "entry", entry: "" };
+  const q = document.getElementById("dcQ");
+  const ch = document.getElementById("dcChoices");
+  ch.innerHTML = ""; ch.classList.add("hidden");
+  document.getElementById("dcStatus").textContent = "";
+  document.getElementById("dcNextBtn").classList.add("hidden");
+  document.getElementById("dcEntry").textContent = "?";
+  document.getElementById("dcEntry").classList.remove("win","lose");
+  const stage = document.getElementById("dcStage");
+  const showPad = ()=>{
+    document.getElementById("dcAskRow").classList.remove("hidden");
+    document.getElementById("dcPad").classList.remove("hidden");
+  };
+  document.getElementById("dcAskRow").classList.add("hidden");
+  document.getElementById("dcPad").classList.add("hidden");
+
+  if(f.kind === "frdec"){
+    stage.textContent = "Write it as a decimal";
+    q.innerHTML = frFracHTML(f.num, f.den) + '<span>=</span>';
+    showPad();
+  }else if(f.kind === "dccompare"){
+    stage.textContent = "Tap the bigger number";
+    dcState.stage = "choose";
+    q.innerHTML = "";
+    ch.classList.remove("hidden");
+    const mk = (side, txt)=>{
+      const b = document.createElement("button");
+      b.className = "fr-card";
+      b.innerHTML = '<span class="dc-big">' + txt + '</span>';
+      b.addEventListener("click", ()=>dcChoose(side, b));
+      return b;
+    };
+    ch.appendChild(mk("left", f.da));
+    const eqb = document.createElement("button");
+    eqb.className = "fr-eq";
+    eqb.textContent = "They are equal";
+    eqb.addEventListener("click", ()=>dcChoose("equal", eqb));
+    ch.appendChild(eqb);
+    ch.appendChild(mk("right", f.db));
+  }else if(f.kind === "place"){
+    stage.textContent = "Place value";
+    q.innerHTML = '<span class="dc-big">' + f.num + '</span>' +
+      '<span>&mdash; which digit is in the <b>' + f.wname + '</b> place?</span>';
+    showPad();
+  }else if(f.kind === "dcadd" || f.kind === "dcsub"){
+    stage.textContent = f.kind === "dcadd" ? "Add the decimals" : "Subtract the decimals";
+    q.innerHTML = '<span class="dc-big">' + f.prompt + '</span><span>=</span>';
+    showPad();
+  }else if(f.kind === "dcmul"){
+    stage.textContent = "Multiply";
+    q.innerHTML = '<span class="dc-big">' + f.w + ' × 0.' + f.d + '</span><span>=</span>';
+    showPad();
+  }else{
+    stage.textContent = "Round " + f.num + " to the nearest " + (f.toTenth ? "tenth" : "whole number");
+    q.innerHTML = '<span class="dc-big">' + f.num + '</span>';
+    showPad();
+  }
+}
+
+function dcKey(k){
+  if(locked || !dcState || dcState.stage !== "entry") return;
+  if(k === "\u232B"){
+    dcState.entry = dcState.entry.slice(0, -1);
+  }else if(k === "Go"){
+    if(!dcState.entry) return;
+    dcSubmit(dcState.entry);
+    return;
+  }else if(k === "." ){
+    if(dcState.entry.indexOf(".") === -1 && dcState.entry.length < 5) dcState.entry += ".";
+  }else if(dcState.entry.length < 6){
+    dcState.entry += k;
+  }
+  document.getElementById("dcEntry").textContent = dcState.entry || "?";
+}
+
+function dcSubmit(raw){
+  const f = dcState.fact;
+  const v = parseFloat(raw);
+  const e = document.getElementById("dcEntry");
+  tickTime();
+  if(!isNaN(v) && Math.abs(v - f.answer) < 1e-9){
+    playDing();
+    e.classList.add("win");
+    dcFinish();
+    return;
+  }
+  playThunk();
+  if(attempt === 1){
+    attempt = 2;
+    e.classList.add("lose");
+    document.getElementById("dcStatus").textContent = "Not quite — try again";
+    setTimeout(()=>{
+      e.classList.remove("lose");
+      dcState.entry = "";
+      e.textContent = "?";
+    }, 800);
+    return;
+  }
+  dcMark();
+  locked = true;
+  e.textContent = String(f.answer);
+  e.classList.add("lose");
+  document.getElementById("dcStatus").textContent = "The answer is " + f.answer;
+  const tok = session;
+  setTimeout(()=>{
+    if(session !== tok) return;
+    locked = false;
+    e.classList.remove("lose");
+    e.classList.add("win");
+    dcFinish();
+  }, 1400);
+}
+
+function dcChoose(side, btn){
+  if(locked || !dcState || dcState.stage !== "choose") return;
+  const f = dcState.fact;
+  tickTime();
+  if(side === f.correct){
+    playDing();
+    btn.classList.add("oo-reveal");
+    locked = true;
+    setTimeout(()=>{ locked = false; dcFinish(); }, 700);
+    return;
+  }
+  dcMark();
+  playThunk();
+  btn.classList.add("oo-wrong");
+  if(attempt === 1){
+    attempt = 2;
+    document.getElementById("dcStatus").textContent =
+      "Line up the tenths first — 0.4 means 0.40.";
+    return;
+  }
+  locked = true;
+  const ch = document.getElementById("dcChoices");
+  const kids = [...ch.children];
+  const idx = f.correct === "left" ? 0 : f.correct === "equal" ? 1 : 2;
+  kids[idx].classList.add("oo-reveal");
+  document.getElementById("dcStatus").textContent = "This is the answer";
+  const tok = session;
+  setTimeout(()=>{
+    if(session !== tok) return;
+    locked = false;
+    dcFinish();
+  }, 1400);
+}
+
+function dcFinish(){
+  const f = factIndex[currentKey()];
+  locked = true;
+  dcState.stage = "done";
+  session.status[f.key] =
+    (session.everMissed && session.everMissed[f.key]) ? "yellow" : "green";
+  session.queue.shift();
+  saveStore();
+  paintCell(f.key);
+  playFanfare();
+  document.getElementById("dcStage").textContent = "Solved!";
+  document.getElementById("dcNextBtn").classList.remove("hidden");
+}
+
+document.getElementById("dcNextBtn").addEventListener("click", ()=>{
+  if(!session || !isDecimals(session.op)) return;
+  document.getElementById("dcNextBtn").classList.add("hidden");
+  nextCard();
+});
 
 renderHome();
 </script>
