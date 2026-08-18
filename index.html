@@ -98,7 +98,7 @@
   #resumeBtn{border-style:dashed;}
 
   /* ---------- session ---------- */
-  #session{display:flex;flex-direction:column;gap:14px;min-height:100%;}
+  #session{display:flex;flex-direction:column;gap:14px;height:100%;min-height:0;}
   .topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .topbar .spacer{flex:1;}
   .topbar .brand{font-size:20px;}
@@ -122,7 +122,7 @@
   .legend span{display:inline-flex;align-items:center;gap:6px;}
   .board-count{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-soft);}
 
-  .play{flex:1;display:flex;flex-direction:column;gap:14px;min-width:0;}
+  .play{flex:1;display:flex;flex-direction:column;gap:14px;min-width:0;min-height:0;}
 
   /* the jumbotron card — signature element */
   .card{
@@ -132,6 +132,7 @@
     display:flex;flex-direction:column;align-items:center;gap:10px;
     box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.08), 0 10px 30px rgba(20,34,56,.18);
     position:relative;
+    flex:0 1 auto;min-height:0;overflow-y:auto;
   }
   .card .prompt{
     font-family:var(--display);font-weight:800;
@@ -255,12 +256,15 @@
   }
 
   .keypad{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
-    max-width:460px;width:100%;margin:0 auto;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+    max-width:560px;width:100%;margin:0 auto;
+    flex:0 0 auto;
   }
   .key{
-    font-family:var(--display);font-weight:800;font-size:32px;
-    padding:16px 0;border-radius:16px;
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(22px,3.2vh,30px);
+    padding:clamp(9px,1.7vh,15px) 0;min-height:44px;
+    border-radius:16px;
     background:var(--panel);border:1.5px solid var(--line);color:var(--ink);
     transition:transform .05s ease;
   }
@@ -443,7 +447,7 @@
   .hero-btn{font-size:14px;padding:11px 6px;}
 
   /* story problems */
-  .story{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-width:0;padding:0 8px;}
+  .story{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;justify-content:safe center;gap:14px;min-width:0;min-height:0;overflow-y:auto;padding:0 8px;}
   .story-text-wrap{display:flex;gap:12px;align-items:flex-start;max-width:640px;}
   .speak-btn{font-size:22px;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--panel);flex:0 0 auto;}
   .story-text{font-family:var(--display);font-weight:700;font-size:21px;line-height:1.45;}
@@ -485,7 +489,7 @@
   .story-status{font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink-soft);min-height:24px;text-align:center;}
 
   /* number lab */
-  .forge{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-width:0;}
+  .forge{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;justify-content:safe center;gap:14px;min-width:0;min-height:0;overflow-y:auto;}
   .forge-target{font-family:var(--display);font-weight:800;font-size:34px;}
   .forge-rule{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-soft);margin-top:-8px;letter-spacing:.04em;}
   .forge-work{font-family:var(--display);font-weight:700;font-size:16px;color:var(--ink-soft);min-height:22px;text-align:center;}
@@ -720,14 +724,14 @@
         <button class="key" data-k="1">1</button>
         <button class="key" data-k="2">2</button>
         <button class="key" data-k="3">3</button>
+        <button class="key back" data-k="back">&#9003;</button>
         <button class="key" data-k="4">4</button>
         <button class="key" data-k="5">5</button>
         <button class="key" data-k="6">6</button>
+        <button class="key" data-k="0">0</button>
         <button class="key" data-k="7">7</button>
         <button class="key" data-k="8">8</button>
         <button class="key" data-k="9">9</button>
-        <button class="key back" data-k="back">&#9003;</button>
-        <button class="key" data-k="0">0</button>
         <button class="key enter" data-k="enter">Go</button>
       </div>
     </div>
@@ -5333,14 +5337,17 @@ function submit(){
   const card = document.getElementById("card");
   let given;
   if(colBoxes){
-    const optionalLead = session.op === "add" ? 1 : 0;
-    if(colBoxes.some((d, i) => d === "" && i >= optionalLead)){
+    /* empty boxes are fine on the left — nobody writes leading zeros on paper.
+       Only an interior gap (an empty box to the right of a filled one) blocks. */
+    const first = colBoxes.findIndex(d => d !== "");
+    if(first === -1) return; /* nothing typed yet */
+    if(colBoxes.some((d, i) => i > first && d === "")){
       card.classList.add("shake");
       setTimeout(()=>card.classList.remove("shake"), 420);
-      setStatusMsg("Every column gets a digit — zeros count");
+      setStatusMsg("There's a gap in your answer — fill the empty box");
       return;
     }
-    given = parseInt(colBoxes.join(""), 10);
+    given = parseInt(colBoxes.slice(first).join(""), 10);
   }else{
     if(entry === "") return;
     given = parseInt(entry, 10);
