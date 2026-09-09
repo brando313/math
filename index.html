@@ -8765,8 +8765,8 @@ function frGen(level, count){
   return facts.map((f, i)=>({ ...f, key: "fr:" + i }));
 }
 
-function frBarSVG(parts, shaded, secondUnshaded){
-  const w = Math.min(280, parts * 34), h = 40;
+function frBarSVG(parts, shaded, width){
+  const w = width || 280, h = 40;
   const cw = w / parts;
   let cells = "";
   for(let i = 0; i < parts; i++){
@@ -8859,7 +8859,7 @@ function frStart(f){
     const mk = (side, n, d)=>{
       const b = document.createElement("button");
       b.className = "fr-card";
-      b.innerHTML = frFracHTML(n, d) + frBarSVG(d, n);
+      b.innerHTML = frFracHTML(n, d) + frBarSVG(d, n, 170);
       b.addEventListener("click", ()=>frChoose(side, b));
       return b;
     };
@@ -8915,7 +8915,17 @@ function frFracSlotWrap(slotIdx, d){
 function frKey(k){
   if(locked || !frState || frState.stage === "choose" || frState.stage === "done") return;
   if(k === "\u232B"){
-    frState.entry = frState.entry.slice(0, -1);
+    if(frState.entry){
+      frState.entry = frState.entry.slice(0, -1);
+    }else{
+      for(let i = frState.slots.length - 1; i >= 0; i--){
+        if(frState.slots[i].val !== null){
+          frState.slots[i].val = null;
+          frState.active = i;
+          break;
+        }
+      }
+    }
   }else if(k === "Go"){
     if(!frState.entry) return;
     frCommit(+frState.entry);
@@ -9038,6 +9048,9 @@ function frUnlikeAdvance(){
 
 function frFinish(){
   const f = factIndex[currentKey()];
+  if(frState && frState.kind === "equiv"){
+    document.getElementById("frVisual").innerHTML = frBarSVG(f.b, f.a) + frBarSVG(f.c, f.ansN);
+  }
   locked = true;
   frState.stage = "done";
   session.status[f.key] =
