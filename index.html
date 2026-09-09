@@ -606,7 +606,6 @@
 .mod-next{display:block;margin:12px auto;font-size:22px}
 .frac{display:inline-flex;flex-direction:column;align-items:center;margin:0 4px;vertical-align:middle}
 .fnum,.fden{font-size:26px;font-weight:700;line-height:1.2;padding:0 8px}
-.fnum{border-bottom:3px solid #2b4a66}
 .fbar{align-self:stretch;height:4px;background:#1d2f42;border-radius:2px;margin:5px 0}
 .fr-visual{display:flex;flex-direction:column;gap:12px;align-items:center;margin:10px 0}
 .fr-work{display:flex;align-items:center;justify-content:center;gap:8px;font-size:26px;font-weight:700;margin:12px 0;flex-wrap:wrap}
@@ -8779,13 +8778,13 @@ function frBarSVG(parts, shaded, secondUnshaded){
 }
 
 function frFracHTML(n, d){
-  return '<span class="frac"><span class="fnum">' + n + '</span><span class="fden">' + d + '</span></span>';
+  return '<span class="frac"><span class="fnum">' + n + '</span><span class="fbar"></span><span class="fden">' + d + '</span></span>';
 }
 function frSlotHTML(i){
   return '<span class="fslot" id="frS' + i + '">?</span>';
 }
 function frFracSlotHTML(slotIdx, d){
-  return '<span class="frac"><span class="fnum" style="border-bottom:none;padding-bottom:0">' + frSlotHTML(slotIdx) +
+  return '<span class="frac"><span class="fnum">' + frSlotHTML(slotIdx) +
     '</span><span class="fbar"></span><span class="fden" style="padding-top:0">' + d + '</span></span>';
 }
 
@@ -8909,7 +8908,7 @@ function frStart(f){
   frRenderSlots();
 }
 function frFracSlotWrap(slotIdx, d){
-  return '<span class="frac"><span class="fnum" style="border-bottom:none;padding-bottom:0">' + frSlotHTML(slotIdx) +
+  return '<span class="frac"><span class="fnum">' + frSlotHTML(slotIdx) +
     '</span><span class="fbar"></span><span class="fden" style="padding-top:0">' + d + '</span></span>';
 }
 
