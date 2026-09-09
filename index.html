@@ -8784,8 +8784,8 @@ function frSlotHTML(i){
   return '<span class="fslot" id="frS' + i + '">?</span>';
 }
 function frFracSlotHTML(slotIdx, d){
-  return '<span class="frac"><span class="fnum" style="border-bottom:none">' + frSlotHTML(slotIdx) +
-    '</span><span class="fden">' + d + '</span></span>';
+  return '<span class="frac"><span class="fnum" style="padding-bottom:4px;border-bottom:3px solid #2b4a66">' + frSlotHTML(slotIdx) +
+    '</span><span class="fden" style="padding-top:4px">' + d + '</span></span>';
 }
 
 function frMark(){
@@ -8843,8 +8843,7 @@ function frStart(f){
   if(f.kind === "shade"){
     stage.textContent = "What fraction of the bar is shaded?";
     vis.innerHTML = frBarSVG(f.d, f.k);
-    work.innerHTML = frFracSlotHTML(0, frSlotHTML(1)).replace('<span class="fden">' + frSlotHTML(1) + '</span>',
-      '<span class="fden" style="padding-top:2px">' + frSlotHTML(1) + '</span>');
+    work.innerHTML = frFracSlotHTML(0, frSlotHTML(1));
     frSetSlots([{ exp: f.k, val: null }, { exp: f.d, val: null }]);
     document.getElementById("frPad").classList.remove("hidden");
   }else if(f.kind === "equiv"){
@@ -8879,9 +8878,7 @@ function frStart(f){
     document.getElementById("frPad").classList.remove("hidden");
   }else if(f.kind === "simplify"){
     stage.textContent = "Write it in simplest form";
-    work.innerHTML = frFracHTML(f.n, f.d) + '<span>=</span>' +
-      '<span class="frac"><span class="fnum" style="border-bottom:none">' + frSlotHTML(0) +
-      '</span><span class="fden">' + frSlotHTML(1) + '</span></span>';
+    work.innerHTML = frFracHTML(f.n, f.d) + '<span>=</span>' + frFracSlotHTML(0, frSlotHTML(1));
     frState.joint = "simplify";
     frSetSlots([{ exp: f.ansN, val: null }, { exp: f.ansD, val: null }]);
     document.getElementById("frPad").classList.remove("hidden");
@@ -8911,8 +8908,8 @@ function frStart(f){
   frRenderSlots();
 }
 function frFracSlotWrap(slotIdx, d){
-  return '<span class="frac"><span class="fnum" style="border-bottom:none">' + frSlotHTML(slotIdx) +
-    '</span><span class="fden">' + d + '</span></span>';
+  return '<span class="frac"><span class="fnum" style="padding-bottom:4px;border-bottom:3px solid #2b4a66">' + frSlotHTML(slotIdx) +
+    '</span><span class="fden" style="padding-top:4px">' + d + '</span></span>';
 }
 
 function frKey(k){
