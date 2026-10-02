@@ -3594,6 +3594,424 @@ items: [
 ]
 };
 
+const NWEA_READ_G1_MORE = {
+  passages: [
+    {
+      id: "penguins",
+      title: "Penguins Know How to Stay Warm",
+      genre: "info",
+      text: [
+        "## A Very Cold Home",
+        "Emperor penguins live in Antarctica. It is the coldest place on Earth. The land is covered with ice and snow, and strong winds blow.",
+        "## Fat and Feathers",
+        "Penguins have a thick layer of fat under their skin. The fat works like a warm blanket. Penguins also have lots of short feathers packed close together. The feathers keep out the wind and the icy water.",
+        "## Huddling Together",
+        "When it gets very cold, penguins stand close together in a big group. This group is called a huddle. The penguins in the middle stay the warmest. The penguins keep moving, so the ones on the outside get a turn in the middle."
+      ],
+      qs: [
+        { q: "What is this passage mostly about?", choices: ["How penguins catch fish", "How penguins stay warm in the cold", "Why ice is slippery", "How to make a blanket"], answer: 1, diff: 2, skill: "main", why: "Each part tells a way penguins stay warm." },
+        { q: "Where do emperor penguins live?", choices: ["In a hot desert", "In a big forest", "In Antarctica"], answer: 2, diff: 1, skill: "detail", why: "The passage says emperor penguins live in Antarctica." },
+        { q: "What is a huddle?", choices: ["A big group standing close together", "A hole in the ice", "A kind of feather", "A cold wind"], answer: 0, diff: 4, skill: "vocab", why: "The passage says a big group of penguins standing close is called a huddle." },
+        { q: "Which TWO things help keep a penguin warm? Choose TWO answers.", choices: ["Strong winds", "A thick layer of fat", "Icy water", "Short feathers packed close"], answer: [1, 3], diff: 3, skill: "detail", why: "The fat works like a blanket, and the feathers keep out the cold." },
+        { q: "Which heading would help you learn about penguin feathers?", choices: ["A Very Cold Home", "Huddling Together", "Fat and Feathers"], answer: 2, diff: 4, skill: "feature", why: "The part called Fat and Feathers tells about penguin feathers." },
+        { q: "Why would a penguin on the outside of the huddle want to move in?", choices: ["It is colder on the outside", "It wants to find food", "It is too warm on the outside", "It wants to go swimming"], answer: 0, diff: 5, skill: "infer", why: "The middle is warmest, so the outside must be colder." }
+      ]
+    },
+    {
+      id: "trains",
+      title: "Trains Follow the Tracks",
+      genre: "info",
+      text: [
+        "## On the Track",
+        "A train is a long line of cars that move together on a track. The track is made of two steel rails. The train's wheels fit on the rails, so the train goes wherever the track goes.",
+        "## The Engine Pulls",
+        "The engine is the part that pulls the train. Long ago, engines burned coal to make steam. The steam made the wheels turn. Today, most trains use diesel fuel or electricity.",
+        "## People and Things",
+        "Some trains carry people to work, to school, or to see family. Other trains carry things, like food, cars, and wood. A train that carries things is called a freight train."
+      ],
+      qs: [
+        { q: "What is this passage mostly about?", choices: ["How to ride a bike", "Why people visit family", "How trains work and what they carry", "How to build a road"], answer: 2, diff: 2, skill: "main", why: "The passage tells about tracks, engines, and what trains carry." },
+        { q: "What is a train track made of?", choices: ["Two steel rails", "Soft sand", "Wood blocks", "Big rocks"], answer: 0, diff: 1, skill: "detail", why: "The passage says the track is made of two steel rails." },
+        { q: "What is a freight train?", choices: ["A train that carries only kids", "A train that carries things", "A very old train"], answer: 1, diff: 3, skill: "vocab", why: "The passage says a train that carries things is called a freight train." },
+        { q: "How are trains today different from trains long ago?", choices: ["Today trains have no wheels", "Today trains do not need tracks", "Today trains are pulled by horses", "Today most trains use diesel or electricity, not coal"], answer: 3, diff: 4, skill: "compare", why: "Long ago engines burned coal, but today most use diesel or electricity." },
+        { q: "Which heading tells what trains carry?", choices: ["On the Track", "The Engine Pulls", "People and Things"], answer: 2, diff: 3, skill: "feature", why: "The part called People and Things tells what trains carry." },
+        { q: "Why did the author write this passage?", choices: ["To teach how trains work", "To tell a funny story", "To get you to buy a train", "To teach how to drive a car"], answer: 0, diff: 5, skill: "purpose", why: "The passage gives facts to teach about trains." }
+      ]
+    },
+    {
+      id: "firefighters",
+      title: "Firefighters Keep Us Safe",
+      genre: "info",
+      text: [
+        "## At the Fire Station",
+        "Firefighters work at a fire station. They are ready to help day or night. When the alarm rings, they put on their gear and jump into the fire truck.",
+        "## Special Gear",
+        "Firefighters wear a helmet, a thick coat, gloves, and boots. This gear keeps them safe from heat. They also carry a tank of air on their backs, so they can breathe in smoky places.",
+        "## Putting Out Fires",
+        "Firefighters spray water from long hoses to put out fires. They can hook a hose to a fire hydrant to get lots of water. Fire trucks have tall ladders to reach high windows."
+      ],
+      qs: [
+        { q: "What is this passage mostly about?", choices: ["How to cook on a stove", "What firefighters do", "How to wash a truck"], answer: 1, diff: 1, skill: "main", why: "The passage tells about firefighters, their gear, and how they put out fires." },
+        { q: "What do firefighters do when the alarm rings?", choices: ["They take a nap", "They wash the truck", "They eat lunch", "They put on their gear and jump into the truck"], answer: 3, diff: 2, skill: "sequence", why: "The passage says they put on gear and jump into the truck when the alarm rings." },
+        { q: "Which TWO things does the passage say firefighters wear? Choose TWO answers.", choices: ["A helmet", "A ladder", "Boots", "A hydrant"], answer: [0, 2], diff: 2, skill: "detail", why: "Firefighters wear a helmet and boots. Ladders and hydrants are not worn." },
+        { q: "Why do firefighters carry a tank of air?", choices: ["To blow out fires", "To fill the hoses", "So they can breathe in smoky places", "So the truck can go fast"], answer: 2, diff: 3, skill: "cause", why: "The air tank lets them breathe in smoky places." },
+        { q: "In this passage, what does gear mean?", choices: ["Special clothes and tools for a job", "A kind of fire truck", "A loud bell", "A long hose"], answer: 0, diff: 3, skill: "vocab", why: "The gear is the helmet, coat, gloves, and boots they put on." },
+        { q: "Why do fire trucks need tall ladders?", choices: ["To fix the fire station roof", "To reach high windows", "To carry more water"], answer: 1, diff: 4, skill: "detail", why: "The passage says the ladders reach high windows." }
+      ]
+    },
+    {
+      id: "hockeypractice",
+      title: "Owen Learns to Pass",
+      genre: "lit",
+      text: [
+        "Owen had his first hockey practice on Saturday. He put on his helmet, his pads, and his skates. His stomach felt jumpy.",
+        "Coach Rivera asked the team to pass the puck. Owen hit the puck too hard. It zipped past his friend and hit the boards. Some kids giggled, and Owen's face turned red.",
+        "Coach Rivera skated over. \"Pretend the puck is an egg,\" she said. \"Push it softly with your stick.\"",
+        "Owen tried again. He gave the puck a soft push. It slid right to his friend Jonah's stick!",
+        "\"Nice pass!\" Jonah said. Owen grinned. He could not wait for the next practice."
+      ],
+      qs: [
+        { q: "What is this story mostly about?", choices: ["Owen buys new skates", "Jonah loses his stick", "Coach Rivera cooks an egg", "Owen learns to make a good pass"], answer: 3, diff: 2, skill: "main", why: "The story shows Owen learning to pass the puck the right way." },
+        { q: "What was Owen's problem?", choices: ["He forgot his helmet", "He could not find the rink", "He hit the puck too hard"], answer: 2, diff: 3, skill: "problem", why: "Owen hit the puck too hard, and it zipped past his friend." },
+        { q: "How did Owen feel when the kids giggled?", choices: ["Proud", "Sleepy", "Hungry", "Embarrassed"], answer: 3, diff: 4, skill: "character", why: "His face turned red, which shows he felt embarrassed." },
+        { q: "Coach Rivera said to push the puck softly. What does softly mean?", choices: ["Gently", "Very fast", "Loudly", "Far away"], answer: 0, diff: 3, skill: "vocab", why: "The coach wanted a soft push, like holding an egg gently." },
+        { q: "What happened right after Owen gave the puck a soft push?", choices: ["It hit the boards", "It slid to Jonah's stick", "Owen fell down"], answer: 1, diff: 4, skill: "sequence", why: "The soft push made the puck slide right to Jonah's stick." },
+        { q: "What is the lesson of this story?", choices: ["Never play hockey", "Kids should not laugh", "Listen to good help and try again", "Always hit the puck hard"], answer: 2, diff: 5, skill: "lesson", why: "Owen listened to his coach, tried again, and made a good pass." }
+      ]
+    },
+    {
+      id: "rainyday",
+      title: "A Fort Saves a Rainy Day",
+      genre: "lit",
+      text: [
+        "Grace looked out the window. Rain poured down, and the yard was full of puddles. \"Now we can't go to the park,\" she said with a sigh.",
+        "Her little brother Theo had an idea. \"Let's build a fort!\" he said.",
+        "They got blankets from the closet and pillows from the couch. They put a big blanket over two chairs. Theo held it up while Grace tucked the ends under some books.",
+        "Inside the fort, they read stories with a flashlight. Mom brought them apple slices for a picnic.",
+        "Grace did not even notice when the rain stopped. \"This was the best rainy day ever,\" she said."
+      ],
+      qs: [
+        { q: "What is this story mostly about?", choices: ["A trip to the park", "Two kids who have fun inside on a rainy day", "How to cook apples"], answer: 1, diff: 1, skill: "main", why: "Grace and Theo build a fort and have fun while it rains." },
+        { q: "Why could Grace not go to the park?", choices: ["It was raining", "She was sick", "The park was closed", "It was too dark"], answer: 0, diff: 1, skill: "problem", why: "Rain poured down, so they could not go to the park." },
+        { q: "Which TWO things did they use to build the fort? Choose TWO answers.", choices: ["A tent", "Blankets", "Boxes", "Chairs"], answer: [1, 3], diff: 3, skill: "detail", why: "They put a big blanket over two chairs." },
+        { q: "What did Grace and Theo do inside the fort?", choices: ["They took a nap", "They played a board game", "They read stories with a flashlight", "They painted pictures"], answer: 2, diff: 3, skill: "sequence", why: "Inside the fort, they read stories with a flashlight." },
+        { q: "How did Grace's feelings change in the story?", choices: ["She was happy, then sad", "She was scared, then mad", "She was sleepy, then hungry", "She was sad, then happy"], answer: 3, diff: 4, skill: "character", why: "She sighed at first, but at the end she called it the best day." },
+        { q: "Why did Grace not notice when the rain stopped?", choices: ["She was having so much fun", "She was asleep", "The window was closed", "She was at the park"], answer: 0, diff: 5, skill: "infer", why: "She was busy having fun in the fort, so she did not look outside." }
+      ]
+    },
+    {
+      id: "newkid",
+      title: "Jada Helps Amir Feel Welcome",
+      genre: "lit",
+      text: [
+        "It was Amir's first day at a new school. He did not know anyone. At recess, he sat on a bench by himself and watched the other kids play.",
+        "A girl named Jada saw him. She remembered her own first day last year. She had felt alone, too.",
+        "Jada walked over with a ball. \"Do you want to play four square?\" she asked.",
+        "\"I don't know how,\" Amir said. \"I can show you,\" said Jada. She taught him the rules, and soon two more kids joined them.",
+        "When the bell rang, Amir ran inside with his new friends. He could not wait for recess tomorrow."
+      ],
+      qs: [
+        { q: "What is this story mostly about?", choices: ["A girl who loses her ball", "A new boy who makes friends", "A teacher who rings a bell", "A boy who moves away"], answer: 1, diff: 2, skill: "main", why: "Amir is new, and Jada helps him make friends at recess." },
+        { q: "Where does most of this story happen?", choices: ["At Amir's house", "In the lunchroom", "At recess"], answer: 2, diff: 1, skill: "setting", why: "Amir sits on a bench and plays four square at recess." },
+        { q: "What was Amir's problem at the start?", choices: ["He lost his lunch", "He was late to school", "He hurt his leg", "He did not know anyone"], answer: 3, diff: 2, skill: "problem", why: "It was his first day, and he did not know anyone." },
+        { q: "Why did Jada walk over to Amir?", choices: ["She remembered feeling alone on her first day", "Her teacher told her to", "She wanted his bench", "She needed her ball back"], answer: 0, diff: 4, skill: "character", why: "Jada remembered she felt alone on her own first day." },
+        { q: "How does Amir feel at the end of the story?", choices: ["Lonely", "Happy and excited", "Angry"], answer: 1, diff: 3, skill: "character", why: "He ran inside with new friends and could not wait for tomorrow." },
+        { q: "What is the lesson of this story?", choices: ["Recess is too short", "Always play four square", "Stay by yourself at a new school", "Be kind and include someone who is alone"], answer: 3, diff: 5, skill: "lesson", why: "Jada was kind to Amir, and it helped him feel welcome." }
+      ]
+    },
+    {
+      id: "losttooth",
+      title: "Henry's Tooth Was in the Apple",
+      genre: "lit",
+      text: [
+        "Henry had a wiggly tooth. He pushed it with his tongue all week. It wiggled, but it would not come out.",
+        "At lunch, Henry bit into a crunchy apple. Crunch! Something felt different. His tooth was gone!",
+        "Henry looked on his tray. He looked under the table. No tooth. \"Oh no! I lost my tooth!\" he cried.",
+        "His friend Rosa pointed at his apple. \"Look closer,\" she said. There was the tiny tooth, stuck in the apple!",
+        "Henry put the tooth in a little bag to take home. He smiled a big smile with a brand new gap."
+      ],
+      qs: [
+        { q: "What is this story mostly about?", choices: ["Henry loses his lunch box", "Henry's tooth comes out and he finds it", "Rosa bakes an apple pie", "Henry goes to the dentist"], answer: 1, diff: 2, skill: "main", why: "Henry's tooth comes out at lunch, and Rosa helps him find it." },
+        { q: "What made Henry's tooth come out?", choices: ["He fell down", "He brushed too hard", "He bit into a crunchy apple"], answer: 2, diff: 3, skill: "cause", why: "The tooth came out when he bit into a crunchy apple." },
+        { q: "How did Henry feel when he could not find his tooth?", choices: ["Worried", "Silly", "Sleepy", "Proud"], answer: 0, diff: 2, skill: "character", why: "He cried, \"Oh no!\" which shows he was worried." },
+        { q: "Which TWO places did Henry look before Rosa helped? Choose TWO answers.", choices: ["In his backpack", "On his tray", "On the bus", "Under the table"], answer: [1, 3], diff: 4, skill: "detail", why: "Henry looked on his tray and under the table first." },
+        { q: "Henry had a wiggly tooth. What does wiggly mean?", choices: ["Big and sharp", "Clean and white", "Brand new", "Loose and moving a little"], answer: 3, diff: 3, skill: "vocab", why: "A wiggly tooth is loose, so it moves a little." },
+        { q: "What is the gap in Henry's smile?", choices: ["A cut on his lip", "A piece of apple skin", "The space where his tooth was", "A new tooth"], answer: 2, diff: 5, skill: "infer", why: "His tooth came out, so there is an empty space in his smile." }
+      ]
+    },
+    {
+      id: "pepper",
+      title: "Pepper Comes In for His Ball",
+      genre: "lit",
+      text: [
+        "It was time for bed, but Pepper the dog was still in the yard. Ruby opened the back door. \"Pepper, come inside!\" she called.",
+        "Pepper wagged his tail and ran the other way. Ruby called again and again. Pepper just sat by the fence.",
+        "Ruby felt cross. Then she had an idea. She got Pepper's favorite red ball and squeaked it.",
+        "Pepper's ears popped up. He raced across the yard and right through the door!",
+        "Ruby gave him the ball and a big hug. \"Next time, I will try the ball first,\" she said, laughing."
+      ],
+      qs: [
+        { q: "What is this story mostly about?", choices: ["A girl who gets her dog to come inside", "A dog who digs a hole", "A girl who loses her ball"], answer: 0, diff: 1, skill: "main", why: "Ruby works to get Pepper to come inside for bed." },
+        { q: "What was Ruby's problem?", choices: ["Pepper was hungry", "Pepper would not come inside", "The door was stuck", "She could not find her bed"], answer: 1, diff: 2, skill: "problem", why: "Ruby called and called, but Pepper would not come in." },
+        { q: "How did Ruby get Pepper to come inside?", choices: ["She gave him a bath", "She went to bed", "She closed the door", "She squeaked his favorite ball"], answer: 3, diff: 3, skill: "problem", why: "When Ruby squeaked the red ball, Pepper raced inside." },
+        { q: "Ruby felt cross. What does cross mean in this story?", choices: ["Ready to walk across", "Shaped like an X", "A little bit angry", "Very sleepy"], answer: 2, diff: 4, skill: "vocab", why: "Ruby felt cross because Pepper would not listen, so she was a little angry." },
+        { q: "How did Ruby feel at the end of the story?", choices: ["Happy", "Scared", "Cross", "Sad"], answer: 0, diff: 3, skill: "character", why: "Ruby gave Pepper a hug and was laughing." },
+        { q: "What will Ruby most likely do next time Pepper will not come in?", choices: ["Call him again and again", "Leave him outside", "Squeak his red ball", "Buy a new dog"], answer: 2, diff: 5, skill: "infer", why: "Ruby said that next time she will try the ball first." }
+      ]
+    }
+  ],
+  items: [
+    { strand: "found", skill: "rhyme", q: "Which word rhymes with sun?", choices: ["fun", "sit", "sock", "sand"], answer: 0, diff: 1, why: "Sun and fun both end with the same sound." },
+    { strand: "found", skill: "rhyme", q: "Which word rhymes with light?", choices: ["lid", "lit", "love", "night"], answer: 3, diff: 3, why: "Light and night both end with the same sound." },
+    { strand: "found", skill: "beginning sound", q: "Which word has the same beginning sound as moon?", choices: ["noon", "soon", "mop", "tune"], answer: 2, diff: 1, why: "Moon and mop both begin with m." },
+    { strand: "found", skill: "ending sound", q: "Which word ends with the same sound as duck?", choices: ["dog", "rock", "dot", "den"], answer: 1, diff: 2, why: "Duck and rock both end with the same sound." },
+    { strand: "found", skill: "short vowel", q: "Which word has the same middle sound as cup?", choices: ["cap", "cop", "bag", "bug"], answer: 3, diff: 2, why: "Cup and bug both have the short u sound in the middle." },
+    { strand: "found", skill: "silent e", q: "Take away the e at the end of cape. What word is left?", choices: ["cap", "cup", "cop"], answer: 0, diff: 3, why: "Cape without the e is cap." },
+    { strand: "found", skill: "digraph", q: "Which word ends with the same two letters as fish?", choices: ["fist", "dish", "fit", "dig"], answer: 1, diff: 3, why: "Fish and dish both end with sh." },
+    { strand: "found", skill: "blend", q: "Which word begins with the same sounds as stop?", choices: ["sock", "top", "sap", "step"], answer: 3, diff: 3, why: "Stop and step both begin with st." },
+    { strand: "found", skill: "vowel team", q: "Which word has the same vowel sound as soap?", choices: ["sip", "sap", "rod", "road"], answer: 3, diff: 4, why: "Soap and road both have the long o sound spelled oa." },
+    { strand: "found", skill: "r-controlled", q: "Which word has the same vowel sound as horn?", choices: ["hen", "fork", "hot", "fur"], answer: 1, diff: 5, why: "Horn and fork both have the or sound." },
+    { strand: "found", skill: "syllables", q: "How many syllables, or word parts, are in the word elephant?", choices: ["one", "two", "three"], answer: 2, diff: 4, why: "El, e, phant. Elephant has three parts." },
+    { strand: "found", skill: "sight word", q: "Which word is spelled the right way?", choices: ["frend", "freind", "frind", "friend"], answer: 3, diff: 5, why: "Friend is spelled f, r, i, e, n, d." },
+    { strand: "found", skill: "compound word", q: "Which TWO words are compound words, made of two smaller words? Choose TWO answers.", choices: ["cupcake", "kitten", "rainbow", "yellow"], answer: [0, 2], diff: 4, why: "Cup plus cake makes cupcake, and rain plus bow makes rainbow." },
+    { strand: "found", skill: "picture word", q: "Which word names something with pages that you read?", choices: ["look", "book", "boot", "hook"], answer: 1, diff: 1, why: "A book has pages that you read." },
+    { strand: "found", skill: "long vowel", q: "Which TWO words have the long o sound, like in bone? Choose TWO answers.", choices: ["hope", "hop", "rose", "rod"], answer: [0, 2], diff: 5, why: "Hope and rose have the long o sound, like bone." },
+
+    { strand: "vocab", skill: "synonym", q: "Which word means the same as sad?", choices: ["unhappy", "silly", "funny"], answer: 0, diff: 2, why: "Unhappy means the same as sad." },
+    { strand: "vocab", skill: "antonym", q: "Which word means the opposite of open?", choices: ["wide", "new", "closed", "clean"], answer: 2, diff: 1, why: "Closed is the opposite of open." },
+    { strand: "vocab", skill: "antonym", q: "Which word means the opposite of wet?", choices: ["dry", "cold", "muddy", "rainy"], answer: 0, diff: 1, why: "Dry is the opposite of wet." },
+    { strand: "vocab", skill: "category", q: "Which word does NOT belong with the others?", choices: ["hat", "coat", "sock", "spoon"], answer: 3, diff: 2, why: "A hat, coat, and sock are things you wear. A spoon is not." },
+    { strand: "vocab", skill: "category", q: "Which TWO things can you ride? Choose TWO answers.", choices: ["lamp", "bike", "book", "horse"], answer: [1, 3], diff: 2, why: "You can ride a bike and a horse." },
+    { strand: "vocab", skill: "shades of meaning", q: "Which word means VERY happy?", choices: ["fine", "okay", "thrilled", "calm"], answer: 2, diff: 4, why: "Thrilled means very, very happy." },
+    { strand: "vocab", skill: "shades of meaning", q: "Which word is the slowest way to move?", choices: ["run", "race", "hop", "crawl"], answer: 3, diff: 3, why: "To crawl is to move slowly on your hands and knees." },
+    { strand: "vocab", skill: "word meaning", q: "The puppy was soaked after the rain. What does soaked mean?", choices: ["very wet", "very sleepy", "very small"], answer: 0, diff: 3, why: "The rain made the puppy very wet." },
+    { strand: "vocab", skill: "word meaning", q: "Tess had a big grin on her face. What is a grin?", choices: ["a frown", "a smile", "a hat"], answer: 1, diff: 3, why: "A grin is a big smile." },
+    { strand: "vocab", skill: "multiple meaning", q: "A fly landed on my plate. What is a fly in this sentence?", choices: ["a small bug", "to move in the air", "a kind of plate", "a paper kite"], answer: 0, diff: 3, why: "A fly that lands on a plate is a small bug." },
+    { strand: "vocab", skill: "multiple meaning", q: "Which sentence uses park to mean a place to play?", choices: ["Dad will park the car.", "Please park by the door.", "We swing at the park."], answer: 2, diff: 4, why: "You swing at a park, which is a place to play." },
+    { strand: "vocab", skill: "context clue", q: "The glass was fragile, so we held it with care. What does fragile mean?", choices: ["easy to break", "very heavy", "full of milk", "very dirty"], answer: 0, diff: 5, why: "We held it with care because it could break easily." },
+    { strand: "vocab", skill: "context clue", q: "The kitten was timid, so it hid under the bed when people came in. What does timid mean?", choices: ["brave and bold", "shy and easily scared", "sleepy and slow"], answer: 1, diff: 5, why: "The kitten hid from people because it was shy and scared." },
+    { strand: "vocab", skill: "synonym", q: "Which word means the same as begin?", choices: ["end", "stop", "start", "wait"], answer: 2, diff: 3, why: "Begin and start mean the same thing." },
+    { strand: "vocab", skill: "synonym", q: "Which TWO words mean about the same as pretty? Choose TWO answers.", choices: ["ugly", "lovely", "plain", "beautiful"], answer: [1, 3], diff: 4, why: "Lovely and beautiful both mean about the same as pretty." },
+
+    { strand: "lang", skill: "capital letters", q: "Which sentence is written correctly?", choices: ["we went to Ohio.", "We went to ohio.", "We went to Ohio."], answer: 2, diff: 2, why: "A sentence and the name of a place both start with a capital letter." },
+    { strand: "lang", skill: "end punctuation", q: "Which mark should go at the end? I like to read books ___", say: "Which mark should go at the end? I like to read books, blank.", choices: ["a question mark", "a period", "a comma"], answer: 1, diff: 1, why: "This sentence tells something, so it ends with a period." },
+    { strand: "lang", skill: "nouns", q: "Which word names a place?", choices: ["school", "sing", "sleepy", "under"], answer: 0, diff: 2, why: "A school is a place." },
+    { strand: "lang", skill: "verbs", q: "The frog ___ into the pond. Which word finishes the sentence?", say: "The frog, blank, into the pond. Which word finishes the sentence?", choices: ["hop", "hopping", "hops"], answer: 2, diff: 2, why: "One frog hops into the pond." },
+    { strand: "lang", skill: "adjectives", q: "The fluffy cat slept. Which word tells what the cat is like?", choices: ["slept", "the", "cat", "fluffy"], answer: 3, diff: 3, why: "Fluffy describes the cat." },
+    { strand: "lang", skill: "plural nouns", q: "Which word means more than one dish?", choices: ["dishs", "dishes", "dishies", "dish"], answer: 1, diff: 4, why: "Words that end in sh add es to mean more than one." },
+    { strand: "lang", skill: "plural nouns", q: "Which TWO words mean more than one? Choose TWO answers.", choices: ["cup", "dogs", "hat", "bells"], answer: [1, 3], diff: 3, why: "Dogs and bells end in s, so they mean more than one." },
+    { strand: "lang", skill: "verb tense", q: "Last night we ___ a movie. Which word finishes the sentence?", say: "Last night we, blank, a movie. Which word finishes the sentence?", choices: ["watch", "watching", "watched"], answer: 2, diff: 3, why: "Last night already happened, so we use watched." },
+    { strand: "lang", skill: "verb tense", q: "Which sentence tells about something that will happen?", choices: ["I will swim tomorrow.", "I swam today.", "I am swimming."], answer: 0, diff: 4, why: "Will swim tomorrow tells about something that has not happened yet." },
+    { strand: "lang", skill: "pronouns", q: "The kids are playing tag. Which word can take the place of The kids?", choices: ["She", "He", "It", "They"], answer: 3, diff: 1, why: "They takes the place of more than one person." },
+    { strand: "lang", skill: "pronouns", q: "This hat belongs to Tom. It is ___ hat.", say: "This hat belongs to Tom. It is, blank, hat.", choices: ["her", "his", "its", "our"], answer: 1, diff: 5, why: "Tom is a boy, so it is his hat." },
+    { strand: "lang", skill: "complete sentences", q: "Which one is a complete sentence?", choices: ["Under the big tree.", "The girl reads a book.", "Runs and jumps."], answer: 1, diff: 3, why: "It tells who, the girl, and what she does, reads a book." },
+    { strand: "lang", skill: "commas", q: "Which letter greeting is written correctly?", choices: ["dear Grandpa,", "Dear grandpa,", "Dear Grandpa", "Dear Grandpa,"], answer: 3, diff: 5, why: "Dear and Grandpa get capital letters, and a comma goes after the name." },
+    { strand: "lang", skill: "joining words", q: "Which word best finishes the sentence? Do you want milk ___ juice?", say: "Which word best finishes the sentence? Do you want milk, blank, juice?", choices: ["but", "or", "so"], answer: 1, diff: 4, why: "Or shows you can pick one of the two drinks." },
+    { strand: "lang", skill: "sentence order", q: "Which sentence should come FIRST in a story about the morning?", choices: ["Last, I got on the bus.", "Then I brushed my teeth.", "First, I woke up."], answer: 2, diff: 2, why: "Waking up comes first, and the word First tells us so." }
+  ]
+};
+
+const NWEA_READ_G2_MORE = {
+passages: [
+{ id:"monarchs", title:"The Amazing Monarch Butterfly", genre:"info",
+  text:[
+   "## A Tiny Egg",
+   "A monarch butterfly starts life as a tiny egg, about the size of a pinhead. The mother butterfly lays each egg on a milkweed plant. Milkweed is the only plant that monarch caterpillars eat, so the baby will have food right away.",
+   "## A Hungry Caterpillar",
+   "After a few days, a caterpillar hatches from the egg. It has yellow, black, and white stripes. The caterpillar eats and eats. It grows so fast that it gets too big for its skin, so it sheds its old skin several times. Milkweed has a bitter juice that makes the caterpillar taste bad, so most birds leave it alone.",
+   "## Inside the Chrysalis",
+   "When the caterpillar is fully grown, it hangs upside down and makes a hard green case around itself. This case is called a chrysalis. It has tiny gold dots. Inside, the caterpillar's body changes completely. After about two weeks, an orange and black butterfly comes out.",
+   "## A Long Trip",
+   "Monarchs cannot live through a cold winter. In the fall, many monarchs from the eastern United States and Canada fly south to the mountains of Mexico. Some fly more than 2,000 miles! These fall butterflies live for many months. Summer monarchs live only a few weeks. In spring, the monarchs head north again. Along the way they lay eggs, and their children and grandchildren finish the trip."
+  ],
+  qs:[
+   {q:"What is this passage mostly about?", choices:["How to grow a milkweed plant","How monarch butterflies grow and travel","Why birds eat bugs","How to catch a butterfly"], answer:1, diff:1, skill:"main", why:"Each part tells how monarchs grow or where they travel."},
+   {q:"Why does the mother butterfly lay her eggs on milkweed?", choices:["It is soft to sleep on","It hides the eggs from rain","It is the food the caterpillars eat","It has tiny gold dots"], answer:2, diff:2, skill:"cause", why:"Monarch caterpillars only eat milkweed, so the baby has food right away."},
+   {q:"What happens right after the caterpillar is fully grown?", choices:["It hatches from an egg","It flies to Mexico","It lays eggs on milkweed","It hangs upside down and makes a chrysalis"], answer:3, diff:3, skill:"sequence", why:"When it is fully grown, it hangs upside down and makes a chrysalis."},
+   {q:"In this passage, what is a chrysalis?", choices:["A hard case where the caterpillar changes","A plant the caterpillar eats","A kind of bird","A tiny egg"], answer:0, diff:2, skill:"vocab", why:"The passage says the hard green case is called a chrysalis."},
+   {q:"How are fall monarchs different from summer monarchs?", choices:["Fall monarchs are green","Fall monarchs never fly","Fall monarchs live much longer","Fall monarchs eat only seeds"], answer:2, diff:4, skill:"compare", why:"Fall monarchs live for many months, but summer monarchs live only a few weeks."},
+   {q:"Why do many monarchs fly to Mexico in the fall?", choices:["To find a new kind of food","To get away from cold winter weather","To hide from birds","To make a chrysalis"], answer:1, diff:5, skill:"infer", why:"Monarchs cannot live through a cold winter, so they fly somewhere warmer."}
+  ]},
+{ id:"planets", title:"Our Planet Neighbors", genre:"info",
+  text:[
+   "## Circling the Sun",
+   "Our Earth is one of eight planets that travel around the Sun. Each planet moves in a big path called an orbit. The Sun and everything that circles it make up our solar system.",
+   "## The Rocky Planets",
+   "The four planets closest to the Sun are Mercury, Venus, Earth, and Mars. They are made mostly of rock. Mercury is the closest to the Sun and the smallest planet. Venus is the hottest planet because its thick air traps heat. Mars is called the Red Planet because its dust has rusty iron in it. Earth is the only planet where we know living things are found.",
+   "## The Giant Planets",
+   "The next four planets are Jupiter, Saturn, Uranus, and Neptune. They are much bigger than the rocky planets, and they do not have solid ground to stand on. Jupiter is the biggest planet of all. It has a giant storm called the Great Red Spot. Saturn is famous for its bright rings, which are made of chunks of ice and rock.",
+   "## Far, Far Away",
+   "Neptune is the farthest planet from the Sun. It is so far away that it takes about 165 Earth years to go around the Sun one time. Scientists learn about the planets with telescopes and space probes. A space probe is a machine with no people inside. It flies through space and sends back pictures."
+  ],
+  qs:[
+   {q:"What is this passage mostly about?", choices:["The planets that travel around the Sun","How to build a telescope","Why the Sun is hot","A trip to the Moon"], answer:0, diff:2, skill:"main", why:"The passage tells about the eight planets that circle the Sun."},
+   {q:"Which planet is the biggest?", choices:["Mars","Mercury","Neptune","Jupiter"], answer:3, diff:1, skill:"detail", why:"The passage says Jupiter is the biggest planet of all."},
+   {q:"Why is Mars called the Red Planet?", choices:["It has a giant red storm","It is the hottest planet","Its dust has rusty iron in it","It is closest to the Sun"], answer:2, diff:3, skill:"cause", why:"The rusty iron in its dust makes Mars look red."},
+   {q:"How are the giant planets different from the rocky planets? Choose TWO answers.", choices:["They are much bigger","They are closer to the Sun","They have no solid ground","They are made mostly of rock"], answer:[0,2], diff:4, skill:"compare", why:"The giant planets are much bigger and have no solid ground to stand on."},
+   {q:"In this passage, what is an orbit?", choices:["A machine that sends back pictures","The path a planet takes around the Sun","A storm on a planet","A ring of ice and rock"], answer:1, diff:3, skill:"vocab", why:"The passage says each planet moves in a big path called an orbit."},
+   {q:"Why do scientists most likely send space probes to Neptune instead of people?", choices:["Neptune is very, very far away","Neptune is the closest planet","Neptune has a big red storm","People already live on Neptune"], answer:0, diff:5, skill:"infer", why:"Neptune is the farthest planet, so a trip there would be much too long for people."}
+  ]},
+{ id:"heart", title:"Your Hard-Working Heart", genre:"info",
+  text:[
+   "## A Strong Muscle",
+   "Put your hand on your chest and hold still. Can you feel a thump, thump, thump? That is your heart. Your heart is a muscle about the size of your fist. It sits in the middle of your chest, tipped a little to the left.",
+   "## A Pump for Your Blood",
+   "Your heart works like a pump. Each time it squeezes, it pushes blood into tubes called blood vessels. The blood vessels carry blood all over your body, from the top of your head to the tips of your toes. Blood carries oxygen and food that every part of your body needs. Then the blood comes back to the heart, and the trip starts again.",
+   "## Four Rooms",
+   "Inside, your heart has four parts called chambers. Little doors called valves open to let blood through and then snap shut. The sound of the valves closing makes the lub-dub sound a doctor hears. A doctor listens with a tool called a stethoscope.",
+   "## Never Taking a Break",
+   "Your heart beats about 100,000 times every day, even while you sleep. When you run or jump, your muscles need more oxygen, so your heart beats faster. Exercise makes your heart stronger. Eating healthy food and playing outside every day help keep your heart working well for a long time."
+  ],
+  qs:[
+   {q:"What is this passage mostly about?", choices:["How to become a doctor","Why we sleep at night","How muscles grow","How the heart works"], answer:3, diff:1, skill:"main", why:"Every section tells something about the heart and what it does."},
+   {q:"In this passage, what are blood vessels?", choices:["Little doors in the heart","Tubes that carry blood","Tools that doctors use","Rooms inside the heart"], answer:1, diff:3, skill:"vocab", why:"The passage says blood vessels are tubes that carry blood."},
+   {q:"What does blood carry to every part of your body? Choose TWO answers.", choices:["Oxygen","Valves","Food","Muscles"], answer:[0,2], diff:2, skill:"detail", why:"The passage says blood carries oxygen and food that your body needs."},
+   {q:"What makes the lub-dub sound?", choices:["Blood going to your toes","The stethoscope tapping","Your lungs filling with air","The valves closing"], answer:3, diff:3, skill:"cause", why:"The passage says the valves closing make the lub-dub sound."},
+   {q:"Which heading would help you learn what your heart does when you run?", choices:["A Strong Muscle","Never Taking a Break","Four Rooms","A Pump for Your Blood"], answer:1, diff:4, skill:"feature", why:"Never Taking a Break tells that your heart beats faster when you run."},
+   {q:"Why does the author begin by asking you to put your hand on your chest?", choices:["To help you feel your own heart beating","To show you how to stand still","To teach you how to be a doctor","To explain how valves work"], answer:0, diff:5, skill:"purpose", why:"The author wants you to feel your own heartbeat before you read about it."}
+  ]},
+{ id:"mackinac", title:"The Mighty Mac", genre:"info",
+  text:[
+   "## Two Pieces of Michigan",
+   "Michigan is made of two big pieces of land called peninsulas. A peninsula is land with water on almost every side. The Upper Peninsula and the Lower Peninsula are split by a strip of water called the Straits of Mackinac. For a long time, the only way to get a car across was to ride on a ferry boat. On busy days, cars waited in long lines for hours.",
+   "## Building the Bridge",
+   "People wanted a bridge, but building one would not be easy. The water was deep, the winds were strong, and thick ice covered the straits in winter. Work began in 1954, and thousands of workers helped. First, they built strong bases deep in the water. Then they built two very tall towers on top of the bases. Next, huge steel cables were strung over the towers. Last, the road was hung from the cables.",
+   "## A Bridge That Hangs",
+   "The Mackinac Bridge is a suspension bridge. That means the road hangs from cables, a little like a swing hangs from ropes. The bridge is about five miles long. It is one of the longest suspension bridges in the world. In strong winds, the middle of the road can sway a little. It was built to move that way so it stays safe.",
+   "## Opening Day and Beyond",
+   "The bridge opened to cars in November 1957. Now drivers can cross in minutes instead of hours. People gave the bridge a nickname, the Mighty Mac. Every year on Labor Day, thousands of people walk across the bridge together."
+  ],
+  qs:[
+   {q:"What is this passage mostly about?", choices:["How ferry boats work","Why Michigan has cold winters","How the Mackinac Bridge was built and why it matters","How to walk across a bridge"], answer:2, diff:2, skill:"main", why:"The passage tells why people needed the bridge and how it was built."},
+   {q:"In this passage, what is a peninsula?", choices:["A tall tower","Land with water on almost every side","A kind of ferry boat","A steel cable"], answer:1, diff:3, skill:"vocab", why:"The passage says a peninsula is land with water on almost every side."},
+   {q:"What problem did the bridge solve?", choices:["Cars got lost in the woods","Ferry boats were too fast","There was too much ice on the roads","Drivers had to wait a long time to cross the water"], answer:3, diff:3, skill:"problem", why:"Before the bridge, cars waited in long lines for the ferry."},
+   {q:"What did workers build right after the strong bases in the water?", choices:["Two very tall towers","The road","The steel cables","A ferry dock"], answer:0, diff:4, skill:"sequence", why:"The passage says that after the bases, they built two tall towers."},
+   {q:"Why was building the bridge hard? Choose TWO answers.", choices:["The water was deep","There were no workers","The winds were strong","Cars were not invented yet"], answer:[0,2], diff:4, skill:"detail", why:"The passage says the water was deep and the winds were strong."},
+   {q:"How is crossing the straits today different from before 1957?", choices:["Now people must take a ferry","Now it takes minutes instead of hours","Now the water is gone","Now cars wait in longer lines"], answer:1, diff:5, skill:"compare", why:"The bridge lets drivers cross in minutes instead of waiting hours."}
+  ]},
+{ id:"schoolplay", title:"Rosa Forgets Her Lines", genre:"lit",
+  text:[
+   "Rosa had the biggest part in the second grade play. She was the Wise Owl, and she had twelve lines to say. Every night for two weeks, she practiced in front of her mirror and her grandma.",
+   "On the night of the play, the gym was packed with families. Rosa stood in her feathery costume behind the curtain. Her knees wobbled. \"What if I forget?\" she whispered to her friend Theo, who was playing the Fox.",
+   "\"You won't,\" Theo said. \"You know it better than anyone.\"",
+   "The curtain opened. Rosa said her first three lines perfectly. Then she looked out at all the faces, and her mind went blank. She could not remember a single word. The gym was so quiet that she heard a chair squeak.",
+   "Theo leaned close. \"Owl, what should we do about the storm?\" he asked in his Fox voice. It was not in the script, but it helped. Rosa remembered that her next line was about the storm! \"We must build a nest in the tall pine tree,\" she said in a loud, clear voice. The audience clapped.",
+   "After the play, Rosa hugged Theo. \"Thanks for helping me,\" she said. Grandma handed her a bunch of daisies. \"You did not let one mistake stop the show,\" Grandma said. Rosa smiled. She knew that good friends help each other through hard moments."
+  ],
+  qs:[
+   {q:"What is this story mostly about?", choices:["A fox who builds a nest","A girl who gets help after forgetting her lines","A grandma who buys flowers","A storm that hits the school"], answer:1, diff:2, skill:"main", why:"Rosa forgets her lines, and Theo helps her remember."},
+   {q:"Where does the play take place?", choices:["In a park","In Rosa's bedroom","In a theater downtown","In the gym"], answer:3, diff:1, skill:"setting", why:"The story says the gym was packed with families."},
+   {q:"How does Rosa feel behind the curtain?", choices:["Proud","Silly","Nervous","Grumpy"], answer:2, diff:2, skill:"character", why:"Her knees wobble and she worries that she will forget."},
+   {q:"How does Theo help Rosa?", choices:["He asks a question about the storm","He says all her lines for her","He closes the curtain","He goes to get her grandma"], answer:0, diff:3, skill:"problem", why:"Theo's question about the storm helps Rosa remember her next line."},
+   {q:"Her mind went blank. What does this mean?", choices:["She felt sleepy","She was thinking very hard","She forgot everything","She saw a white wall"], answer:2, diff:4, skill:"vocab", why:"Right after this, the story says she could not remember a single word."},
+   {q:"What is the lesson of this story?", choices:["Never be in a play","Always wear a costume","Owls are smarter than foxes","Friends can help you through hard moments"], answer:3, diff:5, skill:"lesson", why:"Theo helped Rosa, and she learned that good friends help each other."}
+  ]},
+{ id:"campout", title:"The Soggy Campout", genre:"lit",
+  text:[
+   "Jasper had been counting the days until his first camping trip. He and Aunt Tess packed a tent, two sleeping bags, flashlights, and a bag of marshmallows. They drove to a campground next to a quiet lake.",
+   "Right after they set up the tent, dark clouds rolled in. Then the rain came pouring down. Jasper and Aunt Tess dove into the tent. Rain drummed on the roof. \"Now we can't have a campfire,\" Jasper groaned. \"This trip is ruined.\"",
+   "Aunt Tess clicked on her flashlight. \"Ruined?\" she said. \"Or just different? Let's see what we can do in here.\"",
+   "First, they made shadow animals on the tent wall. Jasper made a rabbit, and Aunt Tess made a duck that quacked. Then they played cards and told silly stories. They even ate marshmallows straight from the bag.",
+   "By morning, the rain had stopped. Jasper unzipped the tent. Drops sparkled on every leaf, and a family of ducks paddled across the lake. That night they finally had their campfire.",
+   "\"Which night was better?\" Aunt Tess asked as they toasted marshmallows. Jasper thought for a moment. \"The rainy one,\" he said with a grin. \"I didn't know a tent could be so much fun.\""
+  ],
+  qs:[
+   {q:"What is this story mostly about?", choices:["How to set up a tent","A boy who learns a rainy campout can still be fun","A duck who lives by a lake","Why rain falls from clouds"], answer:1, diff:2, skill:"main", why:"Jasper thinks the rain ruined the trip, but it turns out to be fun."},
+   {q:"What problem do Jasper and Aunt Tess have?", choices:["They forget the tent","They get lost in the woods","Rain stops their plans for a campfire","The lake is too cold"], answer:2, diff:1, skill:"problem", why:"The rain pours down, so they cannot have a campfire."},
+   {q:"What do they do FIRST inside the tent?", choices:["Make shadow animals","Play cards","Eat marshmallows","Tell silly stories"], answer:0, diff:3, skill:"sequence", why:"The story says first, they made shadow animals on the tent wall."},
+   {q:"How do Jasper's feelings change from the start of the rain to the end of the story?", choices:["From happy to angry","From scared to sleepy","From bored to sad","From upset to happy"], answer:3, diff:4, skill:"character", why:"He groans that the trip is ruined, but at the end he grins."},
+   {q:"Rain drummed on the roof. What does drummed mean here?", choices:["Fell without a sound","Made tapping sounds over and over","Stopped all at once","Leaked inside"], answer:1, diff:3, skill:"vocab", why:"A drum makes tapping sounds, and so did the rain on the tent."},
+   {q:"What is the lesson of this story?", choices:["A change in plans can still turn out well","Never go camping","Always bring an umbrella","Marshmallows are the best food"], answer:0, diff:5, skill:"lesson", why:"The rain changed their plans, but Jasper liked the rainy night best."}
+  ]},
+{ id:"markers", title:"Ivy and the Art Markers", genre:"lit",
+  text:[
+   "Hannah had a box of twenty-four art markers. She got them for her birthday, and she kept them in a special spot on her desk. Her little sister, Ivy, thought they were the most beautiful colors she had ever seen.",
+   "One afternoon, Ivy needed to make a poster for school. Hannah was at piano lessons. Ivy tiptoed into her sister's room and took the markers. I will put them back before she gets home, Ivy thought. She drew a bright rainbow, a green field, and a blue sky.",
+   "Ivy was so busy coloring that she forgot to put the caps back on. When she finally looked down, the blue and green markers were dry. They would not color at all.",
+   "When Hannah got home, she found her markers on the kitchen table. \"Who used my markers?\" she asked. Her voice was shaky. Ivy's face turned red. She wanted to say she didn't know, but she knew that would be a lie.",
+   "\"I did,\" Ivy said quietly. \"I'm sorry. I should have asked you first.\"",
+   "The next weekend, Ivy used her saved allowance to buy Hannah a new blue marker and a new green marker. Hannah gave her a hug. \"Next time, just ask,\" Hannah said. \"I might say yes.\" Ivy promised she would."
+  ],
+  qs:[
+   {q:"What is this story mostly about?", choices:["A girl who takes piano lessons","How to make a poster","A girl who borrows without asking and makes it right","A store that sells markers"], answer:2, diff:2, skill:"main", why:"Ivy takes the markers without asking, then says sorry and replaces them."},
+   {q:"Where is Hannah when Ivy takes the markers?", choices:["At school","At the store","At a friend's house","At piano lessons"], answer:3, diff:1, skill:"detail", why:"The story says Hannah was at piano lessons."},
+   {q:"Why did the blue and green markers dry out?", choices:["Ivy forgot to put the caps back on","Hannah left them in the sun","They were very old","Ivy dropped them on the floor"], answer:0, diff:3, skill:"cause", why:"Ivy was so busy coloring that she left the caps off."},
+   {q:"What does Ivy do to make things right? Choose TWO answers.", choices:["She hides the markers","She says sorry","She blames her sister","She buys new markers"], answer:[1,3], diff:4, skill:"problem", why:"Ivy tells Hannah she is sorry and buys her new markers."},
+   {q:"Why did Ivy tiptoe into her sister's room?", choices:["Her feet hurt","She did not want anyone to notice her","The floor was wet","She was playing a game"], answer:1, diff:5, skill:"infer", why:"Ivy was taking something without asking, so she tried to be sneaky."},
+   {q:"What is the lesson of this story?", choices:["Markers are better than crayons","Big sisters should share everything","Always make posters at school","Ask before you borrow something"], answer:3, diff:3, skill:"lesson", why:"Ivy learned she should have asked Hannah first."}
+  ]},
+{ id:"garden", title:"Mr. Alvarez's Tomatoes", genre:"lit",
+  text:[
+   "Every summer, Mr. Alvarez grew the best tomatoes on Elm Street. Finn liked to wave to him over the fence while he worked. But this summer, Mr. Alvarez walked with a cane. Weeds were growing tall around his tomato plants.",
+   "Finn noticed that Mr. Alvarez sat on his porch every day, looking at his messy garden. He did not smile as much as he used to.",
+   "One Saturday, Finn knocked on Mr. Alvarez's door. \"Would you like some help with your garden?\" he asked. Mr. Alvarez's eyes lit up. \"I would like that very much,\" he said. \"But I will warn you, weeds are stubborn.\"",
+   "Mr. Alvarez sat in a lawn chair and taught Finn what to do. Finn learned how to pull a weed by its roots so it would not grow back. He learned to water the plants in the morning before the sun got hot. Every few days, Finn came back to help.",
+   "By August, the tomato plants were heavy with fat red tomatoes. Mr. Alvarez filled a basket and handed it to Finn. \"These are for your family,\" he said. \"You earned them.\"",
+   "That night, Finn's mom made a big pot of tomato sauce. Finn thought it was the best sauce he had ever tasted, maybe because he had helped it grow."
+  ],
+  qs:[
+   {q:"What is this story mostly about?", choices:["A boy who helps his neighbor with a garden","A man who sells tomatoes at a store","How to cook tomato sauce","A family that moves to Elm Street"], answer:0, diff:1, skill:"main", why:"Finn helps Mr. Alvarez take care of his garden."},
+   {q:"When does Finn learn to water the plants?", choices:["At night","After dinner","In the morning","At lunchtime"], answer:2, diff:2, skill:"detail", why:"Finn learned to water in the morning before the sun got hot."},
+   {q:"Why doesn't Mr. Alvarez smile as much as he used to?", choices:["He does not like Finn","He cannot take care of his garden like before","He is tired of tomatoes","His porch is broken"], answer:1, diff:4, skill:"infer", why:"He walks with a cane now and sits looking at his messy garden."},
+   {q:"Mr. Alvarez says weeds are stubborn. What does stubborn mean here?", choices:["Very pretty","Easy to pull","Good to eat","Hard to get rid of"], answer:3, diff:5, skill:"vocab", why:"Weeds grow back unless you pull out the roots, so they are hard to get rid of."},
+   {q:"What happens after the tomato plants are heavy with tomatoes?", choices:["Finn knocks on the door","Finn learns to pull weeds","Mr. Alvarez gives Finn a basket of tomatoes","Mr. Alvarez starts using a cane"], answer:2, diff:3, skill:"sequence", why:"In August, Mr. Alvarez fills a basket of tomatoes for Finn's family."},
+   {q:"What is the lesson of this story?", choices:["Gardens are too much work","Helping others can make everyone happier","Only grown-ups can grow food","Always eat your vegetables"], answer:1, diff:4, skill:"lesson", why:"Finn's help made Mr. Alvarez happy, and Finn felt proud too."}
+  ]}
+],
+items: [
+ {q:"Which words rhyme with sock? Choose TWO answers.", choices:["rock","sack","clock","soak"], answer:[0,2], diff:1, skill:"rhyme", strand:"found", why:"Sock, rock, and clock all end with ock."},
+ {q:"Which word has the short i sound, like in pig?", choices:["pie","fish","kite","five"], answer:1, diff:1, skill:"short vowels", strand:"found", why:"Pig and fish both have the short i sound."},
+ {q:"Which word is made of two smaller words?", choices:["follow","funny","father","football"], answer:3, diff:2, skill:"compound words", strand:"found", why:"Football is made of two words, foot and ball."},
+ {q:"Which word ends with the same sound as bath?", choices:["bat","bag","math","bad"], answer:2, diff:2, skill:"digraphs", strand:"found", why:"Bath and math both end with th."},
+ {q:"Which word begins with the same two sounds as frog?", choices:["fog","free","rock","fun"], answer:1, diff:2, skill:"blends", strand:"found", why:"Frog and free both begin with the fr blend."},
+ {q:"Which word has the same vowel sound as feet?", choices:["leaf","fed","fit","foot"], answer:0, diff:3, skill:"vowel teams", strand:"found", why:"Feet and leaf both have the long e sound, spelled ee and ea."},
+ {q:"Which word has the same vowel sound as fork?", choices:["fox","farm","horn","fur"], answer:2, diff:3, skill:"r-controlled vowels", strand:"found", why:"Fork and horn both have the or sound."},
+ {q:"How many syllables are in the word butterfly?", choices:["1","2","3","4"], answer:2, diff:3, skill:"syllables", strand:"found", why:"But-ter-fly has 3 parts."},
+ {q:"Read the word unpack. What is the base word?", choices:["un","pack","pac","unpa"], answer:1, diff:3, skill:"prefix", strand:"found", why:"Take away the prefix un and you have the base word pack."},
+ {q:"What is the base word in thankful?", choices:["tank","full","thanks","thank"], answer:3, diff:3, skill:"suffix", strand:"found", why:"Take away the ending ful and you have thank."},
+ {q:"Which shows the word picnic split into syllables?", choices:["pi-cnic","picn-ic","pic-nic","p-icnic"], answer:2, diff:4, skill:"two-syllable words", strand:"found", why:"Split between the two middle consonants: pic and nic."},
+ {q:"In which word is the b silent?", choices:["lamb","bat","bus","tub"], answer:0, diff:4, skill:"silent letters", strand:"found", why:"In lamb, you do not hear the b at the end."},
+ {q:"Which words have the same vowel sound as mouth? Choose TWO answers.", choices:["mud","cow","most","house"], answer:[1,3], diff:4, skill:"vowel teams", strand:"found", why:"Mouth, cow, and house share the same vowel sound, spelled ou and ow."},
+ {q:"Which word is spelled the right way?", choices:["peeple","people","pepole","peopel"], answer:1, diff:5, skill:"irregular spelling", strand:"found", why:"People is a tricky word. It is spelled p-e-o-p-l-e."},
+ {q:"In which word does the g sound like the g in giraffe?", choices:["goat","gate","bag","page"], answer:3, diff:5, skill:"irregular spelling", strand:"found", why:"In giraffe and page, the g sounds like j."},
+
+ {q:"Which word is the opposite of loud?", choices:["noisy","quiet","fast","tall"], answer:1, diff:1, skill:"antonym", strand:"vocab", why:"Loud means making a lot of sound. Quiet means making little sound."},
+ {q:"Which word belongs with apple, banana, and grape?", choices:["carrot","bread","pear","milk"], answer:2, diff:1, skill:"categories", strand:"vocab", why:"A pear is a fruit, like an apple, a banana, and a grape."},
+ {q:"Which word means almost the same as begin?", choices:["start","stop","end","sleep"], answer:0, diff:2, skill:"synonym", strand:"vocab", why:"Begin and start both mean to do the first part of something."},
+ {q:"The word untie means ___.", say:"The word untie means, blank.", choices:["tie again","tie very tight","tie before","undo a knot"], answer:3, diff:2, skill:"prefix", strand:"vocab", why:"The prefix un can mean the opposite, so untie means to undo a knot."},
+ {q:"What does repaint mean?", choices:["paint again","paint badly","not paint","paint before"], answer:0, diff:2, skill:"prefix", strand:"vocab", why:"The prefix re means again, so repaint means paint again."},
+ {q:"A cloudless sky has ___.", say:"A cloudless sky has, blank.", choices:["lots of clouds","rain clouds","no clouds","gray clouds"], answer:2, diff:3, skill:"suffix", strand:"vocab", why:"The suffix less means without, so cloudless means no clouds."},
+ {q:"Which word means full of color?", choices:["colorful","colorless","recolor","colors"], answer:0, diff:3, skill:"suffix", strand:"vocab", why:"The suffix ful means full of, so colorful means full of color."},
+ {q:"The bark on the tree was rough. What does bark mean in this sentence?", choices:["The sound a dog makes","A kind of boat","To shout loudly","The outside covering of a tree"], answer:3, diff:3, skill:"multiple meaning", strand:"vocab", why:"The sentence is about a tree, so bark means its outside covering."},
+ {q:"What is a toothbrush?", choices:["a sore tooth","a brush for teeth","a hair brush","a tooth that fell out"], answer:1, diff:3, skill:"compound word meaning", strand:"vocab", why:"Tooth plus brush makes toothbrush, a brush for your teeth."},
+ {q:"Which words mean almost the same as angry? Choose TWO answers.", choices:["mad","calm","upset","cheerful"], answer:[0,2], diff:3, skill:"synonym", strand:"vocab", why:"Mad and upset both mean almost the same as angry."},
+ {q:"Which word means a little bit wet?", choices:["soaked","dripping","flooded","damp"], answer:3, diff:4, skill:"shades of meaning", strand:"vocab", why:"Damp means just a little wet. The other words mean very wet."},
+ {q:"Dad will park the car. Which sentence uses park the same way?", choices:["We played at the park.","Please park the van by the store.","The park has a big slide.","The park closes at dark."], answer:1, diff:4, skill:"multiple meaning", strand:"vocab", why:"In both sentences, park means to stop a car and leave it."},
+ {q:"The trail was so steep that we had to climb slowly up the hill. What does steep mean?", choices:["flat and easy","wet and muddy","going up sharply","very short"], answer:2, diff:4, skill:"context clues", strand:"vocab", why:"They had to climb slowly, so the hill went up sharply."},
+ {q:"The fragile glass bird broke when it fell off the shelf. What does fragile mean?", choices:["easy to break","very heavy","brightly colored","very old"], answer:0, diff:5, skill:"context clues", strand:"vocab", why:"The glass bird broke when it fell, so fragile means easy to break."},
+ {q:"Which shows the words in order from smallest to largest?", choices:["boulder, rock, pebble","rock, pebble, boulder","pebble, boulder, rock","pebble, rock, boulder"], answer:3, diff:5, skill:"shades of meaning", strand:"vocab", why:"A pebble is small, a rock is bigger, and a boulder is very big."},
+
+ {q:"Which word means more than one dish?", choices:["dishs","dish","dishies","dishes"], answer:3, diff:1, skill:"plural nouns", strand:"lang", why:"Words that end in sh add es, so dish becomes dishes."},
+ {q:"Ella lost ___ shoe at the park.", say:"Ella lost, blank, shoe at the park.", choices:["her","she","hers","herself"], answer:0, diff:1, skill:"pronouns", strand:"lang", why:"Her shows that the shoe belongs to Ella."},
+ {q:"Which sentence should end with an exclamation point?", choices:["Wow, look at that rainbow","I have a pencil","The sky is blue","My shoes are black"], answer:0, diff:2, skill:"end punctuation", strand:"lang", why:"Wow shows strong feeling, so it needs an exclamation point."},
+ {q:"Which words are nouns? Choose TWO answers.", choices:["shiny","garden","teacher","quickly"], answer:[1,2], diff:2, skill:"nouns", strand:"lang", why:"Garden names a place and teacher names a person."},
+ {q:"Which sentence uses capital letters correctly?", choices:["my dog, max, likes to run.","My Dog, max, likes to run.","My dog, Max, likes to run.","my Dog, Max, likes to run."], answer:2, diff:2, skill:"capitals", strand:"lang", why:"Start with a capital, and a pet's name gets a capital too."},
+ {q:"Which word is the plural of child?", choices:["childs","children","childrens","childes"], answer:1, diff:3, skill:"irregular plurals", strand:"lang", why:"Child is a special word. More than one child is children."},
+ {q:"Yesterday Sam ___ a letter to his grandma.", say:"Yesterday Sam, blank, a letter to his grandma.", choices:["writes","write","writed","wrote"], answer:3, diff:3, skill:"irregular past tense", strand:"lang", why:"Yesterday is in the past, and the past tense of write is wrote."},
+ {q:"What is the contraction for can not?", choices:["cant","can't","ca'nt","cann't"], answer:1, diff:3, skill:"contractions", strand:"lang", why:"The apostrophe takes the place of the letters n and o."},
+ {q:"I like apples. My brother likes apples. Which sentence joins these best?", choices:["My brother and I like apples.","I like apples but my brother.","Apples like me and my brother.","I like apples so my brother."], answer:0, diff:3, skill:"joining sentences", strand:"lang", why:"Using and joins the two people into one clear sentence."},
+ {q:"Which are complete sentences? Choose TWO answers.", choices:["Birds sing in the morning.","The tall girl.","Under the big bridge.","We read a book."], answer:[0,3], diff:3, skill:"complete sentences", strand:"lang", why:"Each one tells who and what they do."},
+ {q:"Which word is the plural of tooth?", choices:["tooths","teeths","teeth","toothes"], answer:2, diff:4, skill:"irregular plurals", strand:"lang", why:"Tooth is a special word. More than one tooth is teeth."},
+ {q:"Which one shows that the hat belongs to the dog?", choices:["the dogs hat","the dogs' hat","the dog hat","the dog's hat"], answer:3, diff:4, skill:"possessives", strand:"lang", why:"Add an apostrophe and s to show that something belongs to one dog."},
+ {q:"Which word names a group of cows?", choices:["school","swarm","herd","flock"], answer:2, diff:4, skill:"collective nouns", strand:"lang", why:"A group of cows is called a herd."},
+ {q:"We have ___ all the cookies.", say:"We have, blank, all the cookies.", choices:["eat","eaten","ate","eated"], answer:1, diff:5, skill:"irregular past tense", strand:"lang", why:"After the word have, we say eaten."},
+ {q:"Owls hunt at night. Which detail fits best with this topic sentence?", choices:["Ducks swim in ponds.","I have a red bike.","Owls have big eyes that help them see in the dark.","The sun comes up in the morning."], answer:2, diff:5, skill:"supporting detail", strand:"lang", why:"This detail tells more about how owls hunt at night."}
+]
+};
+
+/* add the extra passages and questions to each grade's bank */
+[[NWEA_READ_G1,NWEA_READ_G1_MORE],[NWEA_READ_G2,NWEA_READ_G2_MORE]].forEach(([b,m])=>{ b.passages.push(...m.passages); b.items.push(...m.items); });
+
 /* =================== NWEA practice: math generators =================== */
 /* Each generator takes a difficulty 1..5 and returns an item:
    { q, say?, svg?, type:"mc"|"multi"|"num", choices?, answer, why, skill }
@@ -3903,12 +4321,32 @@ const NWEA = (function(){
   function bankFor(grade){ return grade===1 ? (typeof NWEA_READ_G1!=="undefined"?NWEA_READ_G1:null) : (typeof NWEA_READ_G2!=="undefined"?NWEA_READ_G2:null); }
 
   /* ---------- plan and adaptive picking ---------- */
+  /* ---------- memory of what this child has already seen ----------
+     H = { items:{key:time}, passages:{id:time}, math:{sig:time} } kept per child, grade, and subject */
+  const keyOf = q=>q.q+"|"+[].concat(q.answer).join(",");
+  function seenAt(map,k){ return (T.H && T.H[map] && T.H[map][k]) || 0; }
+  function markSeen(map,k){
+    if(!T.H) return;
+    T.H[map] = T.H[map] || {};
+    T.H[map][k] = Date.now();
+    const ks = Object.keys(T.H[map]);
+    if(ks.length > 600){ ks.sort((a,b)=>T.H[map][a]-T.H[map][b]).slice(0, ks.length-600).forEach(x=>delete T.H[map][x]); }
+  }
+  function saveHistory(){ if(T.opts.saveHistory) try{ T.opts.saveHistory(); }catch(e){} }
+  /* oldest first; never-seen counts as oldest; ties broken randomly */
+  const byOldest = (arr, map, kf)=>shuffle(arr).sort((a,b)=>seenAt(map,kf(a))-seenAt(map,kf(b)));
+
   function readingPlan(bank){
     const pass = bank.passages;
-    const info = shuffle(pass.filter(p=>p.genre==="info")), lit = shuffle(pass.filter(p=>p.genre==="lit"));
-    const chosen = [info[0], lit[0] || info[1]].filter(Boolean).slice(0, pass.length>1?2:1);
-    const perPass = 4;
-    const nItems = Math.min(bank.items.length, TEST_LEN - chosen.length*perPass);
+    const info = byOldest(pass.filter(p=>p.genre==="info"),"passages",p=>p.id), lit = byOldest(pass.filter(p=>p.genre==="lit"),"passages",p=>p.id);
+    /* one of each kind when both have one this child hasn't read; otherwise the two read longest ago */
+    let chosen;
+    if(info.length && lit.length && !seenAt("passages",info[0].id) && !seenAt("passages",lit[0].id)) chosen = [info[0], lit[0]];
+    else chosen = byOldest(pass,"passages",p=>p.id).slice(0,2);
+    chosen = chosen.filter(Boolean).slice(0, pass.length>1?2:1);
+    /* a passage this child has read before only asks the questions they haven't had */
+    const counts = chosen.map(p=>{ const fresh=p.qs.filter(q=>!seenAt("items",keyOf(q))).length; return seenAt("passages",p.id) ? clamp(fresh,2,4) : 4; });
+    const nItems = Math.min(bank.items.length, TEST_LEN - counts.reduce((a,c)=>a+c,0));
     const slots = [];
     const gap = Math.floor(nItems/(chosen.length+1));
     let placed = 0;
@@ -3916,7 +4354,7 @@ const NWEA = (function(){
       const count = i===chosen.length ? nItems-placed : gap;
       for(let k=0;k<count;k++) slots.push({kind:"item"});
       placed += count;
-      if(i<chosen.length) slots.push({kind:"passage", passage:chosen[i]});
+      if(i<chosen.length) slots.push({kind:"passage", passage:chosen[i], n:counts[i]});
     }
     return slots;
   }
@@ -3930,31 +4368,54 @@ const NWEA = (function(){
     let pool = T.bank.items.filter(it=>it.strand===strand && !T.used.has(it));
     if(!pool.length) pool = T.bank.items.filter(it=>!T.used.has(it));
     if(!pool.length) return null;
-    const best = Math.min(...pool.map(it=>Math.abs(it.diff-want)));
-    const it = pick(pool.filter(x=>Math.abs(x.diff-want)===best));
+    /* never-seen items first; once a strand is used up, the ones seen longest ago come back */
+    const fresh = pool.filter(it=>!seenAt("items",keyOf(it)));
+    let cands = fresh.length ? fresh : byOldest(pool,"items",keyOf).slice(0, Math.max(4, Math.ceil(pool.length/3)));
+    const near = cands.filter(it=>Math.abs(it.diff-want)<=1);
+    if(near.length) cands = near;
+    const best = Math.min(...cands.map(it=>Math.abs(it.diff-want)));
+    const it = pick(cands.filter(x=>Math.abs(x.diff-want)<=best+ (best===0?1:0)));
     T.used.add(it);
     return Object.assign({ type: Array.isArray(it.answer)?"multi":"mc" }, it);
   }
 
-  function passageQuestions(p){
+  function passageQuestions(p, n){
+    n = n || 4;
     const want = target();
-    const main = p.qs.find(q=>q.skill==="main");
-    const rest = p.qs.filter(q=>q!==main).sort((a,b)=>Math.abs(a.diff-want)-Math.abs(b.diff-want)).slice(0,3);
+    const score = q=>(seenAt("items",keyOf(q))?10:0)+Math.abs(q.diff-want);
+    let main = p.qs.find(q=>q.skill==="main");
+    if(main && seenAt("items",keyOf(main))) main = null;
+    const rest = shuffle(p.qs.filter(q=>q!==main)).sort((a,b)=>score(a)-score(b)).slice(0, main?n-1:n);
     const keep = new Set([main, ...rest].filter(Boolean));
     return p.qs.filter(q=>keep.has(q)).map(q=>Object.assign({ type:Array.isArray(q.answer)?"multi":"mc", strand:"comp", passage:p }, q));
   }
 
   function nextMathItem(){
-    const strand = T.mathOrder[T.rot++ % T.mathOrder.length];
-    return NWM.make(T.grade, strand, target());
+    const first = T.rot++ % T.mathOrder.length;
+    let it = null, fresh = false;
+    /* try this turn's area first; if every question it can make has been seen, borrow from another area */
+    for(let s=0; s<T.mathOrder.length && !fresh; s++){
+      const strand = T.mathOrder[(first+s) % T.mathOrder.length];
+      for(let i=0;i<30;i++){
+        const c = NWM.make(T.grade, strand, target());
+        if(!c) continue;
+        if(!it) it = c;
+        const sig = mathSig(c);
+        if(!T.mathUsed.has(sig) && !seenAt("math",sig)){ it = c; fresh = true; break; }
+      }
+    }
+    if(it) T.mathUsed.add(mathSig(it));
+    return it;
   }
+
+  function mathSig(it){ return it.q+"|"+(it.type==="num"?it.answer:[].concat(it.answer).map(i=>{const c=it.choices[i];return typeof c==="string"?c:c.svg.length;}).join(",")); }
 
   function buildQueueStep(){
     if(T.subject==="math"){ return T.asked < T.total ? nextMathItem() : null; }
     while(T.queue.length===0 && T.slotIdx < T.slots.length){
       const s = T.slots[T.slotIdx++];
       if(s.kind==="item"){ const it=nextReadingItem(); if(it) T.queue.push(it); }
-      else T.queue.push(...passageQuestions(s.passage));
+      else T.queue.push(...passageQuestions(s.passage, s.n));
     }
     return T.queue.shift() || null;
   }
@@ -3964,10 +4425,12 @@ const NWEA = (function(){
     const bank = opts.subject==="reading" ? bankFor(opts.grade) : null;
     T = {
       opts, root:opts.root, learner:opts.learner||"", grade:opts.grade, subject:opts.subject, bank,
+      H: opts.history || null, mathUsed:new Set(),
       ability: 2.6, asked:0, rot:0, used:new Set(), queue:[], slots:[], slotIdx:0,
       mathOrder: shuffle(["oa","nbt","md","geo"]), log:[], startedAt:Date.now(), cur:null, sel:null, entry:""
     };
-    if(opts.subject==="reading"){ T.slots = readingPlan(bank); T.total = T.slots.reduce((n,s)=>n+(s.kind==="item"?1:4),0); }
+    if(opts.subject==="reading"){ T.slots = readingPlan(bank);
+      T.slots.forEach(sl=>{ if(sl.kind==="passage") markSeen("passages", sl.passage.id); }); T.total = T.slots.reduce((n,s)=>n+(s.kind==="item"?1:s.n),0); }
     else T.total = TEST_LEN;
     renderIntro();
   }
@@ -4082,6 +4545,8 @@ const NWEA = (function(){
     else if(it.type==="multi"){ given = T.sel.slice().sort(); ok = given.length===2 && given.every(i=>it.answer.includes(i)); }
     else { given = T.sel; ok = T.sel===it.answer; }
     T.log.push({ it, given, ok, diff: it.diff||3 });
+    if(T.subject==="math") markSeen("math", mathSig(it)); else markSeen("items", keyOf(it));
+    saveHistory();
     T.asked++;
     const step = T.asked<=5 ? 0.8 : T.asked<=12 ? 0.55 : 0.4;
     T.ability = clamp(T.ability + (ok?step:-step), 1, 5.4);
@@ -10574,12 +11039,19 @@ document.querySelectorAll("#gradeRow .toggle-btn").forEach(b=>{
 });
 
 /* =================== NWEA practice screens =================== */
+/* what each child has already seen, so tests don't repeat questions */
+function nweaHistory(learner, grade, subj){
+  store.nweaSeen = store.nweaSeen || {};
+  const per = store.nweaSeen[learner] = store.nweaSeen[learner] || {};
+  return per["g"+grade+"-"+subj] = per["g"+grade+"-"+subj] || { items:{}, passages:{}, math:{} };
+}
 document.getElementById("nwSubBack").addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
 document.querySelectorAll("#nweaSubject .nw-subj").forEach(b=>{
   b.addEventListener("click", ()=>{
     showScreen("nweaTest");
     NWEA.start({
       root: document.getElementById("nwRoot"), learner: selLearner, grade: selGrade, subject: b.dataset.subj,
+      history: nweaHistory(selLearner, selGrade, b.dataset.subj), saveHistory: saveStore,
       onDone: rec=>{ store.sessions.unshift(rec); saveStore(); },
       onExit: ()=>{ renderHome(); showScreen("home"); }
     });
