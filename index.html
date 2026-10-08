@@ -755,6 +755,7 @@
 #heartPick{display:flex;flex-direction:column;gap:18px;overflow:auto;}
 #heartPick.hidden,#heartPlay.hidden{display:none !important;}
 .hw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;padding-bottom:24px;}
+.hw-level{grid-column:1/-1;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink-soft);margin-top:8px;padding-bottom:2px;border-bottom:1.5px solid var(--line);}
 .hw-tile{display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--panel) !important;border:1.5px solid var(--line) !important;border-radius:16px;padding:14px 16px;transition:transform .06s;}
 .hw-tile:active{transform:scale(.98);}
 .hw-tname{font-family:var(--display);font-weight:800;font-size:20px;}
@@ -13429,6 +13430,14 @@ const HEART_SENT = {
  "your": "Please wash your hands."
 };
 
+const HEART_G1_LEVELS = [
+ ["Pre-primer","a and away big blue can come down find for funny go help here I in is it jump little look make me my not one play red run said see the three to two up we where yellow you"],
+ ["Primer","all am are at ate be black brown but came did do eat four get good have he into like must new no now on our out please pretty ran ride saw say she so soon that there they this too under want was well went what white who will with yes"],
+ ["1st Grade","after again an any as ask by could every fly from give going had has her him his how just know let live may of old once open over put round some stop take thank them then think walk were when"],
+ ["2nd Grade","always around because been before best both buy call cold does don't fast first five found gave goes green its made many off or pull read right sing sit sleep tell their these those upon us use very wash which why wish work would write your"],
+ ["3rd Grade","about better bring carry clean cut done draw drink eight fall far full got grow hold hot hurt if keep kind laugh light long much myself never only own pick seven shall show six small start ten today together try warm"]
+].map(([name,w])=>({ name, words:w.split(" ") }));
+
 /* =================== Heart Words (spelling) =================== */
 /* Needs from the main script: store, saveStore, selLearner, selGrade, showScreen, renderHome, speak, playDing, playThunk, esc, fmtTime */
 const HW = (function(){
@@ -13438,7 +13447,13 @@ const HW = (function(){
 
   function sets(grade){
     if(grade===2) return HEART_G2.map((w,i)=>({ id:"u"+(i+1), name:"Unit "+(i+1), words:w }));
-    const out=[]; for(let i=0;i<HEART_G1.length;i+=SET_SIZE) out.push({ id:"s"+(i/SET_SIZE+1), name:"Set "+(i/SET_SIZE+1), words:HEART_G1.slice(i,i+SET_SIZE) });
+    /* Dolch levels, easiest first; inside a level, shorter words come first; each level split evenly into sets of about 10 */
+    const out=[]; let n=0;
+    HEART_G1_LEVELS.forEach((lv,li)=>{
+      const words = lv.words.slice().sort((a,b)=>a.length-b.length || a.toLowerCase().localeCompare(b.toLowerCase()));
+      const k = Math.round(words.length/SET_SIZE), size = words.length/k;
+      for(let j=0;j<k;j++){ n++; out.push({ id:"s"+n, name:"Set "+n, level:"Level "+(li+1)+": "+lv.name, words:words.slice(Math.round(j*size), Math.round((j+1)*size)) }); }
+    });
     return out;
   }
   function stats(learner){
@@ -13461,9 +13476,12 @@ const HW = (function(){
     const reviewWords = (grade===1?HEART_G1:[...new Set(HEART_G2.flat())]).filter(w=>missed(st,w));
     let html = '<button class="hw-tile hw-review'+(reviewWords.length?'':' hw-empty')+'" data-review="1">'+
       '<div class="hw-tname">&#128257; Review</div><div class="hw-twords">'+(reviewWords.length?reviewWords.length+' word'+(reviewWords.length===1?'':'s')+' to practice':'No missed words yet')+'</div></button>';
+    let lastLevel = null;
     html += list.map(s=>{
+      const head = (s.level && s.level!==lastLevel) ? '<div class="hw-level">'+esc(s.level)+'</div>' : '';
+      lastLevel = s.level;
       const k = s.words.filter(w=>known(st,w)).length, done = k===s.words.length;
-      return '<button class="hw-tile'+(done?' hw-done':'')+'" data-set="'+s.id+'"><div class="hw-tname">'+s.name+(done?' <span class="hw-check">&#10003;</span>':'')+'</div>'+
+      return head+'<button class="hw-tile'+(done?' hw-done':'')+'" data-set="'+s.id+'"><div class="hw-tname">'+s.name+(done?' <span class="hw-check">&#10003;</span>':'')+'</div>'+
         '<div class="hw-twords">'+(s.words.length<=6 ? s.words : s.words.slice(0,4)).map(esc).join(", ")+(s.words.length>6?"…":"")+'</div>'+
         '<div class="hw-tbar"><div style="width:'+(100*k/s.words.length)+'%"></div></div><div class="hw-tcount">'+k+' of '+s.words.length+' spelled first try</div></button>';
     }).join("");
@@ -13474,7 +13492,7 @@ const HW = (function(){
         start({ grade, label:"Review", level:"g"+grade+"-review", words: shuffle(reviewWords).slice(0, SET_SIZE) });
       }else{
         const s = list.find(x=>x.id===b.dataset.set);
-        start({ grade, label:s.name, level:"g"+grade+"-"+s.id, words: shuffle(s.words) });
+        start({ grade, label:(s.level ? s.level.replace(/^Level \d+: /,"")+" · " : "")+s.name, level:"g"+grade+"-"+s.id, words: shuffle(s.words) });
       }
     }));
     showScreen("heartPick");
