@@ -751,6 +751,80 @@
 .nw-subj-math{background:#4FA3E0 !important;}
 .nw-subj-read{background:var(--green) !important;}
 .nw-subnote{text-align:center;color:var(--ink-soft);font-size:16px;padding-bottom:20px;}
+/* =================== Heart Words =================== */
+#heartPick{display:flex;flex-direction:column;gap:18px;overflow:auto;}
+#heartPick.hidden,#heartPlay.hidden{display:none !important;}
+.hw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;padding-bottom:24px;}
+.hw-tile{display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--panel) !important;border:1.5px solid var(--line) !important;border-radius:16px;padding:14px 16px;transition:transform .06s;}
+.hw-tile:active{transform:scale(.98);}
+.hw-tname{font-family:var(--display);font-weight:800;font-size:20px;}
+.hw-check{color:var(--green);}
+.hw-twords{color:var(--ink-soft);font-size:15px;min-height:20px;}
+.hw-tbar{height:8px;background:var(--pending);border-radius:4px;overflow:hidden;}
+.hw-tbar div{height:100%;background:var(--green);border-radius:4px;}
+.hw-tcount{font-size:13px;color:var(--ink-soft);font-weight:600;}
+.hw-done{border-color:var(--green) !important;background:var(--green-soft) !important;}
+.hw-review{background:#FCE8EE !important;border-color:#F2B8C8 !important;justify-content:center;}
+.hw-empty{opacity:.55;cursor:default;}
+
+#heartPlay{max-width:none;padding:0;}
+.hw-root{height:100%;display:flex;flex-direction:column;background:var(--ice);}
+.hw-top{display:flex;align-items:center;gap:12px;padding:12px 20px;background:var(--panel);border-bottom:1.5px solid var(--line);flex:none;flex-wrap:wrap;}
+.hw-who{font-family:var(--display);font-weight:800;font-size:18px;}
+.hw-label{font-weight:600;color:var(--ink-soft);background:var(--ice);border-radius:999px;padding:5px 14px;font-size:15px;}
+.hw-sp{flex:1;}
+.hw-dots{display:flex;gap:5px;flex-wrap:wrap;}
+.hw-quit{font-weight:700;color:var(--ink-soft);padding:8px 14px;border-radius:12px;border:1.5px solid var(--line) !important;background:var(--panel) !important;}
+.hw-quit.armed{background:#C0392B !important;color:#fff;border-color:#C0392B !important;}
+.hw-main{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;gap:16px;padding:18px 16px;overflow:auto;}
+.hw-card{width:100%;max-width:760px;background:var(--navy);color:#fff;border-radius:22px;padding:22px 22px 18px;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;box-shadow:0 10px 30px rgba(20,34,56,.18);}
+.hw-speak{width:70px;height:70px;border-radius:50%;background:var(--gold) !important;font-size:32px;display:grid;place-items:center;color:var(--navy-deep) !important;}
+.hw-prompt{font-family:var(--display);font-size:clamp(18px,2.4vw,24px);font-weight:700;text-align:center;}
+.hw-revealing{padding-top:14px;gap:8px;}
+.hw-revealing .hw-speak{width:52px;height:52px;font-size:24px;}
+.hw-revealing .hw-prompt{font-size:18px;}
+.hw-reveal{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.hw-rlab{font-size:14px;letter-spacing:.06em;text-transform:uppercase;opacity:.75;font-weight:700;}
+.hw-rword{display:flex;gap:6px;font-family:var(--display);font-size:clamp(46px,7vw,70px);font-weight:800;}
+.hw-rword span{color:rgba(255,255,255,.55);transition:color .2s,transform .2s;}
+.hw-rword span.lit{color:var(--gold);transform:translateY(-3px);}
+.hw-hist{display:flex;flex-direction:column;gap:6px;align-items:center;}
+.hw-try{display:flex;align-items:center;gap:4px;}
+.hw-tn{font-size:12px;font-weight:700;opacity:.7;margin-right:8px;text-transform:uppercase;letter-spacing:.04em;}
+.hw-tc{min-width:30px;height:38px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.12);font-size:24px;font-weight:700;padding:0 4px;}
+.hw-tc.ok{background:var(--green);}
+.hw-entry{min-height:68px;min-width:220px;display:flex;align-items:center;justify-content:center;gap:4px;background:#fff;color:var(--ink);border-radius:14px;padding:8px 18px;font-family:var(--display);font-size:42px;font-weight:800;}
+.hw-entry.hw-copy{box-shadow:0 0 0 4px var(--gold);}
+.hw-ch{min-width:26px;text-align:center;}
+.hw-slot{border-bottom:4px solid var(--line);min-width:30px;}
+.hw-caret{width:3px;height:44px;background:var(--navy);animation:hwblink 1s steps(1) infinite;}
+@keyframes hwblink{50%{opacity:0;}}
+.hw-shake{animation:hwshake .35s;}
+@keyframes hwshake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+.hw-status{min-height:24px;font-size:17px;font-weight:600;text-align:center;opacity:.92;}
+.hw-status.good{color:#8FE0B0;}
+.hw-keys{width:100%;max-width:760px;display:flex;flex-direction:column;gap:8px;}
+.hw-krow{display:flex;gap:8px;justify-content:center;}
+.hw-key{flex:1;max-width:96px;height:clamp(52px,7vh,66px);border-radius:14px;background:var(--panel) !important;border:1.5px solid var(--line) !important;font-family:var(--display);font-size:clamp(24px,3vw,30px);font-weight:700;color:var(--ink);transition:transform .05s;}
+.hw-key:active{transform:scale(.95);background:var(--pending) !important;}
+.hw-wide{max-width:none;flex:2;}
+.hw-back{color:var(--ink-soft);}
+.hw-go{background:var(--gold) !important;border-color:var(--gold) !important;color:var(--navy-deep);}
+.hw-end{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;gap:18px;padding:30px 16px;text-align:center;}
+.hw-end h2{font-family:var(--display);font-size:clamp(26px,3.4vw,34px);margin:0;}
+.hw-endstats{display:grid;grid-template-columns:repeat(3,minmax(0,150px));gap:12px;}
+.hw-endstats div{background:var(--panel);border:1.5px solid var(--line);border-radius:16px;padding:14px;}
+.hw-endstats b{display:block;font-size:32px;font-variant-numeric:tabular-nums;}
+.hw-endstats span{font-size:14px;font-weight:600;color:var(--ink-soft);}
+.hw-endstats .g b{color:var(--green);}
+.hw-endstats .y b{color:#C9971A;}
+.hw-endlab{font-weight:800;font-size:18px;}
+.hw-endwords{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:640px;}
+.hw-endw{background:var(--yellow-soft) !important;border:1.5px solid var(--yellow) !important;border-radius:12px;padding:10px 18px;font-family:var(--display);font-size:24px;font-weight:800;}
+.hw-endnote{color:var(--ink-soft);font-size:14px;}
+.hw-endbtns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+@media (max-width:600px){ .hw-krow{gap:5px;} .hw-key{font-size:22px;border-radius:10px;} .hw-dots{display:none;} }
+@media (prefers-reduced-motion:reduce){ .hw-shake,.hw-caret{animation:none;} }
 </style>
 </head>
 <body>
@@ -788,6 +862,7 @@
         <button class="toggle-btn" data-op="story">&#128214; Story Problems</button>
         <button class="toggle-btn" data-op="heroes">&#127775; Hero Stories</button>
         <button class="toggle-btn" data-op="nwea">&#128221; NWEA Practice</button>
+        <button class="toggle-btn" data-op="heart">&#128151; Heart Words</button>
       </div>
       <div class="toggle-row hidden" id="gradeRow">
         <button class="toggle-btn selected" data-grade="1">1st grade</button>
@@ -1089,6 +1164,17 @@
   </div>
   <div class="nw-subnote">About 20 questions. No timer. Questions get harder or easier based on answers, just like the real test.</div>
 </div>
+
+<!-- ============ HEART WORDS ============ -->
+<div id="heartPick" class="screen hidden">
+  <div class="topbar">
+    <button class="btn btn-quiet" id="hwPickBack">&larr; Back</button>
+    <div class="tb-title" id="hwPickTitle"></div>
+    <span class="chip" id="hwPickLearner"></span>
+  </div>
+  <div class="hw-grid" id="hwGrid"></div>
+</div>
+<div id="heartPlay" class="screen hidden"><div class="hw-root" id="hwRoot"></div></div>
 
 <!-- ============ NWEA TEST ============ -->
 <div id="nweaTest" class="screen hidden"><div class="nw-root" id="nwRoot"></div></div>
@@ -4666,8 +4752,8 @@ let store = loadStore();
    add beginner: rows + cols, each 0-10 (sums within 20)
    sub beginner: rows = number subtracted (0-10), cols = answer (0-10); prompt is (r+c) − r
    add/sub advanced: 30 generated multi-digit problems up to 9999, shown stacked */
-const OPSYM  = { add:"+", sub:"−", mult:"×", div:"÷", longdiv:"➗", orderops:"🧮", fractions:"½", decimals:"🔢", usa:"🇺🇸", canada:"🇨🇦", countries:"🌍", penguins:"🐧", eagles:"🦅", forge:"🧩", story:"📖", heroes:"🌟", nwea:"📝" };
-const OPNAME = { add:"Addition", sub:"Subtraction", mult:"Multiplication", div:"Division", longdiv:"Long Division", orderops:"Order of Operations", fractions:"Fractions", decimals:"Decimals", usa:"US States", canada:"Canada", countries:"Countries", penguins:"Penguins", eagles:"Eagles", forge:"Number Lab", story:"Story Problems", heroes:"Hero Stories", nwea:"NWEA Practice" };
+const OPSYM  = { add:"+", sub:"−", mult:"×", div:"÷", longdiv:"➗", orderops:"🧮", fractions:"½", decimals:"🔢", usa:"🇺🇸", canada:"🇨🇦", countries:"🌍", penguins:"🐧", eagles:"🦅", forge:"🧩", story:"📖", heroes:"🌟", nwea:"📝", heart:"💗" };
+const OPNAME = { add:"Addition", sub:"Subtraction", mult:"Multiplication", div:"Division", longdiv:"Long Division", orderops:"Order of Operations", fractions:"Fractions", decimals:"Decimals", usa:"US States", canada:"Canada", countries:"Countries", penguins:"Penguins", eagles:"Eagles", forge:"Number Lab", story:"Story Problems", heroes:"Hero Stories", nwea:"NWEA Practice", heart:"Heart Words" };
 function isForge(op){ return op === "forge"; }
 function isStory(op){ return op === "story"; }
 function isHeroes(op){ return op === "heroes"; }
@@ -10941,8 +11027,8 @@ function renderHome(){
   });
   const note = document.getElementById("levelNote");
   const beg = selLevel === "beginner";
-  document.getElementById("levelRow").classList.toggle("hidden", isGeo(selOp) || isChoice(selOp) || selOp === "nwea");
-  document.getElementById("gradeRow").classList.toggle("hidden", selOp !== "nwea");
+  document.getElementById("levelRow").classList.toggle("hidden", isGeo(selOp) || isChoice(selOp) || selOp === "nwea" || selOp === "heart");
+  document.getElementById("gradeRow").classList.toggle("hidden", selOp !== "nwea" && selOp !== "heart");
   document.querySelectorAll("#gradeRow .toggle-btn").forEach(b=>{
     b.classList.toggle("selected", +b.dataset.grade === selGrade);
   });
@@ -10950,7 +11036,11 @@ function renderHome(){
   document.querySelectorAll("#contRow .toggle-btn").forEach(b=>{
     b.classList.toggle("selected", b.dataset.cont === selContinent);
   });
-  if(selOp === "nwea"){
+  if(selOp === "heart"){
+    note.textContent = selGrade === 1
+      ? "1st grade: 220 heart words in 22 sets of 10. Hear the word, then spell it. Three tries, then the word is shown."
+      : "2nd grade: heart words for Units 1 to 20. Hear the word, then spell it. Three tries, then the word is shown.";
+  }else if(selOp === "nwea"){
     note.textContent = selGrade === 1
       ? "1st grade practice test. Math: adding and subtracting to 20, tens and ones, time, shapes. Reading: phonics, words, and short passages. Pick Math or Reading on the next screen."
       : "2nd grade practice test. Math: adding and subtracting to 100 and beyond, place value, money, time, graphs. Reading: longer passages and grammar. Pick Math or Reading on the next screen.";
@@ -11045,6 +11135,7 @@ function nweaHistory(learner, grade, subj){
   const per = store.nweaSeen[learner] = store.nweaSeen[learner] || {};
   return per["g"+grade+"-"+subj] = per["g"+grade+"-"+subj] || { items:{}, passages:{}, math:{} };
 }
+document.getElementById("hwPickBack").addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
 document.getElementById("nwSubBack").addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
 document.querySelectorAll("#nweaSubject .nw-subj").forEach(b=>{
   b.addEventListener("click", ()=>{
@@ -11068,6 +11159,10 @@ document.getElementById("startBtn").addEventListener("click", ()=>{
   }
   /* any unfinished session for this learner is saved to reports as partial */
   if(store.active[selLearner]) archiveAbandoned(selLearner);
+  if(selOp === "heart"){
+    HW.openPicker();
+    return;
+  }
   if(selOp === "nwea"){
     document.getElementById("nwSubTitle").textContent = NWEA.GRADE_NAME[selGrade] + " NWEA Practice";
     document.getElementById("nwSubLearner").textContent = selLearner;
@@ -11170,7 +11265,8 @@ function renderReports(){
     head.innerHTML =
       '<div class="s-op">' + (OPSYM[s.op] || "×") + '</div>' +
       '<div class="s-main"><div class="s-title">' +
-        (s.op === "nwea" ? ("NWEA " + (s.level.startsWith("g1") ? "1st" : "2nd") + " Grade " + (s.level.endsWith("math") ? "Math" : "Reading") + (s.extra && s.extra.score != null ? " · Level " + s.extra.score.toFixed(1) : ""))
+        (s.op === "heart" ? ("Heart Words " + (s.level.startsWith("g1") ? "1st" : "2nd") + " Grade · " + ((s.extra && s.extra.label) || ""))
+         : s.op === "nwea" ? ("NWEA " + (s.level.startsWith("g1") ? "1st" : "2nd") + " Grade " + (s.level.endsWith("math") ? "Math" : "Reading") + (s.extra && s.extra.score != null ? " · Level " + s.extra.score.toFixed(1) : ""))
          : s.op === "heroes" ? (((HEROES.find(x=>x.id===s.extra)||{}).name || "Hero Stories"))
          : s.op === "countries" ? (CONTNAME[s.level] || "Countries")
          : (isGeo(s.op) || isChoice(s.op)) ? (OPNAME[s.op] || "")
@@ -11217,7 +11313,7 @@ document.getElementById("resetBtn").addEventListener("click", ()=>{
 /* =================== screens & lifecycle =================== */
 function showScreen(id){
   try{ if("speechSynthesis" in window) speechSynthesis.cancel(); }catch(e){}
-  for(const s of ["home","session","done","reports","heroSelect","heroPreview","nweaSubject","nweaTest"])
+  for(const s of ["home","session","done","reports","heroSelect","heroPreview","nweaSubject","nweaTest","heartPick","heartPlay"])
     document.getElementById(s).classList.toggle("hidden", s!==id);
 }
 
@@ -13100,6 +13196,469 @@ document.getElementById("dcNextBtn").addEventListener("click", ()=>{
 });
 
 renderHome();
+</script>
+<script>
+const HEART_G1 = "a about after again all always am an and any are around as ask at ate away be because been before best better big black blue both bring brown but buy by call came can carry clean cold come could cut did do does done don't down draw drink eat eight every fall far fast find first five fly for found four from full funny gave get give go goes going good got green grow had has have he help her here him his hold hot how hurt I if in into is it its jump just keep kind know laugh let light like little live long look made make many may me much must my myself never new no not now of off old on once one only open or our out over own pick play please pretty pull put ran read red ride right round run said saw say see seven shall she show sing sit six sleep small so some soon start stop take tell ten thank that the their them then there these they think this those three to today together too try two under up upon us use very walk want warm was wash we well went were what when where which white who why will wish with work would write yellow yes you your".split(" ");
+const HEART_G2 = [
+ ["pick","small","fall","wish","much"],["best","its","which","drink","some"],["done","laugh","read","want","off"],["upon","bring","sing","goes","long"],["why","try","myself","open","funny"],
+ ["seven","once","from","they","there"],["use","those","these","made","gave"],["warm","again","been","who","five"],["grow","keep","light","clean","show"],["own","sleep","green","away","right"],
+ ["start","far","or","wash","into"],["carry","your","before","does","eight"],["hurt","never","better","first","after"],["work","any","buy","walk","were"],["going","only","over","every","under"],
+ ["together","today","don't","know","cold"],["around","about","would","found","round"],["full","pull","could","put","very"],["draw","always","both","hold","saw"],["many","their","write","because","hold"]
+];
+
+const HEART_SENT = {
+ "a": "I saw a dog at the park.",
+ "about": "This book is about a brave bear.",
+ "after": "We play outside after school.",
+ "again": "Please sing that happy song again.",
+ "all": "All of the kids clapped.",
+ "always": "My dog always waits at the door.",
+ "am": "I am seven years old.",
+ "an": "He ate an apple for lunch.",
+ "and": "I like cats and dogs.",
+ "any": "Do you have any crayons?",
+ "are": "We are best friends.",
+ "around": "The skater went around the cone.",
+ "as": "He runs as fast as a horse.",
+ "ask": "I ask my mom for help.",
+ "at": "We look at the stars at night.",
+ "ate": "Yesterday I ate a big bowl of soup.",
+ "away": "The little bird flew away.",
+ "be": "Please be quiet in the library.",
+ "because": "I wore boots because it was snowy.",
+ "been": "I have been to the zoo.",
+ "before": "Wash your hands before you eat.",
+ "best": "She is my best friend.",
+ "better": "Now my sore arm feels better.",
+ "big": "An elephant is very big.",
+ "black": "The cat has black fur.",
+ "blue": "The sky is bright blue.",
+ "both": "I hold the stick with both hands.",
+ "bring": "Please bring your hat to school.",
+ "brown": "The bear has soft brown fur.",
+ "but": "I like soup, but I do not like peas.",
+ "buy": "Mom will buy milk at the store.",
+ "by": "Our house is by the lake.",
+ "call": "I call my grandma on the phone.",
+ "came": "Our friends came to my party.",
+ "can": "I can tie my shoes.",
+ "carry": "Dad helps me carry my hockey bag.",
+ "clean": "I clean my room on Saturday.",
+ "cold": "The snow feels cold on my hands.",
+ "come": "Please come to my birthday party.",
+ "could": "I could not find my mitten.",
+ "cut": "Mom will cut the apple in half.",
+ "did": "I did my homework after dinner.",
+ "do": "What do you want for lunch?",
+ "does": "She does her homework at the table.",
+ "done": "I am done with my work.",
+ "don't": "Please don't touch the hot stove.",
+ "down": "We slid down the snowy hill.",
+ "draw": "I like to draw pictures with crayons.",
+ "drink": "I drink milk with my breakfast.",
+ "eat": "We eat dinner at six.",
+ "eight": "I have eight crayons in my box.",
+ "every": "I brush my teeth every day.",
+ "fall": "Leaves fall from the trees in autumn.",
+ "far": "The moon is very far away.",
+ "fast": "The hockey player skates very fast.",
+ "find": "Can you help me find my boots?",
+ "first": "I came in first in the race.",
+ "five": "I have five fingers on my hand.",
+ "fly": "Birds can fly high in the sky.",
+ "for": "I made a card for my grandma.",
+ "found": "I found a shiny penny.",
+ "four": "A dog has four legs.",
+ "from": "I got a letter from my aunt.",
+ "full": "My glass is full of milk.",
+ "funny": "The clown told a funny joke.",
+ "gave": "Dad gave me a big hug.",
+ "get": "I get on the bus at seven.",
+ "give": "Please give me a hug.",
+ "go": "We go to school on Monday.",
+ "goes": "My brother goes to the park every day.",
+ "going": "We are going to the zoo today.",
+ "good": "You did a good job.",
+ "got": "I got a new puppy.",
+ "green": "The frog is bright green.",
+ "grow": "Plants grow in the sun.",
+ "had": "I had toast for breakfast.",
+ "has": "My dog has a wet nose.",
+ "have": "I have a red backpack.",
+ "he": "He is my little brother.",
+ "help": "Can you help me tie my skates?",
+ "her": "I gave her a flower.",
+ "here": "Come sit here by me.",
+ "him": "I passed the puck to him.",
+ "his": "The boy lost his hat.",
+ "hold": "Hold my hand when we cross the street.",
+ "hot": "The soup is too hot to eat.",
+ "how": "How old are you?",
+ "hurt": "I fell down and hurt my knee.",
+ "I": "Today I made a snowman.",
+ "if": "If it rains, we will stay inside.",
+ "in": "The fish swims in the water.",
+ "into": "The puppy jumped into the box.",
+ "is": "The sun is hot today.",
+ "it": "Look at the bird and watch it sing.",
+ "its": "The dog wagged its tail.",
+ "jump": "I can jump over the puddle.",
+ "just": "I just finished my lunch.",
+ "keep": "Please keep your mittens on.",
+ "kind": "A kind boy shared his snack.",
+ "know": "I know how to swim.",
+ "laugh": "Funny jokes make me laugh.",
+ "let": "Mom let me stay up late.",
+ "light": "Please turn on the light.",
+ "like": "I like to eat apples.",
+ "little": "The kitten is very little.",
+ "live": "I live in a blue house.",
+ "long": "The snake is very long.",
+ "look": "Look at the pretty rainbow!",
+ "made": "Dad made pancakes for breakfast.",
+ "make": "Let's make a snowman today.",
+ "many": "There are many stars in the sky.",
+ "may": "May I please have a cookie?",
+ "me": "Please help me with this puzzle.",
+ "much": "Thank you very much!",
+ "must": "You must wear a helmet when you skate.",
+ "my": "This is my red backpack.",
+ "myself": "I can tie my shoes myself.",
+ "never": "I never eat bugs.",
+ "new": "I got new skates today.",
+ "no": "No, I do not want any peas.",
+ "not": "I am not tired yet.",
+ "now": "It is time to go now.",
+ "of": "I drank a glass of milk.",
+ "off": "Turn off the light before bed.",
+ "old": "My grandpa is very old.",
+ "on": "The cat sleeps on the couch.",
+ "once": "I went to the zoo once.",
+ "one": "Mom gave me one cookie.",
+ "only": "I have only one mitten.",
+ "open": "Please open the door for me.",
+ "or": "Do you want milk or juice?",
+ "our": "We love our dog.",
+ "out": "The kids ran out to play.",
+ "over": "The cow jumped over the moon.",
+ "own": "I have my own room.",
+ "pick": "Let's pick apples from the tree.",
+ "play": "We play hockey on the pond.",
+ "please": "Please pass the salt.",
+ "pretty": "The flower is very pretty.",
+ "pull": "I pull my sled up the hill.",
+ "put": "I put my coat on the hook.",
+ "ran": "The puppy ran across the yard.",
+ "read": "I like to read books before bed.",
+ "red": "The apple is bright red.",
+ "ride": "I ride my bike to the park.",
+ "right": "Turn right at the stop sign.",
+ "round": "A ball is round.",
+ "run": "I can run very fast.",
+ "said": "My mom said it is time for bed.",
+ "saw": "I saw a deer in the woods.",
+ "say": "Please say thank you.",
+ "see": "I see a bird in the tree.",
+ "seven": "A week has seven days.",
+ "shall": "Shall we go to the park?",
+ "she": "She rides the bus to school.",
+ "show": "I will show you my drawing.",
+ "sing": "We sing songs in music class.",
+ "sit": "Please sit down on the rug.",
+ "six": "A bug has six legs.",
+ "sleep": "I sleep in my bed at night.",
+ "small": "A mouse is very small.",
+ "so": "I was tired, so I went to bed.",
+ "some": "May I have some milk, please?",
+ "soon": "Dinner will be ready soon.",
+ "start": "The game will start at noon.",
+ "stop": "Stop at the red light.",
+ "take": "I take my dog for a walk.",
+ "tell": "Please tell me a story.",
+ "ten": "I can count to ten.",
+ "thank": "I thank my mom for lunch.",
+ "that": "I like that big red truck.",
+ "the": "The sun came up.",
+ "their": "The kids put on their coats.",
+ "them": "Mom hugged them goodbye.",
+ "then": "First we eat, then we play.",
+ "there": "Look over there by the tree.",
+ "these": "I like these purple socks.",
+ "they": "They are playing in the snow.",
+ "think": "I think it will snow.",
+ "this": "This is my favorite song.",
+ "those": "Look at those big clouds.",
+ "three": "A triangle has three sides.",
+ "to": "We walk to school.",
+ "today": "Today is my birthday.",
+ "together": "We built a snow fort together.",
+ "too": "I want to come too.",
+ "try": "Try to catch the ball.",
+ "two": "I have two hands.",
+ "under": "The cat hid under the bed.",
+ "up": "Stand up and clap.",
+ "upon": "Once upon a time, there was a king.",
+ "us": "Grandma came to visit us.",
+ "use": "I use a pencil to write.",
+ "very": "The snow was very deep.",
+ "walk": "We walk the dog after dinner.",
+ "want": "I want a glass of water.",
+ "warm": "My blanket is soft and warm.",
+ "was": "It was sunny yesterday.",
+ "wash": "Wash your hands with soap.",
+ "we": "We had fun at the beach.",
+ "well": "She sings very well.",
+ "went": "We went to the zoo.",
+ "were": "The kids were happy.",
+ "what": "What is your name?",
+ "when": "When is your birthday?",
+ "where": "Where did you put my hat?",
+ "which": "Which shirt do you like best?",
+ "white": "Fresh snow is white and cold.",
+ "who": "Who is at the door?",
+ "why": "Why is the sky blue?",
+ "will": "I will see you tomorrow.",
+ "wish": "I wish for a puppy.",
+ "with": "I play with my friends.",
+ "work": "Dad goes to work every day.",
+ "would": "Would you like some milk?",
+ "write": "I write my name with a pencil.",
+ "yellow": "The sun is bright yellow.",
+ "yes": "Yes, I would love a cookie.",
+ "you": "Thank you for the gift.",
+ "your": "Please wash your hands."
+};
+
+/* =================== Heart Words (spelling) =================== */
+/* Needs from the main script: store, saveStore, selLearner, selGrade, showScreen, renderHome, speak, playDing, playThunk, esc, fmtTime */
+const HW = (function(){
+  const LETTER_SAY = {a:"ay",b:"bee",c:"see",d:"dee",e:"ee",f:"ef",g:"jee",h:"aitch",i:"eye",j:"jay",k:"kay",l:"el",m:"em",n:"en",o:"oh",p:"pee",q:"cue",r:"ar",s:"ess",t:"tee",u:"you",v:"vee",w:"double you",x:"ex",y:"why",z:"zee","'":"apostrophe"};
+  const SET_SIZE = 10;
+  const shuffle = a=>{ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+  function sets(grade){
+    if(grade===2) return HEART_G2.map((w,i)=>({ id:"u"+(i+1), name:"Unit "+(i+1), words:w }));
+    const out=[]; for(let i=0;i<HEART_G1.length;i+=SET_SIZE) out.push({ id:"s"+(i/SET_SIZE+1), name:"Set "+(i/SET_SIZE+1), words:HEART_G1.slice(i,i+SET_SIZE) });
+    return out;
+  }
+  function stats(learner){
+    store.heart = store.heart || {};
+    return store.heart[learner] = store.heart[learner] || {};
+  }
+  /* a word counts as known when the last time it came up, it was spelled right on the first try */
+  const known = (st,w)=>!!(st[w] && st[w].last===1);
+  const missed = (st,w)=>!!(st[w] && st[w].last===0);
+  const norm = (w,s)=>{ s=s.trim(); return w==="I" ? s.toLowerCase()==="i" : s.toLowerCase()===w.toLowerCase(); };
+  const spellOut = w=>w.toLowerCase().split("").map(c=>LETTER_SAY[c]||c).join(". ");
+  const sayWord = w=>speak(w+". "+(HEART_SENT[w]||"")+" "+w+".");
+
+  /* ---------- picker ---------- */
+  function openPicker(){
+    const grade = selGrade, st = stats(selLearner), list = sets(grade);
+    document.getElementById("hwPickTitle").textContent = (grade===1?"1st":"2nd")+" Grade Heart Words";
+    document.getElementById("hwPickLearner").textContent = selLearner;
+    const grid = document.getElementById("hwGrid");
+    const reviewWords = (grade===1?HEART_G1:[...new Set(HEART_G2.flat())]).filter(w=>missed(st,w));
+    let html = '<button class="hw-tile hw-review'+(reviewWords.length?'':' hw-empty')+'" data-review="1">'+
+      '<div class="hw-tname">&#128257; Review</div><div class="hw-twords">'+(reviewWords.length?reviewWords.length+' word'+(reviewWords.length===1?'':'s')+' to practice':'No missed words yet')+'</div></button>';
+    html += list.map(s=>{
+      const k = s.words.filter(w=>known(st,w)).length, done = k===s.words.length;
+      return '<button class="hw-tile'+(done?' hw-done':'')+'" data-set="'+s.id+'"><div class="hw-tname">'+s.name+(done?' <span class="hw-check">&#10003;</span>':'')+'</div>'+
+        '<div class="hw-twords">'+(s.words.length<=6 ? s.words : s.words.slice(0,4)).map(esc).join(", ")+(s.words.length>6?"…":"")+'</div>'+
+        '<div class="hw-tbar"><div style="width:'+(100*k/s.words.length)+'%"></div></div><div class="hw-tcount">'+k+' of '+s.words.length+' spelled first try</div></button>';
+    }).join("");
+    grid.innerHTML = html;
+    grid.querySelectorAll(".hw-tile").forEach(b=>b.addEventListener("click", ()=>{
+      if(b.dataset.review){
+        if(!reviewWords.length) return;
+        start({ grade, label:"Review", level:"g"+grade+"-review", words: shuffle(reviewWords).slice(0, SET_SIZE) });
+      }else{
+        const s = list.find(x=>x.id===b.dataset.set);
+        start({ grade, label:s.name, level:"g"+grade+"-"+s.id, words: shuffle(s.words) });
+      }
+    }));
+    showScreen("heartPick");
+  }
+
+  /* ---------- play ---------- */
+  let P = null;
+  function start(cfg){
+    P = { cfg, learner:selLearner, queue: cfg.words.map(w=>({w, again:false})), results:{}, idx:0,
+          cur:null, tries:0, entry:"", mode:"spell", history:[], startedAt:Date.now(), busy:false };
+    cfg.words.forEach(w=>P.results[w]="pending");
+    showScreen("heartPlay");
+    renderFrame();
+    next();
+  }
+  const root = ()=>document.getElementById("hwRoot");
+
+  function renderFrame(){
+    root().innerHTML =
+      '<div class="hw-top"><span class="hw-who">'+esc(P.learner)+'</span><span class="hw-label">&#128151; '+esc((P.cfg.grade===1?"1st":"2nd")+" Grade · "+P.cfg.label)+'</span><span class="hw-sp"></span>'+
+      '<div class="hw-dots" id="hwDots"></div><button class="hw-quit" id="hwQuit">End</button></div>'+
+      '<div class="hw-main">'+
+        '<div class="hw-card" id="hwCard">'+
+          '<button class="hw-speak" id="hwSpeak" aria-label="Hear the word again">&#128266;</button>'+
+          '<div class="hw-prompt" id="hwPrompt">Listen, then spell the word.</div>'+
+          '<div class="hw-reveal hidden" id="hwReveal"></div>'+
+          '<div class="hw-hist" id="hwHist"></div>'+
+          '<div class="hw-entry" id="hwEntry"></div>'+
+          '<div class="hw-status" id="hwStatus"></div>'+
+        '</div>'+
+        '<div class="hw-keys" id="hwKeys">'+
+          ["abcdefg","hijklmn","opqrstu","vwxyz'"].map(r=>'<div class="hw-krow">'+r.split("").map(c=>'<button class="hw-key" data-k="'+c+'">'+c+'</button>').join("")+'</div>').join("")+
+          '<div class="hw-krow"><button class="hw-key hw-wide hw-back" data-k="back" aria-label="Delete">&#9003;</button><button class="hw-key hw-wide hw-go" data-k="go">Go</button></div>'+
+        '</div>'+
+      '</div>';
+    root().querySelectorAll(".hw-key").forEach(b=>b.addEventListener("click", ()=>press(b.dataset.k)));
+    document.getElementById("hwSpeak").addEventListener("click", ()=>{ if(P.cur) sayWord(P.cur.w); });
+    const q = document.getElementById("hwQuit"); let armed=null;
+    q.addEventListener("click", ()=>{
+      if(armed){ clearTimeout(armed); finish(false); return; }
+      q.textContent="End? Tap again"; q.classList.add("armed");
+      armed=setTimeout(()=>{ armed=null; q.textContent="End"; q.classList.remove("armed"); },3000);
+    });
+  }
+
+  function dots(){
+    const el = document.getElementById("hwDots"); if(!el) return;
+    el.innerHTML = P.cfg.words.map(w=>'<span class="dot '+(P.results[w]==="green"?"green":P.results[w]==="yellow"?"yellow":"pending")+'"></span>').join("");
+  }
+
+  function next(){
+    dots();
+    if(P.idx >= P.queue.length){ finish(true); return; }
+    P.cur = P.queue[P.idx++]; P.tries=0; P.entry=""; P.mode="spell"; P.history=[]; P.busy=false;
+    document.getElementById("hwReveal").classList.add("hidden");
+    document.getElementById("hwCard").classList.remove("hw-revealing");
+    document.getElementById("hwPrompt").textContent = P.cur.again ? "Let's try this one again. Spell the word." : "Listen, then spell the word.";
+    status("");
+    drawHist(); drawEntry();
+    setTimeout(()=>sayWord(P.cur.w), 350);
+  }
+
+  function status(t, cls){ const s=document.getElementById("hwStatus"); s.textContent=t; s.className="hw-status"+(cls?" "+cls:""); }
+
+  function drawEntry(){
+    const w = P.cur.w, e = document.getElementById("hwEntry");
+    let html = P.entry.split("").map(c=>'<span class="hw-ch">'+esc(c)+'</span>').join("");
+    if(P.mode==="spell" && P.tries>=2){ for(let i=P.entry.length;i<w.length;i++) html+='<span class="hw-ch hw-slot">&nbsp;</span>'; }
+    else html += '<span class="hw-caret"></span>';
+    e.innerHTML = html || '<span class="hw-caret"></span>';
+    e.classList.toggle("hw-copy", P.mode==="copy");
+  }
+
+  function drawHist(){
+    const w = P.cur.w.toLowerCase();
+    document.getElementById("hwHist").innerHTML = P.history.map((a,n)=>
+      '<div class="hw-try"><span class="hw-tn">Try '+(n+1)+'</span>'+a.split("").map((c,i)=>'<span class="hw-tc'+(c===w[i]?' ok':'')+'">'+esc(c)+'</span>').join("")+'</div>').join("");
+  }
+
+  function shake(){ const c=document.getElementById("hwEntry"); c.classList.remove("hw-shake"); void c.offsetWidth; c.classList.add("hw-shake"); }
+
+  function press(k){
+    if(!P || !P.cur || P.busy) return;
+    const w = P.cur.w;
+    if(k==="back"){ if(P.mode==="spell"){ P.entry=P.entry.slice(0,-1); drawEntry(); } return; }
+    if(P.mode==="copy"){
+      if(k==="go") return;
+      const want = w.toLowerCase()[P.entry.length];
+      if(k===want){ P.entry+=k; drawEntry(); if(P.entry.length===w.length){ P.busy=true; try{playDing();}catch(e){} status("You spelled "+w+"!","good"); speak(w+"."); setTimeout(next, 1400); } }
+      else { shake(); try{playThunk();}catch(e){} }
+      return;
+    }
+    if(k==="go"){ if(P.entry) check(); return; }
+    if(P.entry.length < 14){ P.entry += k; drawEntry(); }
+  }
+
+  function check(){
+    const w = P.cur.w;
+    if(norm(w, P.entry)){
+      P.busy = true;
+      const first = P.tries===0 && !P.cur.again;
+      if(P.results[w]!=="yellow") P.results[w] = first ? "green" : "yellow";
+      record(w, P.tries===0);
+      try{ playDing(); }catch(e){}
+      status(P.tries===0 ? "Yes! "+w : "You got it: "+w, "good");
+      speak(P.tries===0 ? "Yes!" : "You got it!");
+      dots();
+      setTimeout(next, 1100);
+      return;
+    }
+    P.tries++;
+    P.history.push(P.entry.toLowerCase()); P.entry="";
+    try{ playThunk(); }catch(e){}
+    shake(); drawHist(); drawEntry();
+    if(P.tries===1){ status("Not quite. Green letters are in the right spot. Try again."); speak("Not quite. Try again. "+w+"."); }
+    else if(P.tries===2){ status("Hint: it has "+w.length+" letter"+(w.length===1?"":"s")+" and starts with "+w[0].toLowerCase()+". One more try."); speak("Here's a hint. It starts with "+(LETTER_SAY[w[0].toLowerCase()]||w[0])+". "+w+"."); }
+    else reveal();
+  }
+
+  function reveal(){
+    const w = P.cur.w;
+    P.results[w] = "yellow"; record(w, false); dots();
+    if(!P.cur.again) P.queue.push({ w, again:true });
+    P.mode = "copy"; P.entry = "";
+    const r = document.getElementById("hwReveal");
+    r.innerHTML = '<div class="hw-rlab">The word is</div><div class="hw-rword">'+w.split("").map(c=>'<span>'+esc(c)+'</span>').join("")+'</div>';
+    r.classList.remove("hidden");
+    document.getElementById("hwHist").innerHTML = "";
+    document.getElementById("hwCard").classList.add("hw-revealing");
+    document.getElementById("hwPrompt").textContent = "Look carefully, then type it yourself.";
+    status("Type the word one time while you look at it.");
+    drawEntry();
+    P.busy = true;
+    const letters = r.querySelectorAll(".hw-rword span");
+    speak(w+". "+spellOut(w)+". "+w+".", ()=>{ P.busy=false; });
+    letters.forEach((s,i)=>setTimeout(()=>s.classList.add("lit"), 900+i*650));
+    setTimeout(()=>{ P.busy=false; }, 1200+w.length*700);
+  }
+
+  function record(w, firstTry){
+    const st = stats(P.learner);
+    const r = st[w] = st[w] || { seen:0, first:0 };
+    r.seen++; if(firstTry && !P.cur.again) r.first++;
+    if(!P.cur.again) r.last = firstTry ? 1 : 0;
+    r.at = Date.now();
+    saveStore();
+  }
+
+  function finish(completed){
+    try{ speechSynthesis.cancel(); }catch(e){}
+    const words = P.cfg.words;
+    const greens = words.filter(w=>P.results[w]==="green"), yellows = words.filter(w=>P.results[w]==="yellow");
+    const secs = Math.round((Date.now()-P.startedAt)/1000);
+    store.sessions.unshift({
+      id:"hw"+P.startedAt, learner:P.learner, op:"heart", level:P.cfg.level, extra:{ label:P.cfg.label },
+      startedAt:P.startedAt, endedAt:Date.now(), durationSec:secs, completed,
+      totalFacts:words.length, greenCount:greens.length, yellowCount:yellows.length,
+      unansweredCount:words.length-greens.length-yellows.length, missed:yellows.slice().sort()
+    });
+    saveStore();
+    const cfg = P.cfg;
+    root().innerHTML =
+      '<div class="hw-top"><span class="hw-who">'+esc(P.learner)+'</span><span class="hw-label">&#128151; '+esc((cfg.grade===1?"1st":"2nd")+" Grade · "+cfg.label)+'</span></div>'+
+      '<div class="hw-end"><h2>'+(completed ? (greens.length===words.length ? "Perfect! Every word on the first try!" : esc(cfg.label)+" done!") : "Practice stopped")+'</h2>'+
+      '<div class="hw-endstats"><div class="g"><b>'+greens.length+'</b><span>First try</span></div><div class="y"><b>'+yellows.length+'</b><span>Needed help</span></div><div><b>'+fmtTime(secs)+'</b><span>Time</span></div></div>'+
+      (yellows.length ? '<div class="hw-endlab">Words to keep practicing</div><div class="hw-endwords">'+yellows.map(w=>'<button class="hw-endw" data-w="'+esc(w)+'">'+esc(w)+'</button>').join("")+'</div><div class="hw-endnote">Tap a word to hear it spelled.</div>' : '')+
+      '<div class="hw-endbtns"><button class="btn" id="hwAgain">Same words again</button><button class="btn" id="hwPick">Pick another set</button><button class="btn btn-primary" id="hwHome">Done</button></div></div>';
+    root().querySelectorAll(".hw-endw").forEach(b=>b.addEventListener("click", ()=>{ const w=b.dataset.w; speak(w+". "+spellOut(w)+". "+w+"."); }));
+    document.getElementById("hwAgain").addEventListener("click", ()=>start(Object.assign({}, cfg, { words: shuffle(cfg.words) })));
+    document.getElementById("hwPick").addEventListener("click", openPicker);
+    document.getElementById("hwHome").addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
+    P.cur = null;
+  }
+
+  document.addEventListener("keydown", e=>{
+    if(document.getElementById("heartPlay").classList.contains("hidden") || !P || !P.cur) return;
+    if(/^[a-zA-Z']$/.test(e.key)){ e.preventDefault(); press(e.key.toLowerCase()); }
+    else if(e.key==="Backspace"){ e.preventDefault(); press("back"); }
+    else if(e.key==="Enter"){ e.preventDefault(); press("go"); }
+  });
+
+  return { openPicker, sets };
+})();
+
 </script>
 </body>
 </html>
