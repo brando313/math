@@ -806,6 +806,7 @@
 .hw-status.good{color:#8FE0B0;}
 .hw-keys{width:100%;max-width:760px;display:flex;flex-direction:column;gap:8px;}
 .hw-krow{display:flex;gap:8px;justify-content:center;}
+.hw-root,.hw-key,.hw-speak{touch-action:manipulation;-webkit-user-select:none;user-select:none;}
 .hw-key{flex:1;max-width:96px;height:clamp(52px,7vh,66px);border-radius:14px;background:var(--panel) !important;border:1.5px solid var(--line) !important;font-family:var(--display);font-size:clamp(24px,3vw,30px);font-weight:700;color:var(--ink);transition:transform .05s;}
 .hw-key:active{transform:scale(.95);background:var(--pending) !important;}
 .hw-wide{max-width:none;flex:2;}
@@ -13469,6 +13470,7 @@ const HW = (function(){
 
   /* ---------- picker ---------- */
   function openPicker(){
+    try{ if(document.activeElement && document.activeElement.blur) document.activeElement.blur(); }catch(e){}
     const grade = selGrade, st = stats(selLearner), list = sets(grade);
     document.getElementById("hwPickTitle").textContent = (grade===1?"1st":"2nd")+" Grade Heart Words";
     document.getElementById("hwPickLearner").textContent = selLearner;
@@ -13504,6 +13506,7 @@ const HW = (function(){
     P = { cfg, learner:selLearner, queue: cfg.words.map(w=>({w, again:false})), results:{}, idx:0,
           cur:null, tries:0, entry:"", mode:"spell", history:[], startedAt:Date.now(), busy:false };
     cfg.words.forEach(w=>P.results[w]="pending");
+    try{ if(document.activeElement && document.activeElement.blur) document.activeElement.blur(); }catch(e){}
     showScreen("heartPlay");
     renderFrame();
     next();
