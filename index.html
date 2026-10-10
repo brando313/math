@@ -8759,19 +8759,19 @@ function buildFacts(op, level, extra){
     }));
   }
   if(isLongdiv(op)){
-    return longdivGen(level, 8).map((p, i) => ({
+    return longdivGen(level, 24).map((p, i) => ({
       key: "ld:" + i, prompt: p.dividend + " ÷ " + p.d,
       dividend: p.dividend, d: p.d, q: p.q, r: p.r, answer: p.q
     }));
   }
   if(isOrder(op)){
-    return ooGen(level, 10);
+    return ooGen(level, 24);
   }
   if(isFractions(op)){
     return frGen(level, 25);
   }
   if(isDecimals(op)){
-    return dcGen(level, 10);
+    return dcGen(level, 24);
   }
   if(isForge(op)){
     return forgeGen(level, 12).map((p, i) => ({
@@ -11073,11 +11073,11 @@ function renderHome(){
     note.textContent = "Tap all 13 provinces and territories as they're called out.";
   }else if(selOp === "longdiv"){
     note.textContent = beg
-      ? "Beginner: 8 problems, 2-digit ÷ 1-digit, no remainders. Divide, multiply, subtract, bring down."
-      : "Advanced: 8 problems, 3-digit ÷ 1-digit, remainders included.";
+      ? "Beginner: 24 problems, 2-digit ÷ 1-digit, no remainders. Divide, multiply, subtract, bring down."
+      : "Advanced: 24 problems, 3-digit ÷ 1-digit, remainders included.";
   }else if(selOp === "orderops"){
     note.textContent = beg
-      ? "Beginner: 10 two-step problems and stories. Multiply before you add!"
+      ? "Beginner: 24 two-step problems and stories. Multiply before you add!"
       : selLevel === "advancedplus"
       ? "Advanced+: bracket combinations and missing-number equations like 5 + ? × 3 = 17."
       : "Advanced: parentheses, all four operations, and stories full of extra information.";
@@ -12021,8 +12021,9 @@ function ooGen(level, count){
     const seen = {};
     let guard = 0;
     while(facts.length < count && guard++ < 3000){
-      const wantEq = facts.filter(f=>f.eq).length < 5 &&
-        (facts.length % 2 === 1 || facts.filter(f=>!f.eq).length >= count - 5);
+      const nEq = Math.round(count / 2);
+      const wantEq = facts.filter(f=>f.eq).length < nEq &&
+        (facts.length % 2 === 1 || facts.filter(f=>!f.eq).length >= count - nEq);
       if(wantEq){
         const e = ooEqGen();
         if(seen[e.prompt]) continue;
@@ -12048,16 +12049,17 @@ function ooGen(level, count){
   }
   const facts = [];
   const seen = {};
-  const nStory = 4;
+  const nStory = Math.round(count * 0.4);
   let guard = 0;
   while(facts.length < count && guard++ < 3000){
     const wantStory = facts.filter(f=>f.story).length < nStory &&
       (facts.length % 2 === 1 || facts.filter(f=>!f.story).length >= count - nStory);
     if(wantStory){
       const st = ooStoryGen(level);
-      const key = "T:" + st.text;
-      if(seen[key]) continue;
-      seen[key] = true;
+      /* skip a story whose math already appeared, even with different names or as a plain problem */
+      const str = ooExprStr(st.tokens);
+      if(seen[str]) continue;
+      seen[str] = true;
       facts.push({
         key: "oo:" + facts.length, story: true,
         text: st.text, tokens: st.tokens,
@@ -12921,8 +12923,9 @@ let dcState = null;
 function dcGen(level, count){
   const ri = n => Math.floor(Math.random() * n);
   const plan = level === "beginner"
-    ? ["frdec","frdec","frdec","frdec","dccompare","dccompare","dccompare","place","place","place"]
-    : ["dcadd","dcadd","dcadd","dcsub","dcsub","dcsub","dcmul","dcmul","round","round"];
+    /* 24 problems, same mix as before */
+    ? [].concat(Array(10).fill("frdec"), Array(7).fill("dccompare"), Array(7).fill("place"))
+    : [].concat(Array(7).fill("dcadd"), Array(7).fill("dcsub"), Array(5).fill("dcmul"), Array(5).fill("round"));
   const order = shuffle(plan.slice());
   const seen = {};
   const facts = [];
@@ -12995,7 +12998,7 @@ function dcGen(level, count){
         const num = whole + "." + t2 + h;
         const v = parseFloat(num);
         const ans = toTenth ? Math.round(v * 10) / 10 : Math.round(v);
-        const key = "rd:" + num + ":" + toTenth;
+        const key = "rd:" + num; /* one rounding question per number */
         if(seen[key]) continue;
         seen[key] = 1;
         f = { kind, num, toTenth, prompt: "round " + num, answer: ans };
