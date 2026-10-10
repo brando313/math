@@ -8768,7 +8768,7 @@ function buildFacts(op, level, extra){
     return ooGen(level, 10);
   }
   if(isFractions(op)){
-    return frGen(level, 10);
+    return frGen(level, 25);
   }
   if(isDecimals(op)){
     return dcGen(level, 10);
@@ -12483,8 +12483,9 @@ function frLcm(a, b){ return a / frGcd(a, b) * b; }
 function frGen(level, count){
   const ri = n => Math.floor(Math.random() * n);
   const plan = level === "beginner"
-    ? ["shade","shade","shade","equiv","equiv","equiv","compare","compare","addlike","addlike"]
-    : ["simplify","simplify","unlike","unlike","unlike","unlike","multwhole","multwhole","ofset","ofset"];
+    /* 25 problems, same mix as before */
+    ? [].concat(Array(7).fill("shade"), Array(7).fill("equiv"), Array(6).fill("compare"), Array(5).fill("addlike"))
+    : [].concat(Array(6).fill("simplify"), Array(8).fill("unlike"), Array(6).fill("multwhole"), Array(5).fill("ofset"));
   const order = shuffle(plan.slice());
   const seen = {};
   const facts = [];

@@ -1,5 +1,5 @@
 /* Fact Board service worker — cache-first, single-file app */
-const CACHE = "factboard-v110";
+const CACHE = "factboard-v111";
 const ASSETS = ["./", "./index.html", "./manifest.json", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {
